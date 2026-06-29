@@ -215,3 +215,15 @@ background:#1d4ed8;
 .about-text ul{
     columns:2;
 }
+
+.network{
+
+width:100%;
+
+border-radius:15px;
+
+box-shadow:0 0 20px #2563eb;
+
+margin-top:20px;
+
+}
