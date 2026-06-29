@@ -100,3 +100,84 @@ footer {
     background:#1d4ed8;
 
 }
+/* PROJECT SECTION */
+
+.projects{
+
+padding:60px 20px;
+
+background:#0f172a;
+
+text-align:center;
+
+}
+
+.project-container{
+
+display:flex;
+
+justify-content:center;
+
+gap:30px;
+
+flex-wrap:wrap;
+
+}
+
+.project-card{
+
+width:300px;
+
+background:#1e293b;
+
+padding:25px;
+
+border-radius:15px;
+
+transition:0.3s;
+
+box-shadow:0 0 15px rgba(0,0,0,.3);
+
+}
+
+.project-card:hover{
+
+transform:translateY(-12px);
+
+box-shadow:0 0 25px #3b82f6;
+
+}
+
+.project-card h3{
+
+color:#60a5fa;
+
+}
+
+.card-button{
+
+display:inline-block;
+
+margin-top:20px;
+
+background:#2563eb;
+
+color:white;
+
+padding:12px 25px;
+
+border-radius:6px;
+
+text-decoration:none;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.card-button:hover{
+
+background:#1d4ed8;
+
+}
