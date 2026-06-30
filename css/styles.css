@@ -31,6 +31,17 @@ header{
     z-index:1000;
 }
 
+.logo{
+
+    width:60px;
+
+    height:auto;
+
+    vertical-align:middle;
+
+    margin-right:12px;
+
+}
 
 /* =====================================================
    3. NAVIGATION
