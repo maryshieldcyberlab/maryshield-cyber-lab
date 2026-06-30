@@ -1,1 +1,286 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #0b1220;
+    color: white;
+}
 
+header {
+    background-color: #111827;
+    text-align: center;
+    padding: 30px;
+}
+
+nav {
+    background-color: #1f2937;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #60a5fa;
+}
+
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+footer {
+    background-color: #111827;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
+}
+
+.hero{
+
+    text-align:center;
+
+    padding:40px;
+
+}
+
+.hero-banner{
+
+    width:100%;
+
+    max-height:400px;
+
+    object-fit:cover;
+
+    border-radius:10px;
+
+}
+
+.profile-photo{
+
+    width:220px;
+
+    height:220px;
+
+    border-radius:50%;
+
+    margin-top:-90px;
+
+    border:6px solid white;
+
+}
+
+.button{
+
+    display:inline-block;
+
+    background:#2563eb;
+
+    color:white;
+
+    padding:15px 30px;
+
+    margin:15px;
+
+    border-radius:6px;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+.button:hover{
+
+    background:#1d4ed8;
+
+}
+/* PROJECT SECTION */
+
+.projects{
+
+padding:60px 20px;
+
+background:#0f172a;
+
+text-align:center;
+
+}
+
+.project-container{
+
+display:flex;
+
+justify-content:center;
+
+gap:30px;
+
+flex-wrap:wrap;
+
+}
+
+.project-card{
+
+width:300px;
+
+background:#1e293b;
+
+padding:25px;
+
+border-radius:15px;
+
+transition:0.3s;
+
+box-shadow:0 0 15px rgba(0,0,0,.3);
+
+}
+
+.project-card:hover{
+
+transform:translateY(-12px);
+
+box-shadow:0 0 25px #3b82f6;
+
+}
+
+.project-card h3{
+
+color:#60a5fa;
+
+}
+
+.card-button{
+
+display:inline-block;
+
+margin-top:20px;
+
+background:#2563eb;
+
+color:white;
+
+padding:12px 25px;
+
+border-radius:6px;
+
+text-decoration:none;
+
+font-weight:bold;
+
+transition:.3s;
+
+}
+
+.card-button:hover{
+
+background:#1d4ed8;
+
+}
+
+/* ---------- About Page ---------- */
+
+.about{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:40px;
+    padding:40px;
+}
+
+.about-image img{
+    width:280px;
+    border-radius:15px;
+    box-shadow:0 0 20px #3b82f6;
+}
+
+.about-text{
+    max-width:700px;
+}
+
+.about-text h2{
+    color:#60a5fa;
+    font-size:38px;
+}
+
+.about-text h3{
+    margin-top:15px;
+}
+
+.about-text ul{
+    columns:2;
+}
+
+.network{
+
+width:100%;
+
+border-radius:15px;
+
+box-shadow:0 0 20px #2563eb;
+
+margin-top:20px;
+
+}
+/* ========================================= */
+/* PROFESSIONAL HEADER                       */
+/* ========================================= */
+
+header{
+
+    background:#0f172a;
+
+    color:white;
+
+    text-align:center;
+
+    padding:20px;
+
+}
+/* ========================================= */
+/* NAVIGATION BAR                            */
+/* ========================================= */
+
+nav{
+
+    display:flex;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+    gap:15px;
+
+    margin-top:15px;
+
+}
+
+nav a{
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+    padding:10px 15px;
+
+    border-radius:8px;
+
+    transition:0.3s;
+
+}
+nav a:hover{
+
+    background:#2563eb;
+
+    color:white;
+
+}

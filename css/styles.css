@@ -1,193 +1,165 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #0b1220;
-    color: white;
+/* =====================================================
+   MaryShield Cyber Lab
+   Professional Stylesheet
+   ===================================================== */
+
+
+/* =====================================================
+   1. GLOBAL STYLES
+   ===================================================== */
+
+body{
+    margin:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#0b1220;
+    color:white;
+    line-height:1.6;
 }
 
-header {
-    background-color: #111827;
-    text-align: center;
-    padding: 30px;
+
+/* =====================================================
+   2. HEADER
+   ===================================================== */
+
+header{
+    background:#111827;
+    color:white;
+    text-align:center;
+    padding:20px;
+    position:sticky;
+    top:0;
+    z-index:1000;
 }
 
-nav {
-    background-color: #1f2937;
-    padding: 15px;
-    text-align: center;
+
+/* =====================================================
+   3. NAVIGATION
+   ===================================================== */
+
+nav{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:15px;
 }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-weight: bold;
+nav a{
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:18px;
+    padding:10px 15px;
+    border-radius:8px;
+    transition:0.3s;
 }
 
-nav a:hover {
-    color: #60a5fa;
+nav a:hover{
+    background:#2563eb;
 }
 
-main {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 20px;
+
+/* =====================================================
+   4. MAIN CONTENT
+   ===================================================== */
+
+main{
+    max-width:1100px;
+    margin:40px auto;
+    padding:20px;
 }
 
-footer {
-    background-color: #111827;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-}
+
+/* =====================================================
+   5. HERO SECTION
+   ===================================================== */
 
 .hero{
-
     text-align:center;
-
-    padding:40px;
-
+    padding:50px 20px;
 }
 
 .hero-banner{
-
     width:100%;
-
     max-height:400px;
-
     object-fit:cover;
-
-    border-radius:10px;
-
+    border-radius:15px;
 }
 
 .profile-photo{
-
     width:220px;
-
     height:220px;
-
     border-radius:50%;
-
-    margin-top:-90px;
-
     border:6px solid white;
-
+    margin-top:-90px;
 }
 
-.button{
 
+/* =====================================================
+   6. BUTTONS
+   ===================================================== */
+
+.button,
+.card-button{
     display:inline-block;
-
     background:#2563eb;
-
     color:white;
-
-    padding:15px 30px;
-
-    margin:15px;
-
-    border-radius:6px;
-
+    padding:12px 25px;
     text-decoration:none;
-
+    border-radius:8px;
     font-weight:bold;
-
+    transition:0.3s;
 }
 
-.button:hover{
-
+.button:hover,
+.card-button:hover{
     background:#1d4ed8;
-
 }
-/* PROJECT SECTION */
+
+
+/* =====================================================
+   7. PROJECTS
+   ===================================================== */
 
 .projects{
-
-padding:60px 20px;
-
-background:#0f172a;
-
-text-align:center;
-
+    text-align:center;
+    padding:60px 20px;
 }
 
 .project-container{
-
-display:flex;
-
-justify-content:center;
-
-gap:30px;
-
-flex-wrap:wrap;
-
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:30px;
 }
 
 .project-card{
-
-width:300px;
-
-background:#1e293b;
-
-padding:25px;
-
-border-radius:15px;
-
-transition:0.3s;
-
-box-shadow:0 0 15px rgba(0,0,0,.3);
-
+    width:300px;
+    background:#1e293b;
+    padding:25px;
+    border-radius:15px;
+    transition:0.3s;
+    box-shadow:0 0 15px rgba(0,0,0,.30);
 }
 
 .project-card:hover{
-
-transform:translateY(-12px);
-
-box-shadow:0 0 25px #3b82f6;
-
+    transform:translateY(-10px);
+    box-shadow:0 0 25px #3b82f6;
 }
 
 .project-card h3{
-
-color:#60a5fa;
-
+    color:#60a5fa;
 }
 
-.card-button{
 
-display:inline-block;
-
-margin-top:20px;
-
-background:#2563eb;
-
-color:white;
-
-padding:12px 25px;
-
-border-radius:6px;
-
-text-decoration:none;
-
-font-weight:bold;
-
-transition:.3s;
-
-}
-
-.card-button:hover{
-
-background:#1d4ed8;
-
-}
-
-/* ---------- About Page ---------- */
+/* =====================================================
+   8. ABOUT PAGE
+   ===================================================== */
 
 .about{
     display:flex;
-    align-items:center;
     justify-content:center;
+    align-items:center;
     flex-wrap:wrap;
     gap:40px;
     padding:40px;
@@ -208,22 +180,56 @@ background:#1d4ed8;
     font-size:38px;
 }
 
-.about-text h3{
-    margin-top:15px;
-}
-
 .about-text ul{
     columns:2;
 }
 
+
+/* =====================================================
+   9. IMAGES
+   ===================================================== */
+
 .network{
+    width:100%;
+    border-radius:15px;
+    box-shadow:0 0 20px #2563eb;
+    margin-top:20px;
+}
 
-width:100%;
 
-border-radius:15px;
+/* =====================================================
+   10. FOOTER
+   ===================================================== */
 
-box-shadow:0 0 20px #2563eb;
+footer{
+    background:#111827;
+    text-align:center;
+    padding:20px;
+    margin-top:50px;
+}
 
-margin-top:20px;
+
+/* =====================================================
+   11. MOBILE RESPONSIVE
+   ===================================================== */
+
+@media (max-width:768px){
+
+    nav{
+        flex-direction:column;
+    }
+
+    .about{
+        flex-direction:column;
+    }
+
+    .project-container{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .about-text ul{
+        columns:1;
+    }
 
 }
