@@ -39,56 +39,43 @@ Enterprise Security Operations Environment
 
 <section>
 
-<h2>Lab Overview</h2>
+<h1>Enterprise Cyber Lab</h1>
 
 <p>
 
-The MaryShield Cyber Lab is a virtual enterprise environment designed to simulate a real corporate network for cybersecurity training, attack simulation, threat detection, and incident response.
+The MaryShield Cyber Lab is a fully virtualized enterprise cybersecurity environment designed to simulate real-world corporate networks. It provides hands-on experience with system administration, network security, threat detection, SIEM technologies, incident response, and defensive security operations.
 
 </p>
 
-</section>
-
 <section>
 
-<h2>Network Architecture</h2>
+<h2>Enterprise Network Architecture</h2>
 
-<p>
-
-<img
-
-src="images/diagrams/maryshield-network-diagram.png"
+<img src="images/diagrams/network-architecture.png"
 
 class="network"
 
-alt="MaryShield Network">
+alt="Enterprise Network Architecture">
+
+<section>
+
+<h2>Overview</h2>
 
 <p>
 
-Enterprise VMware Architecture
+The laboratory consists of multiple virtual machines connected through segmented virtual networks using VMware Workstation. Each system performs a specific enterprise function, allowing realistic attack simulations and defensive monitoring.
 
 </p>
 
-</p>
-
-</section>
-
 <section>
 
-<h2>Enterprise Technologies</h2>
-<section>
-
-<h2>
-
-Virtual Machines
-
-</h2>
+<h2>Virtual Infrastructure</h2>
 
 <table>
 
 <tr>
 
-<th>Name</th>
+<th>Virtual Machine</th>
 
 <th>Purpose</th>
 
@@ -98,13 +85,13 @@ Virtual Machines
 
 <td>Windows Server 2022</td>
 
-<td>Active Directory Domain Controller</td>
+<td>Domain Controller, DNS, DHCP, Active Directory</td>
 
 </tr>
 
 <tr>
 
-<td>Windows 11</td>
+<td>Windows 11 Enterprise</td>
 
 <td>Enterprise Workstation</td>
 
@@ -112,9 +99,17 @@ Virtual Machines
 
 <tr>
 
-<td>Ubuntu</td>
+<td>Ubuntu Server</td>
 
-<td>Splunk Server</td>
+<td>Linux Administration</td>
+
+</tr>
+
+<tr>
+
+<td>Splunk Enterprise</td>
+
+<td>SIEM Platform</td>
 
 </tr>
 
@@ -122,7 +117,7 @@ Virtual Machines
 
 <td>Security Onion</td>
 
-<td>Network Monitoring</td>
+<td>Network Security Monitoring</td>
 
 </tr>
 
@@ -130,7 +125,7 @@ Virtual Machines
 
 <td>Wazuh</td>
 
-<td>XDR Platform</td>
+<td>Endpoint Detection & Response</td>
 
 </tr>
 
@@ -138,7 +133,7 @@ Virtual Machines
 
 <td>Kali Linux</td>
 
-<td>Attack Platform</td>
+<td>Penetration Testing</td>
 
 </tr>
 
@@ -146,48 +141,35 @@ Virtual Machines
 
 <td>Metasploitable</td>
 
-<td>Vulnerable Target</td>
+<td>Vulnerable Target Machine</td>
+
+</tr>
+
+<tr>
+
+<td>pfSense</td>
+
+<td>Firewall & Routing</td>
 
 </tr>
 
 </table>
 
-</section>  
 <section>
 
-<h2>
+<h2>Security Stack</h2>
 
-Attack Simulation
-
-</h2>
-
-<ol>
-
-<li>Kali Linux launches attack.</li>
-
-<li>Windows Server records events.</li>
-
-<li>Sysmon collects telemetry.</li>
-
-<li>Splunk indexes logs.</li>
-
-<li>Security Onion monitors traffic.</li>
-
-<li>Wazuh detects endpoint activity.</li>
-
-<li>Alerts are investigated.</li>
-
-</ol>
-
-</section>
-  
 <ul>
+
+<li>VMware Workstation Pro</li>
 
 <li>Windows Server 2022</li>
 
 <li>Windows 11 Enterprise</li>
 
-<li>Ubuntu Server</li>
+<li>Ubuntu Linux</li>
+
+<li>Kali Linux</li>
 
 <li>Splunk Enterprise</li>
 
@@ -195,11 +177,121 @@ Attack Simulation
 
 <li>Wazuh</li>
 
-<li>Kali Linux</li>
+<li>Sysmon</li>
 
-<li>Metasploitable</li>
+<li>Active Directory</li>
 
-<li>VMware Workstation</li>
+<li>DNS</li>
+
+<li>DHCP</li>
+
+<li>pfSense Firewall</li>
+
+</ul>
+
+<section>
+
+<h2>IP Addressing Plan</h2>
+
+<table>
+
+<tr>
+
+<th>System</th>
+
+<th>Address</th>
+
+</tr>
+
+<tr>
+
+<td>Windows Server 2022</td>
+
+<td>10.0.10.10</td>
+
+</tr>
+
+<tr>
+
+<td>Windows 11</td>
+
+<td>10.0.10.22</td>
+
+</tr>
+
+<tr>
+
+<td>Kali Linux</td>
+
+<td>10.0.10.50</td>
+
+</tr>
+
+<tr>
+
+<td>Ubuntu Server</td>
+
+<td>10.0.30.20</td>
+
+</tr>
+
+<tr>
+
+<td>Splunk Enterprise</td>
+
+<td>10.0.30.30</td>
+
+</tr>
+
+<tr>
+
+<td>Wazuh</td>
+
+<td>10.0.30.40</td>
+
+</tr>
+
+<tr>
+
+<td>Metasploitable</td>
+
+<td>10.0.40.50</td>
+
+</tr>
+
+</table>
+
+<section>
+
+<h2>Monitoring and Logging</h2>
+
+<p>
+
+Windows systems generate Security Event Logs and Sysmon telemetry, which are forwarded to Splunk Enterprise for centralized log analysis. Wazuh agents provide endpoint monitoring and security analytics, while Security Onion captures and analyzes network traffic for intrusion detection and threat hunting. Together, these tools provide layered visibility into endpoint activity and network behavior.
+
+</p>
+
+<section>
+
+<h2>Future Enhancements</h2>
+
+<ul>
+
+<li>Kerberoasting Detection</li>
+
+<li>Pass-the-Hash Detection</li>
+
+<li>Golden Ticket Detection</li>
+
+<li>MITRE ATT&CK Mapping</li>
+
+<li>Sigma Rules</li>
+
+<li>YARA Detection Rules</li>
+
+<li>Threat Hunting Dashboards</li>
+
+<li>Automated Incident Response</li>
 
 </ul>
 
