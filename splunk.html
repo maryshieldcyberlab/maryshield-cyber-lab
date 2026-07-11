@@ -33,7 +33,772 @@
 
 <h1>Splunk Enterprise SIEM</h1>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This project documents the deployment and configuration of Splunk Enterprise within the MaryShield Cyber Lab. Splunk serves as the centralized Security Information and Event Management (SIEM) platform, collecting logs from Windows and Linux systems to support monitoring, detection, investigation, and threat hunting activities.
+
+The implementation demonstrates enterprise logging, endpoint visibility, security analytics, dashboard creation, and incident investigation techniques used by modern Security Operations Centers (SOC).
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Project Objectives</h2>
+
+<ul>
+
+<li>Deploy Splunk Enterprise</li>
+
+<li>Configure Universal Forwarders</li>
+
+<li>Collect Windows Event Logs</li>
+
+<li>Collect Sysmon Logs</li>
+
+<li>Monitor Linux Logs</li>
+
+<li>Create Security Dashboards</li>
+
+<li>Build Detection Searches</li>
+
+<li>Perform Threat Hunting</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Architecture</h2>
+
+<img src="images/projects/splunk/splunk-architecture.png"
+
+class="network"
+
+alt="Splunk Architecture">
+
+</section>
+
+<section>
+
+<h2>Lab Environment</h2>
+
+<table>
+
+<tr>
+
+<th>Component</th>
+
+<th>Purpose</th>
+
+</tr>
+
+<tr>
+
+<td>Splunk Enterprise</td>
+
+<td>Central SIEM Platform</td>
+
+</tr>
+
+<tr>
+
+<td>Ubuntu Server</td>
+
+<td>Splunk Host</td>
+
+</tr>
+
+<tr>
+
+<td>Windows Server 2022</td>
+
+<td>Domain Controller</td>
+
+</tr>
+
+<tr>
+
+<td>Windows 11 Enterprise</td>
+
+<td>Enterprise Workstation</td>
+
+</tr>
+
+<tr>
+
+<td>Universal Forwarders</td>
+
+<td>Log Collection</td>
+
+</tr>
+
+<tr>
+
+<td>Sysmon</td>
+
+<td>Endpoint Telemetry</td>
+
+</tr>
+
+</table>
+
+</section>
+<section>
+
+<h2>Installation</h2>
+
+<p>
+
+Splunk Enterprise was installed on an Ubuntu Server virtual machine within the Servers network segment. The service was configured to start automatically during system boot and listens for incoming Universal Forwarder connections.
+
+</p>
+
+<h3>Major Installation Tasks</h3>
+
+<ul>
+
+<li>Ubuntu Server deployed</li>
+
+<li>Static IP configured</li>
+
+<li>Splunk Enterprise installed</li>
+
+<li>Splunk management interface enabled</li>
+
+<li>Receiving port configured</li>
+
+<li>Web interface verified</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Universal Forwarders</h2>
+
+<p>
+
+Splunk Universal Forwarders were installed on Windows Server 2022 and Windows 11 Enterprise. These agents securely forward Windows Event Logs and Sysmon telemetry to the central Splunk Enterprise server for analysis.
+
+</p>
+
+</section>
+<section>
+
+<h2>Sysmon Integration</h2>
+
+<p>
+
+Microsoft Sysmon was deployed to provide enhanced endpoint visibility, including process creation, network connections, driver loading, registry modifications, and PowerShell execution events.
+
+These events significantly improve threat detection capabilities compared to standard Windows Event Logs.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Windows Event Log Collection</h2>
+
+<ul>
+
+<li>Security</li>
+
+<li>System</li>
+
+<li>Application</li>
+
+<li>PowerShell</li>
+
+<li>Sysmon Operational</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Log Flow</h2>
+
+<p>
+
+Windows Server 2022
+
+↓
+
+Splunk Universal Forwarder
+
+↓
+
+Splunk Enterprise
+
+↓
+
+Dashboards
+
+↓
+
+Detection Searches
+
+↓
+
+Threat Hunting
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Project Screenshots</h2>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/splunk-login.png"
+class="network"
+alt="Splunk Enterprise Login">
+
+<figcaption>
+
+<strong>Figure 1. Splunk Enterprise Login Interface.</strong>
+The Splunk Enterprise login page provides secure administrative access to the SIEM platform used throughout the MaryShield Cyber Lab.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/splunk-home.png"
+class="network"
+alt="Splunk Home Dashboard">
+
+<figcaption>
+
+<strong>Figure 2. Splunk Enterprise Home Dashboard.</strong>
+The Home dashboard provides centralized access to searches, dashboards, reports, alerts, and administrative functions.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/search-reporting.png"
+class="network"
+alt="Search and Reporting">
+
+<figcaption>
+
+<strong>Figure 3. Search & Reporting Application.</strong>
+Security analysts use SPL searches to investigate events, identify threats, and perform incident response activities.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/universal-forwarders.png"
+class="network"
+alt="Universal Forwarders">
+
+<figcaption>
+
+<strong>Figure 4. Splunk Universal Forwarders.</strong>
+Universal Forwarders securely transmit Windows Event Logs and Sysmon telemetry to the central Splunk Enterprise server.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/windows-events.png"
+class="network"
+alt="Windows Event Logs">
+
+<figcaption>
+
+<strong>Figure 5. Windows Event Log Collection.</strong>
+Windows Security, System, and Application logs are indexed by Splunk for centralized security monitoring.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/sysmon-events.png"
+class="network"
+alt="Sysmon Events">
+
+<figcaption>
+
+<strong>Figure 6. Sysmon Event Collection.</strong>
+Sysmon provides enhanced endpoint telemetry including process creation, network connections, registry changes, and driver activity.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/dashboard-overview.png"
+class="network"
+alt="Dashboard Overview">
+
+<figcaption>
+
+<strong>Figure 7. Security Monitoring Dashboard.</strong>
+The dashboard consolidates critical security information into a single view, enabling rapid situational awareness.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/failed-logons-dashboard.png"
+class="network"
+alt="Failed Logons Dashboard">
+
+<figcaption>
+
+<strong>Figure 8. Failed Login Dashboard.</strong>
+This dashboard visualizes failed Windows authentication events to help identify brute-force and password-spraying attacks.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/alerts.png"
+class="network"
+alt="Splunk Alerts">
+
+<figcaption>
+
+<strong>Figure 9. Splunk Alert Configuration.</strong>
+Alerts automatically notify administrators when predefined security conditions or suspicious events are detected.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/indexes.png"
+class="network"
+alt="Splunk Indexes">
+
+<figcaption>
+
+<strong>Figure 10. Splunk Index Configuration.</strong>
+Indexes organize and store collected security events, improving search performance and data management.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/splunk/screenshots/inputs.png"
+class="network"
+alt="Splunk Data Inputs">
+
+<figcaption>
+
+<strong>Figure 11. Splunk Data Inputs.</strong>
+Data Inputs define the log sources monitored by Splunk, ensuring reliable collection of Windows Event Logs, Sysmon telemetry, and other security data.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Dashboards</h2>
+
+<ul>
+
+<li>Windows Authentication</li>
+
+<li>Failed Logons</li>
+
+<li>PowerShell Activity</li>
+
+<li>Administrative Activity</li>
+
+<li>New User Accounts</li>
+
+<li>Security Events</li>
+
+</ul>   
+
+<section>
+
+<h2>Common SPL Searches</h2>
+
+<p>
+
+The following SPL (Search Processing Language) queries were used to monitor security events within the MaryShield Cyber Lab.
+
+</p>
+
+<h3>Failed Login Attempts (Event ID 4625)</h3>
+
+<pre><code>
+
+index=windows EventCode=4625
+
+</code></pre>
+
+<p>
+
+Displays failed Windows logon attempts.
+
+</p>
+
+<hr>
+
+<h3>Successful Logins (Event ID 4624)</h3>
+
+<pre><code>
+
+index=windows EventCode=4624
+
+</code></pre>
+
+<p>
+
+Shows successful user authentications.
+
+</p>
+
+<hr>
+
+<h3>New User Accounts (Event ID 4720)</h3>
+
+<pre><code>
+
+index=windows EventCode=4720
+
+</code></pre>
+
+<p>
+
+Detects creation of new user accounts.
+
+</p>
+
+<hr>
+
+<h3>New Local Administrators</h3>
+
+<pre><code>
+
+index=windows EventCode=4732
+
+</code></pre>
+
+<p>
+
+Detects users added to privileged groups.
+
+</p>
+
+<hr>
+
+<h3>PowerShell Activity</h3>
+
+<pre><code>
+
+index=windows EventCode=4104
+
+</code></pre>
+
+<p>
+
+Monitors PowerShell execution.
+
+</p>
+
+<hr>
+
+<h3>Sysmon Process Creation</h3>
+
+<pre><code>
+
+index=sysmon EventCode=1
+
+</code></pre>
+
+<p>
+
+Displays newly created processes.
+
+</p>
+
+<hr>
+
+<h3>Network Connections</h3>
+
+<pre><code>
+
+index=sysmon EventCode=3
+
+</code></pre>
+
+<p>
+
+Shows outbound network connections.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Detection Use Cases</h2>
+
+<table>
+
+<tr>
+
+<th>Detection</th>
+
+<th>Description</th>
+
+</tr>
+
+<tr>
+
+<td>Brute Force</td>
+
+<td>Multiple failed login attempts</td>
+
+</tr>
+
+<tr>
+
+<td>PowerShell</td>
+
+<td>Script execution monitoring</td>
+
+</tr>
+
+<tr>
+
+<td>Privilege Escalation</td>
+
+<td>Users added to Administrators group</td>
+
+</tr>
+
+<tr>
+
+<td>New Accounts</td>
+
+<td>User account creation</td>
+
+</tr>
+
+<tr>
+
+<td>RDP Logins</td>
+
+<td>Remote Desktop activity</td>
+
+</tr>
+
+<tr>
+
+<td>Suspicious Processes</td>
+
+<td>Unexpected executables</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&CK Mapping</h2>
+
+<table>
+
+<tr>
+
+<th>Technique</th>
+
+<th>MITRE ID</th>
+
+</tr>
+
+<tr>
+
+<td>PowerShell</td>
+
+<td>T1059.001</td>
+
+</tr>
+
+<tr>
+
+<td>Brute Force</td>
+
+<td>T1110</td>
+
+</tr>
+
+<tr>
+
+<td>Create Account</td>
+
+<td>T1136</td>
+
+</tr>
+
+<tr>
+
+<td>Remote Services</td>
+
+<td>T1021</td>
+
+</tr>
+
+<tr>
+
+<td>Command Shell</td>
+
+<td>T1059.003</td>
+
+</tr>
+
+<tr>
+
+<td>Account Discovery</td>
+
+<td>T1087</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<ul>
+
+<li>Importance of centralized logging</li>
+
+<li>Benefits of Sysmon telemetry</li>
+
+<li>Value of enterprise SIEM solutions</li>
+
+<li>How SPL accelerates investigations</li>
+
+<li>Importance of endpoint visibility</li>
+
+<li>Using dashboards to improve situational awareness</li>
+
+<li>Correlating Windows and Sysmon events</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>SIEM Administration</h3>
+
+<p>
+
+Installed and configured Splunk Enterprise.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Log Analysis</h3>
+
+<p>
+
+Collected and analyzed Windows security events.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>
+
+Developed searches for malicious activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Incident Response</h3>
+
+<p>
+
+Investigated suspicious activity using log data.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<h2>References</h2>
+
+<ul>
+
+<li>Splunk Enterprise Documentation</li>
+
+<li>Microsoft Sysmon Documentation</li>
+
+<li>Microsoft Windows Event IDs</li>
+
+<li>MITRE ATT&CK Framework</li>
+
+</ul>
+
+</section>
 
 </main>
 
