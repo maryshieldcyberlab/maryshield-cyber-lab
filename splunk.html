@@ -430,25 +430,277 @@ Data Inputs define the log sources monitored by Splunk, ensuring reliable collec
 
 <section>
 
-<h2>Dashboards</h2>
+<h2>Splunk Dashboards</h2>
 
-<ul>
+<p>
 
-<li>Windows Authentication</li>
+The following dashboards were developed within the MaryShield Cyber Lab to monitor authentication events, endpoint telemetry, Windows security logs, network activity, and indicators of compromise.
 
-<li>Failed Logons</li>
+</p>
 
-<li>PowerShell Activity</li>
+<figure>
 
-<li>Administrative Activity</li>
+<img src="images/projects/splunk/dashboards/authentication-dashboard.png"
+class="network"
+alt="Authentication Monitoring Dashboard">
 
-<li>New User Accounts</li>
+<figcaption>
 
-<li>Security Events</li>
+<strong>Dashboard 1 – Authentication Monitoring.</strong>
 
-</ul>   
+Displays successful (Event ID 4624) and failed (Event ID 4625) Windows logons, providing visibility into authentication activity across enterprise systems.
 
-<section>
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=windows (EventCode=4624 OR EventCode=4625)
+| stats count by EventCode
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Monitor authentication activity to identify normal login behavior and detect suspicious authentication attempts.
+
+</p>
+
+<hr>
+
+<figure>
+
+<img src="images/projects/splunk/dashboards/failed-login-dashboard.png"
+class="network"
+alt="Failed Login Dashboard">
+
+<figcaption>
+
+<strong>Dashboard 2 – Failed Login Detection.</strong>
+
+Visualizes failed Windows authentication events (Event ID 4625). Sudden increases may indicate brute-force or password-spraying attacks.
+
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=windows EventCode=4625
+| timechart span=1h count
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Identify repeated authentication failures that may represent malicious activity.
+
+</p>
+
+<hr>
+
+<figure>
+
+<img src="images/projects/splunk/dashboards/powershell-dashboard.png"
+class="network"
+alt="PowerShell Activity Dashboard">
+
+<figcaption>
+
+<strong>Dashboard 3 – PowerShell Activity.</strong>
+
+Monitors PowerShell script execution (Event ID 4104), providing visibility into administrative activity and potential attacker behavior.
+
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=windows EventCode=4104
+| stats count by Computer
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Detect suspicious PowerShell usage that could indicate post-exploitation or malicious scripting.
+
+</p>
+
+<hr>
+
+<figure>
+
+<img src="images/projects/splunk/dashboards/process-dashboard.png"
+class="network"
+alt="Sysmon Process Monitoring">
+
+<figcaption>
+
+<strong>Dashboard 4 – Sysmon Process Monitoring.</strong>
+
+Displays the most frequently executed processes collected by Microsoft Sysmon (Event ID 1).
+
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=sysmon EventCode=1
+| top Image
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Identify unusual processes that may indicate malware or unauthorized software execution.
+
+</p>
+
+<hr>
+
+<figure>
+
+<img src="images/projects/splunk/dashboards/network-dashboard.png"
+class="network"
+alt="Network Connections Dashboard">
+
+<figcaption>
+
+<strong>Dashboard 5 – Network Connections.</strong>
+
+Displays outbound network connections collected by Sysmon (Event ID 3).
+
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=sysmon EventCode=3
+| top DestinationIp
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Monitor network communications to identify suspicious outbound connections and potential command-and-control activity.
+
+</p>
+
+<hr>
+
+<figure>
+
+<img src="images/projects/splunk/dashboards/new-users-dashboard.png"
+class="network"
+alt="New User Accounts Dashboard">
+
+<figcaption>
+
+<strong>Dashboard 6 – New User Account Creation.</strong>
+
+Tracks creation of new Windows user accounts (Event ID 4720).
+
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=windows EventCode=4720
+| table _time Computer TargetUserName SubjectUserName
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Detect unauthorized account creation that may indicate persistence or privilege escalation.
+
+</p>
+
+<hr>
+
+<figure>
+
+<img src="images/projects/splunk/dashboards/admin-group-dashboard.png"
+class="network"
+alt="Privileged Group Changes Dashboard">
+
+<figcaption>
+
+<strong>Dashboard 7 – Privileged Group Changes.</strong>
+
+Monitors users added to privileged groups such as Administrators (Event ID 4732).
+
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=windows EventCode=4732
+| table _time TargetUserName MemberName
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Detect privilege escalation and unauthorized administrative access.
+
+</p>
+
+<hr>
+
+<figure>
+
+<img src="images/projects/splunk/dashboards/soc-dashboard.png"
+class="network"
+alt="SOC Overview Dashboard">
+
+<figcaption>
+
+<strong>Dashboard 8 – Security Operations Center (SOC) Overview.</strong>
+
+Provides a centralized view of authentication activity, endpoint telemetry, alerts, network events, and key security metrics.
+
+</figcaption>
+
+</figure>
+
+<h3>SPL Query</h3>
+
+<pre><code>
+index=*
+| stats count
+</code></pre>
+
+<p>
+
+<strong>Purpose:</strong>
+
+Provide analysts with a high-level operational view of the environment for continuous monitoring and rapid incident response.
+
+</p>
+
+</section>
 
 <h2>Common SPL Searches</h2>
 
@@ -795,6 +1047,74 @@ Investigated suspicious activity using log data.
 <li>Microsoft Windows Event IDs</li>
 
 <li>MITRE ATT&CK Framework</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+Building the Splunk Enterprise SIEM project provided valuable hands-on experience in deploying, configuring, and administering a centralized security monitoring platform within an enterprise-style lab environment.
+
+</p>
+
+<ul>
+
+<li>Installed and configured Splunk Enterprise on Ubuntu Server.</li>
+
+<li>Configured Universal Forwarders on Windows 11 Enterprise and Windows Server 2022.</li>
+
+<li>Collected Windows Security Event Logs and Sysmon telemetry.</li>
+
+<li>Created indexes and configured data inputs for centralized log collection.</li>
+
+<li>Developed dashboards for authentication monitoring, endpoint visibility, and network activity.</li>
+
+<li>Created SPL searches to identify failed logons, PowerShell execution, new user creation, and privileged group changes.</li>
+
+<li>Improved understanding of SIEM architecture, log normalization, and enterprise monitoring workflows.</li>
+
+<li>Strengthened skills in threat detection, incident response, and security operations center (SOC) monitoring.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<ul>
+
+<li>Splunk Enterprise Administration</li>
+
+<li>SIEM Deployment</li>
+
+<li>Security Monitoring</li>
+
+<li>Threat Detection</li>
+
+<li>Log Analysis</li>
+
+<li>Windows Event Logging</li>
+
+<li>Microsoft Sysmon</li>
+
+<li>Universal Forwarder Deployment</li>
+
+<li>SPL Query Development</li>
+
+<li>Dashboard Development</li>
+
+<li>Incident Response</li>
+
+<li>Blue Team Operations</li>
+
+<li>Enterprise Security Architecture</li>
 
 </ul>
 

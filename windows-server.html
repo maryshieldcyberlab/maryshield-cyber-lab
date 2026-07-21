@@ -2,17 +2,25 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Windows Server</title>
+
+<title>Windows Server 2022 | MaryShield Cyber Lab</title>
+
 <link rel="stylesheet" href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>Windows Server 2022 Enterprise Deployment</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
@@ -20,29 +28,378 @@
 <a href="about.html">About</a>
 <a href="projects.html">Projects</a>
 <a href="lab.html">Cyber Lab</a>
-<a href="writeups.html">Write-Ups</a>
+<a href="splunk.html">Splunk</a>
 <a href="resume.html">Resume</a>
-<a href="certifications.html">Certifications</a>
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>Windows Server</h1>
+<section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h2>Executive Summary</h2>
 
-</main>
+<p>
 
-<footer>
+Windows Server 2022 serves as the core infrastructure platform for the MaryShield Cyber Lab. It provides centralized identity management, authentication, authorization, DNS, DHCP, and enterprise administration through Active Directory Domain Services.
 
-<p>© 2026 MaryShield Cyber Lab</p>
+</p>
 
-</footer>
+</section>
 
-</body>
+<section>
 
-</html>
+<h2>Project Objectives</h2>
+
+<ul>
+
+<li>Deploy Windows Server 2022</li>
+
+<li>Configure Active Directory Domain Services</li>
+
+<li>Promote the server to a Domain Controller</li>
+
+<li>Configure DNS</li>
+
+<li>Configure DHCP</li>
+
+<li>Create Organizational Units</li>
+
+<li>Create enterprise users and groups</li>
+
+<li>Join Windows 11 Enterprise to the domain</li>
+
+<li>Implement Group Policy</li>
+
+<li>Prepare infrastructure for enterprise security monitoring</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lab Environment</h2>
+
+<table>
+
+<tr>
+<th>Component</th>
+<th>Configuration</th>
+</tr>
+
+<tr>
+<td>Operating System</td>
+<td>Windows Server 2022</td>
+</tr>
+
+<tr>
+<td>Role</td>
+<td>Domain Controller</td>
+</tr>
+
+<tr>
+<td>Hostname</td>
+<td>MS-DC01</td>
+</tr>
+
+<tr>
+<td>IP Address</td>
+<td>10.0.10.10</td>
+</tr>
+
+<tr>
+<td>Domain</td>
+<td>maryshield.local</td>
+</tr>
+
+<tr>
+<td>Virtualization</td>
+<td>VMware Workstation Pro</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Enterprise Architecture</h2>
+
+<img src="images/projects/windows/windows-architecture.png"
+class="network"
+alt="Windows Server Architecture">
+
+<p>
+
+Windows Server 2022 provides centralized authentication and identity services for enterprise clients connected to the MaryShield domain.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Windows Server Installation</h2>
+
+<p>
+
+Windows Server 2022 was installed as a virtual machine using VMware Workstation Pro. After installation, network settings were configured with a static IP address, computer name, and administrator credentials.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Windows Server Deployment Screenshots</h2>
+
+<p>
+
+The following screenshots document the deployment and configuration of Windows Server 2022 within the MaryShield Cyber Lab.
+
+</p>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/windows-install.png"
+class="network"
+alt="Windows Server Installation">
+
+<figcaption>
+
+<strong>Figure 1. Windows Server 2022 Installation.</strong>
+
+Windows Server 2022 was installed as a virtual machine using VMware Workstation Pro. This server serves as the foundation for the enterprise Active Directory environment.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/server-manager.png"
+class="network"
+alt="Server Manager">
+
+<figcaption>
+
+<strong>Figure 2. Server Manager.</strong>
+
+Server Manager is the central administration console used to install server roles, configure services, and manage enterprise infrastructure.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/computer-name.png"
+class="network"
+alt="Computer Name">
+
+<figcaption>
+
+<strong>Figure 3. Computer Name Configuration.</strong>
+
+The server hostname was configured as <strong>MS-DC01</strong>, following enterprise naming standards.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/static-ip.png"
+class="network"
+alt="Static IP Configuration">
+
+<figcaption>
+
+<strong>Figure 4. Static IP Configuration.</strong>
+
+A static IPv4 address was assigned to ensure reliable communication for DNS, Active Directory, and other infrastructure services.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/roles-features.png"
+class="network"
+alt="Roles and Features">
+
+<figcaption>
+
+<strong>Figure 5. Roles and Features Wizard.</strong>
+
+The Add Roles and Features Wizard was used to install Active Directory Domain Services and supporting components.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/ad-install.png"
+class="network"
+alt="AD DS Installation">
+
+<figcaption>
+
+<strong>Figure 6. Active Directory Domain Services Installation.</strong>
+
+Active Directory Domain Services was successfully installed in preparation for promoting the server to a Domain Controller.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/domain-controller.png"
+class="network"
+alt="Domain Controller">
+
+<figcaption>
+
+<strong>Figure 7. Domain Controller Promotion.</strong>
+
+The server was promoted to the Domain Controller for the <strong>maryshield.local</strong> domain.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/dns-manager.png"
+class="network"
+alt="DNS Manager">
+
+<figcaption>
+
+<strong>Figure 8. DNS Manager.</strong>
+
+DNS provides centralized name resolution for all domain-joined systems throughout the MaryShield Cyber Lab.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/dhcp-manager.png"
+class="network"
+alt="DHCP Manager">
+
+<figcaption>
+
+<strong>Figure 9. DHCP Manager.</strong>
+
+DHCP was configured to automatically assign IP addresses to enterprise client systems while maintaining static assignments for servers.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/users-computers.png"
+class="network"
+alt="Active Directory Users and Computers">
+
+<figcaption>
+
+<strong>Figure 10. Active Directory Users and Computers.</strong>
+
+Active Directory Users and Computers was used to create and manage Organizational Units (OUs), users, groups, and computer objects.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/group-policy.png"
+class="network"
+alt="Group Policy Management">
+
+<figcaption>
+
+<strong>Figure 11. Group Policy Management.</strong>
+
+Group Policy Objects (GPOs) were configured to enforce enterprise security policies, password requirements, and system configurations.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/windows/screenshots/domain-join.png"
+class="network"
+alt="Windows 11 Domain Join">
+
+<figcaption>
+
+<strong>Figure 12. Windows 11 Joined to the Domain.</strong>
+
+The Windows 11 Enterprise workstation was successfully joined to the <strong>maryshield.local</strong> domain, enabling centralized authentication and management.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Active Directory Domain Services</h2>
+
+<p>
+
+Active Directory Domain Services (AD DS) was installed using Server Manager. The server was promoted to a Domain Controller for the maryshield.local domain.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>DNS Configuration</h2>
+
+<p>
+
+The integrated DNS server provides name resolution for all domain-joined systems within the MaryShield Cyber Lab.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>DHCP Configuration</h2>
+
+<p>
+
+DHCP was configured to automatically assign IP addresses to enterprise workstations while reserving static addresses for infrastructure servers.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Organizational Units</h2>
+
+<p>
+
+Organizational Units were created to logically separate Servers, Workstations, Users, Service Accounts, and Administrative Accounts.
+
+</p>
+
+</section>
+

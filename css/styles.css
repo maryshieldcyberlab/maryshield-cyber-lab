@@ -311,3 +311,26 @@ td{
 tr:nth-child(even){
     background:#1f2937;
 }
+/* =========================================
+   Figure Styling
+   ========================================= */
+
+figure{
+    margin:50px auto;
+    max-width:1000px;
+    text-align:center;
+}
+
+figcaption{
+    margin-top:15px;
+    color:#d1d5db;
+    font-size:16px;
+    line-height:1.6;
+    padding:0 20px;
+}
+
+figure img{
+    width:100%;
+    border-radius:15px;
+    box-shadow:0 0 20px rgba(37,99,235,.4);
+}
