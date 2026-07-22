@@ -33,7 +33,81 @@
 
 <h1>Active Directory</h1>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+Active Directory Domain Services (AD DS) provides centralized identity and access management within the MaryShield Cyber Lab. This project demonstrates enterprise deployment, administration, authentication, authorization, Group Policy management, and integration with enterprise security monitoring platforms including Splunk Enterprise, Wazuh, and Security Onion.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Project Objectives</h2>
+
+<ul>
+
+<li>Deploy Active Directory Domain Services</li>
+
+<li>Create an enterprise forest and domain</li>
+
+<li>Configure DNS integration</li>
+
+<li>Design Organizational Units</li>
+
+<li>Create users and groups</li>
+
+<li>Implement Group Policy Objects</li>
+
+<li>Secure Active Directory</li>
+
+<li>Configure Kerberos authentication</li>
+
+<li>Monitor AD activity with Splunk, Wazuh, and Security Onion</li>
+
+<li>Detect Kerberoasting attacks</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Forests and Domains</h2>
+
+<p>
+
+The MaryShield Cyber Lab consists of a single Active Directory forest and a single domain named <strong>maryshield.local</strong>. This configuration reflects a common enterprise deployment and simplifies centralized authentication, authorization, and policy management.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Enterprise Architecture</h2>
+
+<p>
+
+The Active Directory environment serves as the identity and access management platform for the MaryShield Cyber Lab. Windows Server 2022 functions as the Domain Controller, providing centralized authentication, DNS, DHCP, and directory services for enterprise systems.
+
+</p>
+
+<img src="images/projects/active-directory/ad-architecture.png"
+     alt="Enterprise Active Directory Architecture"
+     class="network">
+
+<p>
+
+Figure 1. Enterprise Active Directory architecture showing centralized identity services, enterprise clients, SIEM integration, endpoint monitoring, and network security components.
+
+</p>
+
+</section>
 
 </main>
 
