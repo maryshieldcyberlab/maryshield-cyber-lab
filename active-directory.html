@@ -75,20 +75,6 @@ Active Directory Domain Services (AD DS) provides centralized identity and acces
 
 </section>
 
-<section>
-
-<h2>Forests and Domains</h2>
-
-<p>
-
-The MaryShield Cyber Lab consists of a single Active Directory forest and a single domain named <strong>maryshield.local</strong>. This configuration reflects a common enterprise deployment and simplifies centralized authentication, authorization, and policy management.
-
-</p>
-
-</section>
-
-<section>
-
 <h2>Enterprise Architecture</h2>
 
 <p>
@@ -101,11 +87,937 @@ The Active Directory environment serves as the identity and access management pl
      alt="Enterprise Active Directory Architecture"
      class="network">
 
+     <p>
+
+This enterprise architecture illustrates how Windows Server 2022 acts as the Domain Controller for the <strong>maryshield.local</strong> domain. The Domain Controller provides centralized authentication, authorization, DNS, and DHCP services to all domain-joined systems. Security monitoring is performed by Splunk Enterprise, Wazuh XDR, and Security Onion, while Kali Linux is used to conduct authorized penetration testing within the isolated lab environment. Network traffic is protected and segmented by the pfSense firewall.
+
+</p>
+
+<section>
+
+<h2>Forests and Domains</h2>
+
+<p>
+
+The MaryShield Cyber Lab consists of a single Active Directory forest and a single domain named <strong>maryshield.local</strong>. This configuration reflects a common enterprise deployment and simplifies centralized authentication, authorization, and policy management.
+
+</p>
+
+<section>
+
+<h2>Organizational Unit Design</h2>
+
+<p>
+
+Organizational Units (OUs) were created to logically separate enterprise resources and simplify administration. This structure enables Group Policy inheritance, delegated administration, and organized management of users and computers.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/ou-structure.png"
+     class="network"
+     alt="Organizational Unit Structure">
+
+<figcaption>
+
+Figure 2. Organizational Unit hierarchy used to organize enterprise users, computers, servers, administrative accounts, and security groups.
+
+</figcaption>
+
+</figure>
+
+<h3>OU Structure</h3>
+
+<pre>
+
+maryshield.local
+
+├── Domain Controllers
+
+├── Servers
+
+├── Workstations
+
+├── Users
+
+├── IT Administration
+
+├── Security Groups
+
+├── Service Accounts
+
+└── Test Accounts
+
+</pre>
+
+</section>
+
+<section>
+
+<h2>User Lifecycle Management</h2>
+
+<p>
+
+Enterprise identity management requires standardized procedures for creating, modifying, disabling, and removing user accounts throughout the employment lifecycle.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/create-user.png"
+class="network">
+
+<figcaption>
+
+Figure 3. Creating a new Active Directory user account using Active Directory Users and Computers.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/password-reset.png"
+class="network">
+
+<figcaption>
+
+Figure 4. Resetting a user's password and enforcing password change at next logon.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/disabled-user.png"
+class="network">
+
+<figcaption>
+
+Figure 5. Disabling an account to immediately revoke access while preserving audit history.
+
+</figcaption>
+
+</figure>
+
+<ul>
+
+<li>Create User</li>
+
+<li>Reset Password</li>
+
+<li>Unlock Account</li>
+
+<li>Disable Account</li>
+
+<li>Delete Account</li>
+
+<li>Audit User Activity</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Security Groups</h2>
+
+<p>
+
+Security Groups simplify permission management by assigning access rights to groups rather than individual users.
+
+</p>
+
+<table>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/security-groups.png"
+class="network">
+
+<figcaption>
+
+Figure 6. Enterprise security groups used to assign permissions through role-based access control (RBAC).
+
+</figcaption>
+
+</figure>
+
+<tr>
+
+<th>Group</th>
+
+<th>Purpose</th>
+
+</tr>
+
+<tr>
+
+<td>Domain Admins</td>
+
+<td>Enterprise Administration</td>
+
+</tr>
+
+<tr>
+
+<td>IT Support</td>
+
+<td>Desktop Support</td>
+
+</tr>
+
+<tr>
+
+<td>SOC Analysts</td>
+
+<td>Security Monitoring</td>
+
+</tr>
+
+<tr>
+
+<td>HR Users</td>
+
+<td>Human Resources</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Group Policy Objects</h2>
+
+<p>
+
+Group Policy enforces enterprise-wide security configurations from a centralized location.
+
+</p>
+
+<ul>
+
+<li>Password Policy</li>
+
+<li>Account Lockout</li>
+
+<li>Windows Firewall</li>
+
+<li>PowerShell Logging</li>
+
+<li>Audit Policy</li>
+
+<li>Windows Defender</li>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/group-policy-console.png"
+class="network">
+
+<figcaption>
+
+Figure 7. Group Policy Management Console used to centrally enforce enterprise security policies.
+
+</figcaption>
+
+</figure>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Kerberos Authentication</h2>
+
+<p>
+
+Kerberos is the default authentication protocol used within Active Directory. It relies on encrypted tickets rather than transmitting passwords across the network.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory/diagrams/kerberos-flow.png"
+class="network">
+
+<figcaption>
+
+Figure 8. Kerberos authentication workflow illustrating TGT issuance, service ticket requests, and secure authentication.
+
+</figcaption>
+
+</figure>
+
+<ol>
+
+<li>User logs on.</li>
+
+<li>Domain Controller issues a Ticket Granting Ticket (TGT).</li>
+
+<li>User requests access to a service.</li>
+
+<li>Domain Controller issues a Service Ticket (TGS).</li>
+
+<li>Access is granted.</li>
+
+</ol>
+
+</section>
+
+<section>
+
+<h2>LDAP</h2>
+
+<p>
+
+Lightweight Directory Access Protocol (LDAP) enables applications to query Active Directory for user accounts, groups, and directory information.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory/ldap-diagram.png"
+     alt="Enterprise LDAP Authentication Architecture"
+     class="network">
+
+<figcaption>
+
+Figure 6. Enterprise LDAP authentication architecture illustrating how domain-joined systems and LDAP-enabled applications query Active Directory for centralized authentication, directory searches, and group membership while security events are monitored by Splunk Enterprise, Wazuh XDR, and Security Onion.
+
+</figcaption>
+
+</figure>
+
+<h3>How LDAP Works</h3>
+
+<p>
+
+Lightweight Directory Access Protocol (LDAP) is the primary directory access protocol used by Active Directory. Rather than storing user accounts locally, enterprise systems query the centralized directory service to authenticate users, retrieve group memberships, and locate directory objects.
+
+</p>
+
+<ul>
+
+<li>Authenticates enterprise users</li>
+
+<li>Retrieves user and computer objects</li>
+
+<li>Verifies group membership</li>
+
+<li>Supports centralized access control</li>
+
+<li>Provides directory searches for enterprise applications</li>
+
+<li>Works alongside Kerberos authentication</li>
+
+</ul>
+
+<h3>Security Monitoring</h3>
+
+<p>
+
+LDAP authentication activity generates Windows Security Events that are forwarded to Splunk Enterprise for centralized analysis. Wazuh provides endpoint visibility by monitoring configuration changes and directory-related events, while Security Onion analyzes LDAP network traffic for anomalous behavior. Together, these platforms enable analysts to detect suspicious authentication attempts, unauthorized directory enumeration, and abnormal account activity.
+
+</p>
+
+<ul>
+
+<li>User Authentication</li>
+
+<li>Directory Searches</li>
+
+<li>Group Membership</li>
+
+<li>Enterprise Applications</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Domain Replication Concepts</h2>
+
+<p>
+
+Although this lab contains one Domain Controller, enterprise Active Directory environments replicate directory information between Domain Controllers to provide redundancy and high availability.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory/diagrams/replication.png"
+class="network">
+
+<figcaption>
+
+Figure 10. Active Directory replication architecture providing redundancy and directory synchronization between Domain Controllers.
+
+</figcaption>
+
+</figure>
+
+<ul>
+
+<li>Replication</li>
+
+<li>Global Catalog</li>
+
+<li>SYSVOL</li>
+
+<li>FSMO Roles</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Active Directory Security Hardening</h2>
+
+<ul>
+
+<li>Strong Password Policy</li>
+
+<li>Least Privilege</li>
+
+<li>Account Lockout</li>
+
+<li>PowerShell Logging</li>
+
+<li>Windows Defender</li>
+
+<li>Windows Firewall</li>
+
+<li>Restricted Admin Accounts</li>
+
+<li>Security Auditing</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/password-policy.png"
+class="network">
+
+<figcaption>
+
+Figure 11. Enterprise password policy enforcing password complexity, history, and expiration.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/audit-policy.png"
+class="network">
+
+<figcaption>
+
+Figure 12. Windows Advanced Audit Policy used to generate security events for monitoring.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/defender-policy.png"
+class="network">
+
+<figcaption>
+
+Figure 13. Windows Defender policy providing malware protection across domain systems.
+
+</figcaption>
+
+</figure>
+
+<section>
+
+<h2>Monitoring Active Directory with Splunk</h2>
+
+<p>
+
+Splunk collects Windows Security Event Logs from the Domain Controller to detect authentication events, account changes, privilege escalation, and suspicious activity.
+
+</p>
+
+<table>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/splunk-ad-events.png"
+class="network">
+
+<figcaption>
+
+Figure 14. Splunk Enterprise dashboard monitoring Windows Security Events generated by Active Directory.
+
+</figcaption>
+
+</figure>
+
+<tr>
+
+<th>Event ID</th>
+
+<th>Description</th>
+
+</tr>
+
+<tr>
+
+<td>4624</td>
+
+<td>Successful Logon</td>
+
+</tr>
+
+<tr>
+
+<td>4625</td>
+
+<td>Failed Logon</td>
+
+</tr>
+
+<tr>
+
+<td>4720</td>
+
+<td>User Created</td>
+
+</tr>
+
+<tr>
+
+<td>4726</td>
+
+<td>User Deleted</td>
+
+</tr>
+
+<tr>
+
+<td>4732</td>
+
+<td>User Added to Group</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Monitoring Active Directory with Wazuh</h2>
+
+<p>
+
+Wazuh continuously monitors Windows endpoints and Active Directory servers for changes, suspicious activity, and configuration drift. It complements SIEM monitoring by providing endpoint visibility and integrity checking.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/wazuh-active-directory.png"
+class="network">
+
+<figcaption>
+
+Figure 15. Wazuh dashboard monitoring endpoint activity, configuration changes, and Active Directory events.
+
+</figcaption>
+
+</figure>
+
+<ul>
+
+<li>File Integrity Monitoring</li>
+
+<li>Registry Monitoring</li>
+
+<li>Security Configuration Assessment</li>
+
+<li>Rootcheck</li>
+
+<li>Syscollector</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Monitoring Active Directory with Security Onion</h2>
+
+<p>
+
+Security Onion monitors network traffic generated by Active Directory services using Zeek, Suricata, and full packet capture. It provides network-level visibility into authentication and directory-related communications.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory/screenshots/security-onion-ad.png"
+class="network">
+
+<figcaption>
+
+Figure 16. Security Onion providing network visibility into Kerberos, LDAP, DNS, and Active Directory traffic.
+
+</figcaption>
+
+</figure>
+
+<ul>
+
+<li>Zeek Logs</li>
+
+<li>Suricata Alerts</li>
+
+<li>PCAP</li>
+
+<li>Traffic Analysis</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Kerberoasting Detection Case Study</h2>
+
+<p>
+
+A controlled Kerberoasting simulation was conducted within the MaryShield Cyber Lab to demonstrate enterprise detection capabilities. The exercise focused on identifying abnormal Kerberos ticket requests and correlating telemetry across multiple defensive platforms.
+
+</p>
+
+<h3>Attack Workflow</h3>
+
+<ol>
+
+<li>Create a service account with a Service Principal Name (SPN).</li>
+<li>Request Kerberos service tickets from a domain-joined system.</li>
+<li>Capture and analyze ticket requests.</li>
+<li>Review Windows Security Event IDs 4768 and 4769.</li>
+<li>Correlate authentication events in Splunk.</li>
+<li>Review endpoint telemetry in Wazuh.</li>
+<li>Inspect network activity with Security Onion.</li>
+<li>Map the activity to MITRE ATT&CK technique <strong>T1558.003 – Kerberoasting</strong>.</li>
+
+</ol>
+
+<h3>Detection Summary</h3>
+
+<p>
+
+By combining endpoint logs, Windows Security Events, and network telemetry, the lab demonstrated how multiple security platforms can work together to identify and investigate Kerberoasting activity in an enterprise Active Directory environment.
+
+</p>
+
+</section>
+
+
+
+</section>
+
+<section>
+
+
 <p>
 
 Figure 1. Enterprise Active Directory architecture showing centralized identity services, enterprise clients, SIEM integration, endpoint monitoring, and network security components.
 
 </p>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+Designing and deploying an enterprise Active Directory environment provided valuable experience in identity management, enterprise networking, centralized authentication, and security monitoring. Building the environment from the ground up demonstrated how Windows Server services integrate with modern cybersecurity platforms to improve visibility and incident response.
+
+</p>
+
+<h3>Key Technical Lessons</h3>
+
+<ul>
+
+<li>Planning Active Directory before deployment greatly simplifies administration.</li>
+
+<li>Organizational Units create a scalable and manageable enterprise structure.</li>
+
+<li>Group Policy provides centralized security enforcement across the domain.</li>
+
+<li>DNS is one of the most critical components of Active Directory functionality.</li>
+
+<li>Kerberos provides secure ticket-based authentication without transmitting passwords.</li>
+
+<li>LDAP enables centralized directory queries for users, groups, and enterprise applications.</li>
+
+<li>Splunk improves visibility by collecting Windows Security Event Logs.</li>
+
+<li>Wazuh provides endpoint monitoring and integrity validation.</li>
+
+<li>Security Onion complements host-based monitoring with network visibility.</li>
+
+<li>Layered monitoring significantly improves threat detection and incident response capabilities.</li>
+
+</ul>
+
+<h3>Challenges Encountered</h3>
+
+<ul>
+
+<li>Configuring DNS correctly before promoting the Domain Controller.</li>
+
+<li>Troubleshooting domain join issues.</li>
+
+<li>Managing DHCP scopes and reservations.</li>
+
+<li>Configuring Windows Firewall exceptions.</li>
+
+<li>Forwarding Windows Security Logs into Splunk.</li>
+
+<li>Correlating endpoint telemetry between Wazuh and Security Onion.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<p>
+
+This project demonstrates practical enterprise system administration and cybersecurity engineering skills developed through hands-on implementation within the MaryShield Cyber Lab.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Windows Server Administration</h3>
+
+<p>
+
+Installed, configured, and secured Windows Server 2022.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory</h3>
+
+<p>
+
+Designed and deployed enterprise identity services.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Enterprise Networking</h3>
+
+<p>
+
+Configured DNS, DHCP, IP addressing, and domain services.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Identity & Access Management</h3>
+
+<p>
+
+Implemented users, groups, permissions, and authentication.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Group Policy Administration</h3>
+
+<p>
+
+Applied centralized enterprise security policies.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Monitoring</h3>
+
+<p>
+
+Integrated Active Directory with Splunk, Wazuh, and Security Onion.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Detection</h3>
+
+<p>
+
+Detected authentication anomalies and Kerberos attacks.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Documentation</h3>
+
+<p>
+
+Created enterprise-quality architecture diagrams, screenshots, and implementation guides.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+The Windows Server 2022 and Active Directory deployment integrates with several other enterprise security technologies within the MaryShield Cyber Lab. Explore the related projects below.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Windows Server 2022</h3>
+
+<p>
+
+Server installation, roles, networking, and Domain Controller deployment.
+
+</p>
+
+<a href="windows-server.html"
+class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Centralized logging and Active Directory security monitoring.
+
+</p>
+
+<a href="splunk.html"
+class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Network visibility and monitoring of Active Directory traffic.
+
+</p>
+
+<a href="security-onion.html"
+class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint monitoring and Active Directory event analysis.
+
+</p>
+
+<a href="wazuh.html"
+class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kerberoasting Detection</h3>
+
+<p>
+
+Enterprise attack simulation and multi-platform detection.
+
+</p>
+
+<a href="kerberoasting.html"
+class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
 
 </section>
 
