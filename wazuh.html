@@ -2,47 +2,944 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wazuh</title>
-<link rel="stylesheet" href="css/styles.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Wazuh XDR | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>Wazuh XDR Enterprise Deployment</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
 <a href="index.html">Home</a>
+
 <a href="about.html">About</a>
+
 <a href="projects.html">Projects</a>
+
 <a href="lab.html">Cyber Lab</a>
+
 <a href="writeups.html">Write-Ups</a>
+
 <a href="resume.html">Resume</a>
+
 <a href="certifications.html">Certifications</a>
+
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>Wazuh</h1>
+    <section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h1>Wazuh XDR Enterprise Security Monitoring</h1>
+
+<h2>Overview</h2>
+
+<p>
+
+Wazuh is an open-source security platform that provides endpoint detection, log analysis, file integrity monitoring, vulnerability detection, security configuration assessment, compliance monitoring, and incident response capabilities.
+
+</p>
+
+<p>
+
+Within the MaryShield Cyber Lab, Wazuh provides centralized security visibility for Windows Server 2022, Windows 11, and Ubuntu systems. Wazuh agents collect endpoint telemetry and forward security events to the Wazuh Manager for analysis, alert generation, and dashboard visualization.
+
+</p>
+
+<p>
+
+This project demonstrates the deployment and administration of the Wazuh Manager, Indexer, Dashboard, API, and endpoint agents. It also documents integration with Splunk Enterprise and Security Onion to provide layered endpoint and network monitoring.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Project Objectives</h2>
+
+<ul>
+
+<li>Deploy the Wazuh Manager, Indexer, and Dashboard.</li>
+
+<li>Install Wazuh agents on Windows Server 2022 and Windows 11.</li>
+
+<li>Monitor the Ubuntu server as the local Wazuh system.</li>
+
+<li>Collect Windows Security Events and endpoint telemetry.</li>
+
+<li>Implement File Integrity Monitoring.</li>
+
+<li>Perform vulnerability detection.</li>
+
+<li>Run Security Configuration Assessments.</li>
+
+<li>Map alerts to MITRE ATT&amp;CK techniques.</li>
+
+<li>Investigate security events using the Wazuh Dashboard.</li>
+
+<li>Document Active Response capabilities.</li>
+
+<li>Correlate Wazuh events with Splunk Enterprise.</li>
+
+<li>Correlate endpoint activity with Security Onion network telemetry.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Enterprise Architecture</h2>
+
+<p>
+
+The Wazuh architecture uses a centralized manager, indexer, dashboard, and API to receive and analyze endpoint telemetry from systems throughout the MaryShield Cyber Lab.
+
+</p>
+
+<figure>
+
+<img src="images/projects/wazuh/diagrams/wazuh-architecture.png"
+     class="network"
+     alt="Wazuh XDR Enterprise Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Wazuh XDR Enterprise Architecture.</strong>
+
+Wazuh agents installed on Windows Server 2022 and Windows 11 forward endpoint events to the Wazuh Manager. The Wazuh Indexer stores security data, while the Dashboard provides alert analysis, vulnerability information, compliance results, and MITRE ATT&amp;CK visibility.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Lab Environment</h2>
+
+<table>
+
+<tr>
+
+<th>Component</th>
+
+<th>Configuration</th>
+
+<th>Purpose</th>
+
+</tr>
+
+<tr>
+
+<td>Ubuntu Server</td>
+
+<td>10.0.30.20</td>
+
+<td>Hosts the Wazuh Manager, Indexer, Dashboard, and API.</td>
+
+</tr>
+
+<tr>
+
+<td>Windows Server 2022</td>
+
+<td>MS-DC01 / 10.0.30.10</td>
+
+<td>Domain Controller and monitored Windows server.</td>
+
+</tr>
+
+<tr>
+
+<td>Windows 11</td>
+
+<td>WIN11-CLIENT01 / 10.0.10.22</td>
+
+<td>Domain-joined endpoint monitored by the Wazuh agent.</td>
+
+</tr>
+
+<tr>
+
+<td>Wazuh Manager</td>
+
+<td>Centralized security manager</td>
+
+<td>Receives events and applies Wazuh rules and decoders.</td>
+
+</tr>
+
+<tr>
+
+<td>Wazuh Indexer</td>
+
+<td>Security data storage</td>
+
+<td>Indexes and stores alerts and endpoint telemetry.</td>
+
+</tr>
+
+<tr>
+
+<td>Wazuh Dashboard</td>
+
+<td>Web interface</td>
+
+<td>Provides alerts, reports, MITRE mapping, and investigations.</td>
+
+</tr>
+
+<tr>
+
+<td>Splunk Enterprise</td>
+
+<td>10.0.30.20</td>
+
+<td>Provides centralized SIEM correlation.</td>
+
+</tr>
+
+<tr>
+
+<td>Security Onion</td>
+
+<td>Network monitoring platform</td>
+
+<td>Provides Suricata, Zeek, Hunt, and PCAP visibility.</td>
+
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Wazuh Installation</h2>
+
+<p>
+
+Wazuh was deployed on an Ubuntu Server virtual machine within the Servers network segment. The installation included the Wazuh Manager, Wazuh Indexer, Wazuh Dashboard, and Wazuh API.
+
+</p>
+
+<h3>Major Installation Tasks</h3>
+
+<ul>
+
+<li>Prepared the Ubuntu Server virtual machine.</li>
+
+<li>Configured a static IP address and DNS settings.</li>
+
+<li>Added the Wazuh software repository.</li>
+
+<li>Installed the Wazuh Manager.</li>
+
+<li>Installed and configured the Wazuh Indexer.</li>
+
+<li>Installed and configured the Wazuh Dashboard.</li>
+
+<li>Verified Wazuh API connectivity.</li>
+
+<li>Verified that required services started successfully.</li>
+
+</ul>
+
+<h3>Installation Evidence</h3>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/login.png"
+     class="network"
+     alt="Wazuh Login Screen">
+
+<figcaption>
+
+<strong>Figure 2. Wazuh Dashboard Login.</strong>
+
+The Wazuh login interface provides authenticated access to endpoint alerts, vulnerability information, compliance results, agent status, and security investigations.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/dashboard.png"
+     class="network"
+     alt="Wazuh Dashboard">
+
+<figcaption>
+
+<strong>Figure 3. Wazuh Security Dashboard.</strong>
+
+The main dashboard provides a centralized view of security events, monitored agents, alert severity, compliance findings, and endpoint activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Core Platform Configuration</h2>
+
+<p>
+
+The Wazuh deployment contains several integrated components that work together to collect, analyze, store, and display enterprise security information.
+
+</p>
+
+<h3>Wazuh Manager</h3>
+
+<p>
+
+The Wazuh Manager receives telemetry from enrolled agents, applies decoders and detection rules, generates alerts, and coordinates security monitoring functions.
+
+</p>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/manager.png"
+     class="network"
+     alt="Wazuh Manager Status">
+
+<figcaption>
+
+<strong>Figure 4. Wazuh Manager Status.</strong>
+
+The Wazuh Manager processes endpoint telemetry and generates security alerts based on configured rules, decoders, and monitoring policies.
+
+</figcaption>
+
+</figure>
+
+<h3>Wazuh Indexer</h3>
+
+<p>
+
+The Wazuh Indexer stores alerts and security events so they can be searched, visualized, and retained for investigations.
+
+</p>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/indexer.png"
+     class="network"
+     alt="Wazuh Indexer">
+
+<figcaption>
+
+<strong>Figure 5. Wazuh Indexer.</strong>
+
+The indexer stores and organizes Wazuh alert data for dashboard searches, reporting, and incident investigation.
+
+</figcaption>
+
+</figure>
+
+<h3>Wazuh API</h3>
+
+<p>
+
+The Wazuh API provides programmatic access to manager information, agents, rules, alerts, and administrative functions.
+
+</p>
+
+<ul>
+
+<li>API Port: 55000</li>
+
+<li>Authentication required</li>
+
+<li>Supports manager and agent administration</li>
+
+<li>Provides integration capabilities</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Wazuh Agent Deployment</h2>
+
+<p>
+
+Wazuh agents were installed on enterprise endpoints to collect security events, system information, file changes, configuration data, and endpoint telemetry.
+
+</p>
+
+<h3>Monitored Agents</h3>
+
+<table>
+
+<tr>
+
+<th>Agent</th>
+
+<th>Operating System</th>
+
+<th>Purpose</th>
+
+</tr>
+
+<tr>
+
+<td>WIN11-CLIENT01</td>
+
+<td>Windows 11</td>
+
+<td>Enterprise user workstation monitoring.</td>
+
+</tr>
+
+<tr>
+
+<td>MS-DC01</td>
+
+<td>Windows Server 2022</td>
+
+<td>Domain Controller and Active Directory monitoring.</td>
+
+</tr>
+
+<tr>
+
+<td>ms-ubuntu01</td>
+
+<td>Ubuntu Linux</td>
+
+<td>Local Linux and Wazuh server monitoring.</td>
+
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/agents.png"
+     class="network"
+     alt="Wazuh Agents Dashboard">
+
+<figcaption>
+
+<strong>Figure 6. Wazuh Agent Inventory.</strong>
+
+The agent dashboard displays enrolled endpoints, operating systems, IP addresses, connection status, and agent health.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/windows-agent.png"
+     class="network"
+     alt="Windows Wazuh Agent">
+
+<figcaption>
+
+<strong>Figure 7. Windows Endpoint Agent.</strong>
+
+The Windows agent collects Security Event Logs, system inventory, configuration information, file changes, and endpoint security telemetry.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/ubuntu-agent.png"
+     class="network"
+     alt="Ubuntu Wazuh Agent">
+
+<figcaption>
+
+<strong>Figure 8. Ubuntu Endpoint Monitoring.</strong>
+
+The Ubuntu system is monitored for authentication activity, package information, configuration status, file changes, and Linux security events.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>File Integrity Monitoring</h2>
+
+<p>
+
+Wazuh File Integrity Monitoring tracks changes to selected files and directories. It can identify file creation, modification, deletion, ownership changes, permission changes, and checksum differences.
+
+</p>
+
+<h3>Monitored Activity</h3>
+
+<ul>
+
+<li>File creation</li>
+
+<li>File modification</li>
+
+<li>File deletion</li>
+
+<li>Permission changes</li>
+
+<li>Ownership changes</li>
+
+<li>Hash and checksum changes</li>
+
+<li>Windows registry changes</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/file-integrity.png"
+     class="network"
+     alt="Wazuh File Integrity Monitoring">
+
+<figcaption>
+
+<strong>Figure 9. File Integrity Monitoring.</strong>
+
+Wazuh detected changes to monitored files and recorded the affected path, modification type, endpoint, user, and event time.
+
+</figcaption>
+
+</figure>
+
+<h3>Security Relevance</h3>
+
+<p>
+
+File Integrity Monitoring helps detect unauthorized configuration changes, malware persistence, web-shell activity, tampering, and modifications to sensitive system files.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Vulnerability Detection</h2>
+
+<p>
+
+Wazuh analyzes endpoint inventory data and compares installed operating systems and software packages against known vulnerability information.
+
+</p>
+
+<h3>Vulnerability Information</h3>
+
+<ul>
+
+<li>CVE identifier</li>
+
+<li>Severity</li>
+
+<li>Affected software package</li>
+
+<li>Installed version</li>
+
+<li>Recommended remediation</li>
+
+<li>Endpoint affected</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/vulnerabilities.png"
+     class="network"
+     alt="Wazuh Vulnerability Detection Dashboard">
+
+<figcaption>
+
+<strong>Figure 10. Vulnerability Detection Dashboard.</strong>
+
+The dashboard identifies known vulnerabilities affecting monitored endpoints and displays CVE details, severity, affected software, and remediation information.
+
+</figcaption>
+
+</figure>
+
+<h3>Security Relevance</h3>
+
+<p>
+
+Continuous vulnerability detection helps prioritize patching and identify systems that may be exposed to known exploits.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Security Configuration Assessment</h2>
+
+<p>
+
+Wazuh Security Configuration Assessment evaluates monitored systems against security baselines and hardening recommendations.
+
+</p>
+
+<h3>Assessment Areas</h3>
+
+<ul>
+
+<li>Password policies</li>
+
+<li>Account lockout settings</li>
+
+<li>Windows security configurations</li>
+
+<li>Linux service configurations</li>
+
+<li>Audit policy settings</li>
+
+<li>Firewall configuration</li>
+
+<li>System permissions</li>
+
+<li>Security best practices</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/compliance.png"
+     class="network"
+     alt="Wazuh Security Configuration Assessment">
+
+<figcaption>
+
+<strong>Figure 11. Security Configuration Assessment.</strong>
+
+The assessment dashboard displays passed and failed configuration checks, helping identify security weaknesses and hardening opportunities.
+
+</figcaption>
+
+</figure>
+
+<h3>Security Relevance</h3>
+
+<p>
+
+Security Configuration Assessment helps reduce misconfiguration risk and supports a consistent security baseline across enterprise endpoints.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Active Response</h2>
+
+<p>
+
+Wazuh Active Response can execute predefined actions when specific security alerts or rule conditions are triggered.
+
+</p>
+
+<h3>Potential Response Actions</h3>
+
+<ul>
+
+<li>Block a malicious IP address.</li>
+
+<li>Disable a compromised account.</li>
+
+<li>Terminate a suspicious process.</li>
+
+<li>Execute a custom response script.</li>
+
+<li>Add a firewall rule.</li>
+
+<li>Isolate or contain suspicious endpoint activity.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/active-response.png"
+     class="network"
+     alt="Wazuh Active Response">
+
+<figcaption>
+
+<strong>Figure 12. Wazuh Active Response.</strong>
+
+Active Response provides automated containment capabilities when security rules detect predefined malicious or unauthorized activity.
+
+</figcaption>
+
+</figure>
+
+<div class="notice">
+
+<p>
+
+<strong>Lab note:</strong> Active Response was documented and tested only within the isolated MaryShield Cyber Lab. Automated blocking actions should be carefully tested before deployment in production environments.
+
+</p>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<p>
+
+Wazuh maps many security alerts to MITRE ATT&amp;CK tactics and techniques, helping analysts understand the behavior and potential objective associated with detected activity.
+
+</p>
+
+<table>
+
+<tr>
+
+<th>Activity</th>
+
+<th>MITRE Technique</th>
+
+<th>Technique ID</th>
+
+</tr>
+
+<tr>
+
+<td>PowerShell execution</td>
+
+<td>PowerShell</td>
+
+<td>T1059.001</td>
+
+</tr>
+
+<tr>
+
+<td>Command-line activity</td>
+
+<td>Windows Command Shell</td>
+
+<td>T1059.003</td>
+
+</tr>
+
+<tr>
+
+<td>Failed authentication attempts</td>
+
+<td>Brute Force</td>
+
+<td>T1110</td>
+
+</tr>
+
+<tr>
+
+<td>New user account</td>
+
+<td>Create Account</td>
+
+<td>T1136</td>
+
+</tr>
+
+<tr>
+
+<td>Account discovery</td>
+
+<td>Account Discovery</td>
+
+<td>T1087</td>
+
+</tr>
+
+<tr>
+
+<td>Registry modification</td>
+
+<td>Modify Registry</td>
+
+<td>T1112</td>
+
+</tr>
+
+<tr>
+
+<td>Service creation</td>
+
+<td>System Services</td>
+
+<td>T1543</td>
+
+</tr>
+
+<tr>
+
+<td>Kerberos service-ticket abuse</td>
+
+<td>Kerberoasting</td>
+
+<td>T1558.003</td>
+
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/mitre.png"
+     class="network"
+     alt="Wazuh MITRE ATTACK Dashboard">
+
+<figcaption>
+
+<strong>Figure 13. Wazuh MITRE ATT&amp;CK Dashboard.</strong>
+
+The MITRE ATT&amp;CK view organizes endpoint alerts by attacker tactics and techniques, supporting investigation, threat hunting, and detection coverage analysis.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Integration with Splunk Enterprise</h2>
+
+<p>
+
+Wazuh and Splunk provide complementary security capabilities within the MaryShield Cyber Lab. Wazuh focuses on endpoint visibility, security configuration, file integrity, and alert generation, while Splunk provides centralized log analysis, dashboards, SPL searches, and event correlation.
+
+</p>
+
+<h3>Correlation Workflow</h3>
+
+<ol>
+
+<li>Windows and Linux endpoints generate security telemetry.</li>
+
+<li>Wazuh agents forward endpoint events to the Wazuh Manager.</li>
+
+<li>Wazuh analyzes the data and generates security alerts.</li>
+
+<li>Related Windows and Sysmon events are forwarded to Splunk Enterprise.</li>
+
+<li>Analysts compare Wazuh alerts with Splunk searches and dashboards.</li>
+
+<li>Correlated evidence is used to investigate suspicious activity.</li>
+
+</ol>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/splunk-correlation.png"
+     class="network"
+     alt="Wazuh and Splunk Event Correlation">
+
+<figcaption>
+
+<strong>Figure 14. Wazuh and Splunk Correlation.</strong>
+
+Endpoint alerts generated by Wazuh are compared with Windows Event Logs and Sysmon telemetry in Splunk to provide additional context during security investigations.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Integration with Security Onion</h2>
+
+<p>
+
+Wazuh provides host-based endpoint visibility while Security Onion provides network-based monitoring through Suricata, Zeek, Hunt, and packet capture.
+
+</p>
+
+<h3>Combined Investigation Workflow</h3>
+
+<ul>
+
+<li>Wazuh identifies suspicious endpoint activity.</li>
+
+<li>Security Onion identifies related network traffic.</li>
+
+<li>Suricata provides IDS alerts.</li>
+
+<li>Zeek provides protocol metadata.</li>
+
+<li>PCAP provides packet-level evidence.</li>
+
+<li>Analysts correlate host and network events by timestamp, source, destination, user, and process.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/wazuh/screenshots/security-onion-correlation.png"
+     class="network"
+     alt="Wazuh and Security Onion Correlation">
+
+<figcaption>
+
+<strong>Figure 15. Wazuh and Security Onion Correlation.</strong>
+
+Wazuh endpoint alerts are correlated with Security Onion network telemetry to provide layered visibility into suspicious activity across hosts and network communications.
+
+</figcaption>
+
+</figure>
+
+</section>
 
 </main>
 
 <footer>
 
-<p>© 2026 MaryShield Cyber Lab</p>
+<p>
+
+© 2026 MaryShield Cyber Lab | Built by Jean Gervais
+
+</p>
 
 </footer>
 
 </body>
 
 </html>
+
