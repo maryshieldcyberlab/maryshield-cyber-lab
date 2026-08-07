@@ -2,44 +2,957 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>pfSense</title>
-<link rel="stylesheet" href="css/styles.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>pfSense Enterprise Firewall | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>pfSense Enterprise Firewall</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
 <a href="index.html">Home</a>
+
 <a href="about.html">About</a>
+
 <a href="projects.html">Projects</a>
+
 <a href="lab.html">Cyber Lab</a>
+
 <a href="writeups.html">Write-Ups</a>
+
 <a href="resume.html">Resume</a>
+
 <a href="certifications.html">Certifications</a>
+
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>pfSense</h1>
+<section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h1>pfSense Enterprise Firewall Deployment</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+pfSense was deployed as the central firewall, router, and network segmentation platform within the MaryShield Cyber Lab. The firewall controls communication between internal network segments, provides Internet access through NAT, enforces access-control policies, and supports centralized security monitoring.
+
+</p>
+
+<p>
+
+The project demonstrates practical enterprise firewall administration, network segmentation, routing, NAT, DNS, DHCP, traffic monitoring, and defensive security controls.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Enterprise Architecture</h2>
+
+<p>
+
+The diagram below shows how pfSense connects the WAN, LAN, Servers, and DMZ networks and controls communication between each security zone.
+
+</p>
+
+<figure>
+
+<img src="images/projects/pfsense/diagrams/pfsense-architecture.png"
+     class="network"
+     alt="pfSense Enterprise Firewall Architecture">
+
+<figcaption>
+
+<strong>Figure 1. pfSense Enterprise Firewall Architecture.</strong>
+
+pfSense provides centralized routing, network segmentation, NAT, and firewall enforcement between the enterprise LAN, server network, DMZ, and Internet gateway.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>pfSense Installation</h2>
+
+<p>
+
+pfSense was deployed as a virtual appliance in VMware Workstation Pro. Multiple virtual network interfaces were assigned to provide separate connectivity for the WAN, LAN, Servers, and DMZ networks.
+
+</p>
+
+<h3>Installation Tasks</h3>
+
+<ul>
+
+<li>Create the pfSense virtual machine.</li>
+
+<li>Assign multiple virtual NICs.</li>
+
+<li>Install pfSense.</li>
+
+<li>Configure initial interfaces.</li>
+
+<li>Set administrative credentials.</li>
+
+<li>Verify access to the pfSense web interface.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/installation.png"
+     class="network"
+     alt="pfSense Installation">
+
+<figcaption>
+
+<strong>Figure 2. pfSense Installation.</strong>
+
+The pfSense installation process prepared the firewall appliance for enterprise routing and network security services.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Interface Configuration</h2>
+
+<p>
+
+The firewall uses dedicated interfaces for each security zone within the MaryShield Cyber Lab.
+
+</p>
+
+<table>
+
+<tr>
+<th>Interface</th>
+<th>Network</th>
+<th>Gateway / Address</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>WAN</td>
+<td>10.0.20.0/24</td>
+<td>DHCP / VMware NAT</td>
+<td>Internet access</td>
+</tr>
+
+<tr>
+<td>LAN</td>
+<td>10.0.10.0/24</td>
+<td>10.0.10.1</td>
+<td>User and management network</td>
+</tr>
+
+<tr>
+<td>Servers</td>
+<td>10.0.30.0/24</td>
+<td>10.0.30.1</td>
+<td>Enterprise server network</td>
+</tr>
+
+<tr>
+<td>DMZ</td>
+<td>10.0.40.0/24</td>
+<td>10.0.40.1</td>
+<td>Testing and vulnerable systems</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/interfaces.png"
+     class="network"
+     alt="pfSense Interfaces">
+
+<figcaption>
+
+<strong>Figure 3. pfSense Interface Configuration.</strong>
+
+Dedicated interfaces separate enterprise systems into distinct security zones and allow firewall policies to control inter-network traffic.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Firewall Rules</h2>
+
+<p>
+
+Firewall rules enforce least-privilege access between network segments. Rules were created to permit required business traffic while restricting unnecessary or risky communication.
+
+</p>
+
+<h3>Rule Design</h3>
+
+<ul>
+
+<li>Allow trusted LAN systems to reach required services.</li>
+
+<li>Restrict DMZ systems from accessing sensitive internal resources.</li>
+
+<li>Permit server traffic only when required.</li>
+
+<li>Block unauthorized inbound connections.</li>
+
+<li>Log security-relevant firewall events.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/firewall-rules.png"
+     class="network"
+     alt="pfSense Firewall Rules">
+
+<figcaption>
+
+<strong>Figure 4. pfSense Firewall Rules.</strong>
+
+Interface-specific firewall policies control communications between enterprise security zones.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Network Address Translation</h2>
+
+<p>
+
+Network Address Translation allows private internal systems to access external networks while hiding internal addressing from the Internet-facing network.
+
+</p>
+
+<ul>
+
+<li>Outbound NAT</li>
+
+<li>Port forwarding where required</li>
+
+<li>Source translation</li>
+
+<li>Destination translation</li>
+
+<li>Controlled exposure of services</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/nat.png"
+     class="network"
+     alt="pfSense NAT Configuration">
+
+<figcaption>
+
+<strong>Figure 5. NAT Configuration.</strong>
+
+pfSense performs address translation for internal systems requiring outbound connectivity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>DHCP Services</h2>
+
+<p>
+
+DHCP services can provide centralized address assignment for selected network segments and simplify endpoint configuration.
+
+</p>
+
+<ul>
+
+<li>DHCP scopes</li>
+
+<li>Default gateway assignment</li>
+
+<li>DNS server assignment</li>
+
+<li>Static mappings</li>
+
+<li>Address reservations</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/dhcp.png"
+     class="network"
+     alt="pfSense DHCP Services">
+
+<figcaption>
+
+<strong>Figure 6. DHCP Configuration.</strong>
+
+DHCP settings provide controlled address assignment to systems within designated network segments.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>DNS Resolver</h2>
+
+<p>
+
+pfSense DNS services support internal name resolution, forwarding, and host overrides while maintaining centralized control over DNS traffic.
+
+</p>
+
+<ul>
+
+<li>DNS Resolver</li>
+
+<li>DNS forwarding</li>
+
+<li>Host overrides</li>
+
+<li>Domain overrides</li>
+
+<li>Internal DNS integration</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/dns-resolver.png"
+     class="network"
+     alt="pfSense DNS Resolver">
+
+<figcaption>
+
+<strong>Figure 7. DNS Resolver Configuration.</strong>
+
+Centralized DNS configuration supports reliable name resolution across the lab environment.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>VLANs and Network Segmentation</h2>
+
+<p>
+
+Network segmentation separates systems according to role, trust level, and security requirements. This limits lateral movement and provides greater control over inter-network traffic.
+
+</p>
+
+<table>
+
+<tr>
+<th>Segment</th>
+<th>Network</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>LAN</td>
+<td>10.0.10.0/24</td>
+<td>User and management systems</td>
+</tr>
+
+<tr>
+<td>WAN</td>
+<td>10.0.20.0/24</td>
+<td>VMware NAT and external connectivity</td>
+</tr>
+
+<tr>
+<td>Servers</td>
+<td>10.0.30.0/24</td>
+<td>Enterprise infrastructure and security tools</td>
+</tr>
+
+<tr>
+<td>DMZ</td>
+<td>10.0.40.0/24</td>
+<td>Penetration testing and vulnerable systems</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/vlans.png"
+     class="network"
+     alt="pfSense VLAN and Segmentation Configuration">
+
+<figcaption>
+
+<strong>Figure 8. Network Segmentation.</strong>
+
+Logical network separation reduces unnecessary communication between systems and supports defense-in-depth.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>VPN Services</h2>
+
+<p>
+
+pfSense supports encrypted remote-access and site-to-site VPN connectivity. VPN services can securely extend enterprise access without directly exposing internal systems.
+
+</p>
+
+<ul>
+
+<li>OpenVPN</li>
+
+<li>WireGuard</li>
+
+<li>Remote-access VPN</li>
+
+<li>Site-to-site VPN</li>
+
+<li>Certificate-based authentication</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/vpn.png"
+     class="network"
+     alt="pfSense VPN Configuration">
+
+<figcaption>
+
+<strong>Figure 9. VPN Configuration.</strong>
+
+pfSense supports encrypted remote-access connectivity for authorized users and systems.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Firewall Logging</h2>
+
+<p>
+
+pfSense logging provides visibility into allowed connections, blocked traffic, firewall events, system activity, and network-state information.
+
+</p>
+
+<ul>
+
+<li>Firewall logs</li>
+
+<li>System logs</li>
+
+<li>DHCP logs</li>
+
+<li>DNS logs</li>
+
+<li>VPN logs</li>
+
+<li>Gateway events</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/logs.png"
+     class="network"
+     alt="pfSense Firewall Logs">
+
+<figcaption>
+
+<strong>Figure 10. Firewall Logs.</strong>
+
+pfSense records network events that can be reviewed during troubleshooting and security investigations.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Monitoring Integration</h2>
+
+<p>
+
+pfSense complements the other security platforms in the MaryShield Cyber Lab by providing network-control and firewall telemetry that can be correlated with endpoint and network-security data.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Firewall and network events can be correlated with centralized SIEM data.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint alerts can be compared against firewall traffic and connection activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Network alerts, Zeek metadata, Suricata detections, and firewall traffic provide complementary visibility.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Firewall Monitoring and Detection</h2>
+
+<p>
+
+The firewall was used to observe and control simulated attack traffic between lab network segments.
+
+</p>
+
+<h3>Monitored Activity</h3>
+
+<ul>
+
+<li>Port scans</li>
+
+<li>Blocked connection attempts</li>
+
+<li>Unauthorized inter-segment access</li>
+
+<li>Suspicious outbound connections</li>
+
+<li>Repeated authentication attempts</li>
+
+<li>Traffic involving Kali Linux and Metasploitable</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/blocked-traffic.png"
+     class="network"
+     alt="pfSense Blocked Traffic">
+
+<figcaption>
+
+<strong>Figure 11. Blocked Traffic.</strong>
+
+Firewall logs show network connections denied by configured security policies.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Performance Monitoring</h2>
+
+<p>
+
+pfSense provides real-time monitoring of firewall resource usage, network interfaces, gateways, and traffic throughput.
+
+</p>
+
+<ul>
+
+<li>CPU utilization</li>
+
+<li>Memory utilization</li>
+
+<li>Interface throughput</li>
+
+<li>Packet statistics</li>
+
+<li>Gateway health</li>
+
+<li>Connection states</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/pfsense/screenshots/traffic-graph.png"
+     class="network"
+     alt="pfSense Traffic Graph">
+
+<figcaption>
+
+<strong>Figure 12. Traffic Monitoring.</strong>
+
+Traffic graphs provide real-time visibility into network utilization across firewall interfaces.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>High Availability Concepts</h2>
+
+<p>
+
+Production firewall deployments commonly use redundancy to reduce downtime and eliminate a single point of failure. pfSense supports high-availability designs using CARP and configuration synchronization.
+
+</p>
+
+<ul>
+
+<li>CARP virtual IP addresses</li>
+
+<li>Firewall failover</li>
+
+<li>State synchronization</li>
+
+<li>Configuration synchronization</li>
+
+<li>Redundant Internet connections</li>
+
+</ul>
+
+<p>
+
+High availability is documented as an enterprise design concept within this lab rather than a fully deployed redundant firewall cluster.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+The pfSense deployment strengthened my understanding of enterprise firewall administration and the relationship between routing, segmentation, access control, and security monitoring.
+
+</p>
+
+<ul>
+
+<li>Learned how firewall rules control traffic between security zones.</li>
+
+<li>Improved understanding of stateful firewall behavior.</li>
+
+<li>Configured routing across multiple enterprise subnets.</li>
+
+<li>Applied network segmentation principles.</li>
+
+<li>Worked with NAT and gateway configuration.</li>
+
+<li>Analyzed blocked and permitted firewall traffic.</li>
+
+<li>Improved network troubleshooting skills.</li>
+
+<li>Applied least-privilege access-control principles.</li>
+
+<li>Integrated firewall visibility with other security platforms.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Firewall Administration</h3>
+
+<p>Configured and managed enterprise firewall services and policies.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Segmentation</h3>
+
+<p>Separated user, server, WAN, and DMZ networks according to security requirements.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Routing</h3>
+
+<p>Configured communication between multiple routed network segments.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>NAT</h3>
+
+<p>Implemented address translation for controlled Internet access.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Firewall Rules</h3>
+
+<p>Applied least-privilege access controls between network zones.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>DNS and DHCP</h3>
+
+<p>Configured supporting network services for enterprise systems.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Monitoring</h3>
+
+<p>Analyzed firewall logs, states, interfaces, and traffic patterns.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Troubleshooting</h3>
+
+<p>Diagnosed routing, connectivity, firewall-rule, and network-service issues.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+Explore other enterprise cybersecurity projects developed as part of the MaryShield Cyber Lab.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Windows Server 2022</h3>
+
+<p>Enterprise server infrastructure and domain services.</p>
+
+<a href="windows-server.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory</h3>
+
+<p>Enterprise identity, authentication, DNS, and Group Policy.</p>
+
+<a href="active-directory.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>Centralized logging, dashboards, searches, and threat detection.</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>Network security monitoring, Suricata, Zeek, Hunt, and packet analysis.</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>Endpoint monitoring, FIM, vulnerability detection, and security analytics.</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kali Linux</h3>
+
+<p>Penetration testing and security assessment platform.</p>
+
+<a href="kali.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Metasploitable</h3>
+
+<p>Controlled vulnerable environment used for attack simulation and detection testing.</p>
+
+<a href="metasploitable.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>Cross-platform investigation using Splunk, Wazuh, and Security Onion.</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 <footer>
 
-<p>© 2026 MaryShield Cyber Lab</p>
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
 
 </footer>
 
