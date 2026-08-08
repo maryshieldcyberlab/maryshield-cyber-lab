@@ -2,44 +2,955 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kali-Linux</title>
-<link rel="stylesheet" href="css/styles.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Kali Linux Enterprise Penetration Testing | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>Kali Linux Enterprise Penetration Testing</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
 <a href="index.html">Home</a>
+
 <a href="about.html">About</a>
+
 <a href="projects.html">Projects</a>
+
 <a href="lab.html">Cyber Lab</a>
+
 <a href="writeups.html">Write-Ups</a>
+
 <a href="resume.html">Resume</a>
+
 <a href="certifications.html">Certifications</a>
+
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>Kali-Linux</h1>
+<section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h1>Kali Linux Enterprise Penetration Testing</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+Kali Linux was deployed within the MaryShield Cyber Lab as a controlled penetration testing and security assessment platform. The system is used to perform reconnaissance, network scanning, service enumeration, vulnerability assessment, and attack simulation against authorized lab targets.
+
+</p>
+
+<p>
+
+The purpose of this project is to demonstrate how offensive security techniques can be used to validate defensive controls and generate telemetry for detection in pfSense, Security Onion, Splunk Enterprise, and Wazuh XDR.
+
+</p>
+
+<p>
+
+All penetration testing activities documented in this project were performed only against systems within the isolated MaryShield Cyber Lab.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Enterprise Architecture</h2>
+
+<p>
+
+Kali Linux operates inside the DMZ network and communicates with authorized lab targets through pfSense. Defensive platforms monitor the resulting network and endpoint telemetry.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kali/diagrams/kali-architecture.png"
+     class="network"
+     alt="Kali Linux Enterprise Penetration Testing Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Kali Linux Enterprise Penetration Testing Architecture.</strong>
+
+Kali Linux performs controlled security assessments from the DMZ while pfSense, Security Onion, Splunk Enterprise, and Wazuh provide firewall, network, SIEM, and endpoint visibility.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Kali Linux Installation</h2>
+
+<p>
+
+Kali Linux was deployed as a dedicated VMware Workstation virtual machine for controlled penetration testing and security validation.
+
+</p>
+
+<h3>Installation Tasks</h3>
+
+<ul>
+
+<li>Create the Kali Linux virtual machine.</li>
+
+<li>Allocate processor, memory, and storage resources.</li>
+
+<li>Attach the Kali installation media.</li>
+
+<li>Install the operating system.</li>
+
+<li>Configure the XFCE desktop environment.</li>
+
+<li>Install the GRUB bootloader.</li>
+
+<li>Verify successful login.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/installation.png"
+     class="network"
+     alt="Kali Linux Installation">
+
+<figcaption>
+
+<strong>Figure 2. Kali Linux Installation.</strong>
+
+The Kali Linux virtual machine was deployed in VMware Workstation as the offensive security workstation for the lab.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/login.png"
+     class="network"
+     alt="Kali Linux Login Screen">
+
+<figcaption>
+
+<strong>Figure 3. Kali Linux Login.</strong>
+
+The login screen confirms successful deployment of the dedicated penetration testing workstation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Network Configuration</h2>
+
+<p>
+
+Kali Linux was assigned to the isolated DMZ network so offensive testing traffic could be controlled and monitored by pfSense and Security Onion.
+
+</p>
+
+<table>
+
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+
+<tr>
+<td>Hostname</td>
+<td>ms-kali01</td>
+</tr>
+
+<tr>
+<td>IP Address</td>
+<td>10.0.40.10/24</td>
+</tr>
+
+<tr>
+<td>Default Gateway</td>
+<td>10.0.40.1</td>
+</tr>
+
+<tr>
+<td>Network Segment</td>
+<td>DMZ</td>
+</tr>
+
+<tr>
+<td>Primary Role</td>
+<td>Penetration Testing Workstation</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/network-config.png"
+     class="network"
+     alt="Kali Linux Network Configuration">
+
+<figcaption>
+
+<strong>Figure 4. Kali Linux Network Configuration.</strong>
+
+The Kali workstation uses a static address on the DMZ segment to provide predictable routing and security monitoring.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>System Maintenance and Updates</h2>
+
+<p>
+
+The Kali Linux package repository was updated before testing to ensure security tools and supporting packages were current.
+
+</p>
+
+<pre><code>
+sudo apt update
+sudo apt full-upgrade
+</code></pre>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/system-update.png"
+     class="network"
+     alt="Kali Linux System Update">
+
+<figcaption>
+
+<strong>Figure 5. Kali Linux System Updates.</strong>
+
+Package repositories and installed applications were updated before security testing.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Penetration Testing Toolset</h2>
+
+<p>
+
+Kali Linux provides a broad collection of offensive security and assessment tools used throughout the project.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Nmap</h3>
+<p>Network discovery, port scanning, service identification, and enumeration.</p>
+</div>
+
+<div class="project-card">
+<h3>Metasploit Framework</h3>
+<p>Controlled exploitation and security validation against vulnerable lab systems.</p>
+</div>
+
+<div class="project-card">
+<h3>Nikto</h3>
+<p>Web-server security assessment and configuration testing.</p>
+</div>
+
+<div class="project-card">
+<h3>Gobuster</h3>
+<p>Web-content and directory discovery.</p>
+</div>
+
+<div class="project-card">
+<h3>Wireshark</h3>
+<p>Packet capture and protocol analysis.</p>
+</div>
+
+<div class="project-card">
+<h3>Netcat</h3>
+<p>Network connection testing and troubleshooting.</p>
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/tools.png"
+     class="network"
+     alt="Kali Linux Security Tools">
+
+<figcaption>
+
+<strong>Figure 6. Kali Linux Security Toolset.</strong>
+
+The Kali platform provides integrated reconnaissance, vulnerability assessment, exploitation, and packet analysis utilities.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Network Discovery</h2>
+
+<p>
+
+Network discovery was performed to identify reachable systems within authorized lab segments and verify network connectivity.
+
+</p>
+
+<h3>Discovery Techniques</h3>
+
+<ul>
+
+<li>ICMP connectivity testing</li>
+
+<li>ARP discovery</li>
+
+<li>Host discovery</li>
+
+<li>Subnet identification</li>
+
+</ul>
+
+<pre><code>
+ping 10.0.40.50
+
+sudo arp-scan --localnet
+
+sudo nmap -sn 10.0.40.0/24
+</code></pre>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/host-discovery.png"
+     class="network"
+     alt="Kali Linux Host Discovery">
+
+<figcaption>
+
+<strong>Figure 7. Network Host Discovery.</strong>
+
+Authorized discovery scans identified active hosts on the isolated DMZ network.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Nmap Network Scanning</h2>
+
+<p>
+
+Nmap was used to identify open ports, running services, and operating-system characteristics on authorized lab targets.
+
+</p>
+
+<h3>Example Scan Types</h3>
+
+<pre><code>
+nmap 10.0.40.50
+
+nmap -sV 10.0.40.50
+
+sudo nmap -O 10.0.40.50
+
+nmap -p- 10.0.40.50
+</code></pre>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/nmap-scan.png"
+     class="network"
+     alt="Nmap Scan Results">
+
+<figcaption>
+
+<strong>Figure 8. Nmap Scan Results.</strong>
+
+Nmap identified reachable ports and services on the authorized Metasploitable target.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Service Enumeration</h2>
+
+<p>
+
+After identifying open ports, individual services were examined to gather additional information about software versions, protocols, and exposed functionality.
+
+</p>
+
+<h3>Services Examined</h3>
+
+<ul>
+
+<li>FTP</li>
+
+<li>SSH</li>
+
+<li>HTTP</li>
+
+<li>SMB</li>
+
+<li>DNS</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/service-enumeration.png"
+     class="network"
+     alt="Kali Linux Service Enumeration">
+
+<figcaption>
+
+<strong>Figure 9. Service Enumeration.</strong>
+
+Service enumeration identified additional information about network services exposed by authorized lab targets.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Vulnerability Assessment</h2>
+
+<p>
+
+Identified services were evaluated for known weaknesses and insecure configurations using non-destructive security assessment techniques.
+
+</p>
+
+<h3>Assessment Methods</h3>
+
+<ul>
+
+<li>Nmap NSE vulnerability scripts</li>
+
+<li>Web-server assessment</li>
+
+<li>Service-version review</li>
+
+<li>Configuration analysis</li>
+
+<li>Known vulnerability research</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/vulnerability-scan.png"
+     class="network"
+     alt="Kali Linux Vulnerability Assessment">
+
+<figcaption>
+
+<strong>Figure 10. Vulnerability Assessment.</strong>
+
+Security assessment tools identified weaknesses on deliberately vulnerable systems within the controlled lab.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Metasploit Framework</h2>
+
+<p>
+
+Metasploit Framework was used only against intentionally vulnerable systems inside the isolated lab to demonstrate the relationship between exploitation activity and defensive detection.
+
+</p>
+
+<h3>Testing Workflow</h3>
+
+<ol>
+
+<li>Identify the vulnerable service.</li>
+
+<li>Select an appropriate Metasploit module.</li>
+
+<li>Configure the authorized target.</li>
+
+<li>Review module options.</li>
+
+<li>Execute the controlled test.</li>
+
+<li>Observe telemetry generated in defensive security platforms.</li>
+
+</ol>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/metasploit.png"
+     class="network"
+     alt="Metasploit Framework">
+
+<figcaption>
+
+<strong>Figure 11. Metasploit Framework.</strong>
+
+Controlled exploitation testing generated realistic security telemetry for defensive detection and investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Detection and Monitoring</h2>
+
+<p>
+
+Offensive testing was monitored by the defensive security platforms deployed throughout the MaryShield Cyber Lab.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>pfSense</h3>
+
+<p>
+
+Firewall logs provide evidence of permitted and blocked connections between security zones.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Suricata, Zeek, Hunt, and PCAP provide network visibility into scanning and exploitation activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Windows and Sysmon telemetry provide host-based evidence related to attacker activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint alerts provide visibility into security events, file changes, and system behavior.
+
+</p>
+
+</div>
+
+</div>
+
+<h3>Security Onion Detection</h3>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/security-onion-detection.png"
+     class="network"
+     alt="Security Onion Detection of Kali Activity">
+
+<figcaption>
+
+<strong>Figure 12. Security Onion Detection.</strong>
+
+Network telemetry generated by Kali testing was observed and investigated through Security Onion.
+
+</figcaption>
+
+</figure>
+
+<h3>Splunk Detection</h3>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/splunk-detection.png"
+     class="network"
+     alt="Splunk Detection of Kali Activity">
+
+<figcaption>
+
+<strong>Figure 13. Splunk Detection.</strong>
+
+Host telemetry associated with simulated attack activity was correlated in Splunk Enterprise.
+
+</figcaption>
+
+</figure>
+
+<h3>Wazuh Detection</h3>
+
+<figure>
+
+<img src="images/projects/kali/screenshots/wazuh-detection.png"
+     class="network"
+     alt="Wazuh Detection of Kali Activity">
+
+<figcaption>
+
+<strong>Figure 14. Wazuh Detection.</strong>
+
+Wazuh endpoint monitoring provided additional security context during controlled attack simulations.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+This project strengthened my understanding of how offensive security activity appears from both attacker and defender perspectives.
+
+</p>
+
+<ul>
+
+<li>Improved network reconnaissance and service enumeration skills.</li>
+
+<li>Learned how exposed services can expand an organization's attack surface.</li>
+
+<li>Developed experience interpreting Nmap scan results.</li>
+
+<li>Practiced controlled vulnerability assessment techniques.</li>
+
+<li>Improved familiarity with Metasploit Framework.</li>
+
+<li>Observed how network scanning produces detectable security telemetry.</li>
+
+<li>Correlated offensive activity with Security Onion network data.</li>
+
+<li>Correlated endpoint telemetry in Splunk and Wazuh.</li>
+
+<li>Strengthened understanding of defense-in-depth.</li>
+
+<li>Reinforced the importance of authorization and scope during penetration testing.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Network Reconnaissance</h3>
+
+<p>Identified reachable systems and network services within authorized lab environments.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Nmap</h3>
+
+<p>Performed port scanning, service detection, and system enumeration.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Service Enumeration</h3>
+
+<p>Analyzed FTP, SSH, SMB, HTTP, DNS, and other exposed network services.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Vulnerability Assessment</h3>
+
+<p>Evaluated deliberately vulnerable systems using controlled assessment techniques.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Metasploit Framework</h3>
+
+<p>Performed controlled exploitation against authorized vulnerable lab targets.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Analysis</h3>
+
+<p>Evaluated security traffic using packet and protocol analysis tools.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Detection Validation</h3>
+
+<p>Validated defensive controls by correlating offensive activity across multiple monitoring platforms.</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Documentation</h3>
+
+<p>Documented testing procedures, findings, screenshots, and lessons learned.</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+Explore other projects that support the Kali Linux penetration testing and detection workflow within the MaryShield Cyber Lab.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>pfSense Firewall</h3>
+
+<p>
+
+Provides routing, segmentation, firewall enforcement, and logging for Kali-generated traffic.
+
+</p>
+
+<a href="pfsense.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Metasploitable</h3>
+
+<p>
+
+Provides the deliberately vulnerable target environment used for controlled security testing.
+
+</p>
+
+<a href="metasploitable.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Provides IDS alerts, Zeek metadata, threat hunting, and packet-level visibility.
+
+</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Provides centralized host-log analysis and detection correlation.
+
+</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Provides endpoint detection, file integrity monitoring, and security analytics.
+
+</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Windows Server 2022</h3>
+
+<p>
+
+Provides enterprise Windows services used in controlled security testing and monitoring.
+
+</p>
+
+<a href="windows-server.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory</h3>
+
+<p>
+
+Provides identity and authentication services used in later attack-detection case studies.
+
+</p>
+
+<a href="active-directory.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>
+
+Correlates attack activity across network, endpoint, and SIEM telemetry.
+
+</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 <footer>
 
-<p>© 2026 MaryShield Cyber Lab</p>
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
 
 </footer>
 

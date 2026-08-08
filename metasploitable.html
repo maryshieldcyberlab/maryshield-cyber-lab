@@ -2,47 +2,848 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Metasploitable</title>
-<link rel="stylesheet" href="css/styles.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Metasploitable 2 | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>Metasploitable 2 Vulnerable Server</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
 <a href="index.html">Home</a>
+
 <a href="about.html">About</a>
+
 <a href="projects.html">Projects</a>
+
 <a href="lab.html">Cyber Lab</a>
+
 <a href="writeups.html">Write-Ups</a>
+
 <a href="resume.html">Resume</a>
+
 <a href="certifications.html">Certifications</a>
+
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>Metasploitable</h1>
+<section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h1>Metasploitable 2 Controlled Vulnerability Testing</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+Metasploitable 2 was deployed within the MaryShield Cyber Lab as an intentionally vulnerable Linux server used for controlled security testing, vulnerability assessment, service enumeration, exploit validation, and defensive monitoring.
+
+</p>
+
+<p>
+
+The system is isolated within the DMZ network so offensive testing can be performed safely without exposing vulnerable services to production systems or the public Internet.
+
+</p>
+
+<p>
+
+This project demonstrates how intentionally vulnerable systems can be used to validate penetration testing techniques while simultaneously testing detection capabilities in pfSense, Security Onion, Splunk Enterprise, and Wazuh XDR.
+
+</p>
+
+<p>
+
+All exploitation activities documented in this case study were performed exclusively against systems owned and operated within the isolated MaryShield Cyber Lab.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Enterprise Architecture</h2>
+
+<p>
+
+Metasploitable 2 operates inside the isolated DMZ segment alongside Kali Linux. pfSense controls communication between the DMZ and other enterprise networks, while Security Onion, Splunk Enterprise, and Wazuh provide monitoring and detection capabilities.
+
+</p>
+
+<figure>
+
+<img src="images/projects/metasploitable/diagrams/metasploitable-architecture.png"
+     class="network"
+     alt="Metasploitable 2 Enterprise Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Metasploitable 2 Enterprise Architecture.</strong>
+
+The deliberately vulnerable Metasploitable server is isolated within the DMZ and used as an authorized target for Kali Linux security testing while defensive platforms monitor the resulting activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Metasploitable 2 Installation</h2>
+
+<p>
+
+Metasploitable 2 was deployed as a dedicated VMware Workstation virtual machine using the intentionally vulnerable Linux appliance.
+
+</p>
+
+<h3>Deployment Tasks</h3>
+
+<ul>
+
+<li>Downloaded and extracted the Metasploitable virtual machine.</li>
+
+<li>Imported the virtual machine into VMware Workstation.</li>
+
+<li>Assigned the VM to the isolated DMZ network.</li>
+
+<li>Configured CPU, memory, and storage resources.</li>
+
+<li>Booted the Linux appliance.</li>
+
+<li>Verified local console access.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/installation.png"
+     class="network"
+     alt="Metasploitable Installation">
+
+<figcaption>
+
+<strong>Figure 2. Metasploitable 2 Deployment.</strong>
+
+The intentionally vulnerable Linux appliance was deployed in VMware Workstation for controlled security testing.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/login.png"
+     class="network"
+     alt="Metasploitable Login">
+
+<figcaption>
+
+<strong>Figure 3. Metasploitable 2 Login.</strong>
+
+The local console confirms successful deployment of the vulnerable Linux server.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Network Configuration</h2>
+
+<p>
+
+Metasploitable 2 was assigned a static address within the DMZ to provide a predictable target for controlled penetration testing and monitoring.
+
+</p>
+
+<table>
+
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+
+<tr>
+<td>System</td>
+<td>Metasploitable 2</td>
+</tr>
+
+<tr>
+<td>IP Address</td>
+<td>10.0.40.50/24</td>
+</tr>
+
+<tr>
+<td>Default Gateway</td>
+<td>10.0.40.1</td>
+</tr>
+
+<tr>
+<td>Network Segment</td>
+<td>DMZ</td>
+</tr>
+
+<tr>
+<td>Primary Role</td>
+<td>Controlled Vulnerability Testing Target</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/network-config.png"
+     class="network"
+     alt="Metasploitable Network Configuration">
+
+<figcaption>
+
+<strong>Figure 4. Metasploitable Network Configuration.</strong>
+
+The vulnerable server uses a static DMZ address so security testing and defensive monitoring can be performed consistently.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Vulnerable Services</h2>
+
+<p>
+
+Metasploitable 2 intentionally exposes multiple outdated and insecure network services. These services provide realistic targets for reconnaissance, enumeration, vulnerability analysis, and controlled exploitation.
+
+</p>
+
+<h3>Selected Services</h3>
+
+<ul>
+
+<li>FTP</li>
+
+<li>SSH</li>
+
+<li>Telnet</li>
+
+<li>HTTP</li>
+
+<li>Samba / SMB</li>
+
+<li>MySQL</li>
+
+<li>PostgreSQL</li>
+
+<li>DistCC</li>
+
+<li>UnrealIRCd</li>
+
+<li>VSFTPD</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/services.png"
+     class="network"
+     alt="Metasploitable Vulnerable Services">
+
+<figcaption>
+
+<strong>Figure 5. Vulnerable Services.</strong>
+
+Service enumeration identified multiple intentionally exposed and outdated services available for controlled security testing.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Vulnerability Assessment</h2>
+
+<p>
+
+Kali Linux was used to perform authorized reconnaissance and vulnerability assessment against the Metasploitable server.
+
+</p>
+
+<h3>Assessment Activities</h3>
+
+<ul>
+
+<li>Host discovery</li>
+
+<li>Port scanning</li>
+
+<li>Service-version detection</li>
+
+<li>Operating-system identification</li>
+
+<li>Banner grabbing</li>
+
+<li>Vulnerability enumeration</li>
+
+</ul>
+
+<pre><code>
+nmap -sV 10.0.40.50
+
+sudo nmap -A 10.0.40.50
+
+nmap --script vuln 10.0.40.50
+</code></pre>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/nmap-scan.png"
+     class="network"
+     alt="Metasploitable Nmap Scan">
+
+<figcaption>
+
+<strong>Figure 6. Nmap Vulnerability Assessment.</strong>
+
+Nmap identified open ports, service versions, and potentially vulnerable applications on the Metasploitable server.
+
+</figcaption>
+
+</figure>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/vulnerabilities.png"
+     class="network"
+     alt="Metasploitable Vulnerabilities">
+
+<figcaption>
+
+<strong>Figure 7. Vulnerability Findings.</strong>
+
+Assessment results documented security weaknesses associated with intentionally outdated services and configurations.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Controlled Exploitation</h2>
+
+<p>
+
+Selected vulnerabilities were validated using controlled exploitation techniques from Kali Linux. Testing was limited strictly to the isolated Metasploitable system.
+
+</p>
+
+<h3>Testing Examples</h3>
+
+<ul>
+
+<li>VSFTPD backdoor validation</li>
+
+<li>Samba Usermap Script testing</li>
+
+<li>DistCC vulnerability validation</li>
+
+<li>UnrealIRCd vulnerability testing</li>
+
+</ul>
+
+<p>
+
+The objective was not simply to obtain access to the vulnerable system, but to understand how exploitation activity appears across network and endpoint monitoring platforms.
+
+</p>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/exploitation.png"
+     class="network"
+     alt="Controlled Metasploitable Exploitation">
+
+<figcaption>
+
+<strong>Figure 8. Controlled Exploitation.</strong>
+
+A deliberately vulnerable service was tested from Kali Linux to validate exposure and generate telemetry for defensive monitoring.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Detection and Monitoring</h2>
+
+<p>
+
+Security telemetry generated during testing was reviewed across the defensive platforms deployed within the MaryShield Cyber Lab.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>pfSense Firewall</h3>
+
+<p>
+
+Firewall logs provide visibility into communication between Kali Linux, Metasploitable, and other security zones.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Suricata alerts, Zeek metadata, Hunt, and packet capture provide network-level visibility into scans and exploitation attempts.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Centralized logs support correlation of attack activity with other enterprise security events.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint and security telemetry provide additional context for investigations involving monitored systems.
+
+</p>
+
+</div>
+
+</div>
+
+<h3>Security Onion Detection</h3>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/security-onion-alert.png"
+     class="network"
+     alt="Security Onion Metasploitable Detection">
+
+<figcaption>
+
+<strong>Figure 9. Security Onion Detection.</strong>
+
+Security Onion recorded network activity associated with scanning and controlled exploitation of the Metasploitable target.
+
+</figcaption>
+
+</figure>
+
+<h3>Splunk Detection</h3>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/splunk-alert.png"
+     class="network"
+     alt="Splunk Metasploitable Detection">
+
+<figcaption>
+
+<strong>Figure 10. Splunk Correlation.</strong>
+
+Splunk provided centralized event correlation related to security activity generated during the Metasploitable exercise.
+
+</figcaption>
+
+</figure>
+
+<h3>Wazuh Detection</h3>
+
+<figure>
+
+<img src="images/projects/metasploitable/screenshots/wazuh-alert.png"
+     class="network"
+     alt="Wazuh Metasploitable Detection">
+
+<figcaption>
+
+<strong>Figure 11. Wazuh Detection.</strong>
+
+Wazuh endpoint telemetry provided complementary security context during the simulated attack investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+The Metasploitable project demonstrated how outdated services, weak configurations, and unnecessary exposure can significantly increase organizational attack surface.
+
+</p>
+
+<ul>
+
+<li>Improved understanding of service enumeration and vulnerability discovery.</li>
+
+<li>Learned how outdated applications can expose exploitable weaknesses.</li>
+
+<li>Strengthened Nmap and vulnerability assessment skills.</li>
+
+<li>Improved familiarity with controlled exploit validation.</li>
+
+<li>Observed how network attacks generate detectable security telemetry.</li>
+
+<li>Reinforced the importance of patch management.</li>
+
+<li>Demonstrated the security value of network segmentation.</li>
+
+<li>Improved understanding of IDS and SIEM correlation.</li>
+
+<li>Reinforced defense-in-depth principles.</li>
+
+<li>Improved technical documentation and evidence collection.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Linux Administration</h3>
+
+<p>
+
+Managed and configured a deliberately vulnerable Linux server within an isolated test environment.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Reconnaissance</h3>
+
+<p>
+
+Identified hosts, exposed ports, and network services using authorized scanning techniques.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Service Enumeration</h3>
+
+<p>
+
+Analyzed exposed FTP, SSH, HTTP, SMB, database, and other services.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Vulnerability Assessment</h3>
+
+<p>
+
+Evaluated outdated and intentionally vulnerable services using security assessment tools.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Exploit Validation</h3>
+
+<p>
+
+Performed controlled exploitation against deliberately vulnerable lab services.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Security</h3>
+
+<p>
+
+Applied isolation and segmentation principles to contain vulnerable systems.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Detection</h3>
+
+<p>
+
+Reviewed security telemetry generated by penetration testing activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Documentation</h3>
+
+<p>
+
+Documented architecture, testing methodology, findings, screenshots, and lessons learned.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+Explore other projects that support the controlled attack, detection, and investigation workflow within the MaryShield Cyber Lab.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Kali Linux</h3>
+
+<p>
+
+Provides the offensive security workstation used for reconnaissance, vulnerability assessment, and controlled exploitation.
+
+</p>
+
+<a href="kali.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>pfSense Firewall</h3>
+
+<p>
+
+Provides DMZ isolation, routing, firewall controls, and logging.
+
+</p>
+
+<a href="pfsense.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Provides Suricata alerts, Zeek metadata, Hunt, and packet-level network visibility.
+
+</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Provides centralized logging, dashboards, searching, and security-event correlation.
+
+</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Provides endpoint monitoring, security analytics, FIM, and alert investigation.
+
+</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Windows Server 2022</h3>
+
+<p>
+
+Provides enterprise infrastructure services used throughout the broader lab environment.
+
+</p>
+
+<a href="windows-server.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory</h3>
+
+<p>
+
+Provides enterprise identity and authentication infrastructure for later attack-detection exercises.
+
+</p>
+
+<a href="active-directory.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>
+
+Correlates offensive activity across network, endpoint, and SIEM telemetry.
+
+</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 <footer>
 
-<p>© 2026 MaryShield Cyber Lab</p>
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
 
 </footer>
 
 </body>
 
 </html>
+
