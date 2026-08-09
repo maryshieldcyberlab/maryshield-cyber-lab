@@ -2,44 +2,810 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Threat Hunting</title>
-<link rel="stylesheet" href="css/styles.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Enterprise Threat Hunting | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>Enterprise Threat Hunting</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
 <a href="index.html">Home</a>
+
 <a href="about.html">About</a>
+
 <a href="projects.html">Projects</a>
+
 <a href="lab.html">Cyber Lab</a>
+
 <a href="writeups.html">Write-Ups</a>
+
 <a href="resume.html">Resume</a>
+
 <a href="certifications.html">Certifications</a>
+
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>Threat Hunting</h1>
+<section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h1>Enterprise Threat Hunting</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+This project demonstrates a structured threat hunting investigation within the MaryShield Cyber Lab using telemetry collected from Splunk Enterprise, Wazuh XDR, Security Onion, pfSense, Windows Event Logs, Sysmon, and network security monitoring tools.
+
+</p>
+
+<p>
+
+The objective is to move beyond individual alerts and proactively investigate suspicious activity by correlating endpoint, network, firewall, and SIEM data across multiple security platforms.
+
+</p>
+
+<p>
+
+Controlled attack activity generated from Kali Linux against authorized lab systems provides realistic telemetry for detection, correlation, timeline development, and security analysis.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Enterprise Threat Hunting Architecture</h2>
+
+<p>
+
+The architecture below shows how attack activity, endpoint telemetry, network traffic, firewall events, and detection data are collected and correlated throughout the MaryShield Cyber Lab.
+
+</p>
+
+<figure>
+
+<img src="images/projects/threat-hunting/diagrams/threat-hunting-architecture.png"
+     class="network"
+     alt="Enterprise Threat Hunting Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Enterprise Threat Hunting Architecture.</strong>
+
+Kali Linux generates authorized test activity while pfSense, Security Onion, Wazuh XDR, and Splunk Enterprise provide complementary network, endpoint, firewall, and SIEM visibility for investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Threat Hunting Methodology</h2>
+
+<p>
+
+The threat hunting process follows a repeatable investigative methodology designed to identify suspicious behavior, validate findings, and build an evidence-based timeline.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>1. Hypothesis</h3>
+
+<p>
+
+Define suspicious activity to investigate based on observed behavior, alerts, or known attack techniques.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>2. Data Collection</h3>
+
+<p>
+
+Gather endpoint, network, firewall, authentication, and security telemetry from multiple sources.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>3. Correlation</h3>
+
+<p>
+
+Compare timestamps, users, hosts, IP addresses, ports, processes, and alerts across security platforms.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>4. Timeline Development</h3>
+
+<p>
+
+Reconstruct the sequence of events from initial reconnaissance through detection and investigation.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>5. Validation</h3>
+
+<p>
+
+Determine whether observed activity represents legitimate behavior, suspicious activity, or a confirmed security event.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>6. Reporting</h3>
+
+<p>
+
+Document findings, evidence, risk, detection coverage, and recommended security improvements.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Threat Hunting Data Sources</h2>
+
+<p>
+
+Multiple telemetry sources were used to provide layered visibility into activity across endpoints and network segments.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Windows Event Logs</h3>
+
+<p>
+
+Authentication, account activity, system events, and security auditing information.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Sysmon</h3>
+
+<p>
+
+Detailed process creation, network connections, command lines, hashes, and endpoint telemetry.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Centralized searching, correlation, dashboards, and timeline analysis.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint alerts, FIM events, vulnerability findings, and security analytics.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Suricata alerts, Zeek metadata, Hunt, and packet-level network visibility.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>pfSense</h3>
+
+<p>
+
+Firewall allow and block events, network states, routing, and connection information.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Zeek</h3>
+
+<p>
+
+Protocol metadata for DNS, HTTP, SMB, SSL/TLS, connections, and other network activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Packet Capture</h3>
+
+<p>
+
+Packet-level evidence used to validate and investigate suspicious network communications.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Attack Timeline</h2>
+
+<p>
+
+A controlled attack sequence was generated from Kali Linux to provide realistic telemetry for the threat hunting investigation.
+
+</p>
+
+<table>
+
+<tr>
+<th>Stage</th>
+<th>Activity</th>
+<th>Primary Evidence</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Host discovery</td>
+<td>Security Onion / pfSense</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Nmap network scanning</td>
+<td>Suricata / Zeek</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Service enumeration</td>
+<td>Security Onion / PCAP</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Controlled exploitation attempt</td>
+<td>Security Onion / pfSense</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Endpoint activity</td>
+<td>Wazuh / Sysmon</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>SIEM correlation</td>
+<td>Splunk Enterprise</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Analyst investigation</td>
+<td>Combined telemetry</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/timeline.png"
+     class="network"
+     alt="Threat Hunting Attack Timeline">
+
+<figcaption>
+
+<strong>Figure 2. Threat Hunting Timeline.</strong>
+
+The investigation timeline reconstructs activity from initial reconnaissance through detection, correlation, and analyst review.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Splunk Enterprise Investigation</h2>
+
+<p>
+
+Splunk Enterprise was used to correlate Windows Event Logs, Sysmon telemetry, authentication events, and other centralized security data.
+
+</p>
+
+<h3>Investigation Activities</h3>
+
+<ul>
+
+<li>Search by hostname and IP address.</li>
+
+<li>Identify failed authentication events.</li>
+
+<li>Analyze process creation activity.</li>
+
+<li>Review PowerShell execution.</li>
+
+<li>Correlate event timestamps.</li>
+
+<li>Build an investigation timeline.</li>
+
+</ul>
+
+<h3>Example SPL Searches</h3>
+
+<pre><code>
+index=* host=WIN11-CLIENT01
+
+index=* EventCode=4625
+
+index=* sourcetype=XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
+
+index=* "10.0.40.10"
+</code></pre>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/splunk-search.png"
+     class="network"
+     alt="Splunk Threat Hunting Investigation">
+
+<figcaption>
+
+<strong>Figure 3. Splunk Threat Hunting Investigation.</strong>
+
+Splunk searches correlate endpoint and authentication telemetry associated with suspicious activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh XDR Investigation</h2>
+
+<p>
+
+Wazuh XDR was used to investigate endpoint activity, security alerts, file changes, system configuration findings, and MITRE ATT&amp;CK mappings.
+
+</p>
+
+<h3>Investigation Areas</h3>
+
+<ul>
+
+<li>Security Events</li>
+
+<li>File Integrity Monitoring</li>
+
+<li>Agent activity</li>
+
+<li>MITRE ATT&amp;CK mapping</li>
+
+<li>Rule severity</li>
+
+<li>System inventory</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/wazuh-events.png"
+     class="network"
+     alt="Wazuh Threat Hunting Events">
+
+<figcaption>
+
+<strong>Figure 4. Wazuh Endpoint Investigation.</strong>
+
+Wazuh endpoint telemetry provides additional context for suspicious activity observed during the threat hunt.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Onion Investigation</h2>
+
+<p>
+
+Security Onion provided network-level visibility into reconnaissance, service enumeration, and other suspicious communications.
+
+</p>
+
+<h3>Investigation Components</h3>
+
+<ul>
+
+<li>Alerts</li>
+
+<li>Hunt</li>
+
+<li>Suricata IDS</li>
+
+<li>Zeek network metadata</li>
+
+<li>Packet Capture</li>
+
+<li>Timeline analysis</li>
+
+</ul>
+
+<h3>Alerts</h3>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/security-onion-alerts.png"
+     class="network"
+     alt="Security Onion Threat Alerts">
+
+<figcaption>
+
+<strong>Figure 5. Security Onion Alerts.</strong>
+
+Suricata and Security Onion alerts identify suspicious network behavior associated with controlled attack activity.
+
+</figcaption>
+
+</figure>
+
+<h3>Hunt</h3>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/hunt.png"
+     class="network"
+     alt="Security Onion Hunt">
+
+<figcaption>
+
+<strong>Figure 6. Security Onion Hunt.</strong>
+
+The Hunt interface allows network events to be filtered by source IP, destination IP, port, protocol, and time.
+
+</figcaption>
+
+</figure>
+
+<h3>Zeek</h3>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/zeek.png"
+     class="network"
+     alt="Zeek Network Metadata">
+
+<figcaption>
+
+<strong>Figure 7. Zeek Network Metadata.</strong>
+
+Zeek provides detailed protocol metadata used to reconstruct network behavior during the investigation.
+
+</figcaption>
+
+</figure>
+
+<h3>Suricata</h3>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/suricata.png"
+     class="network"
+     alt="Suricata IDS Detection">
+
+<figcaption>
+
+<strong>Figure 8. Suricata Detection.</strong>
+
+Suricata IDS alerts provide signature-based evidence of suspicious network activity.
+
+</figcaption>
+
+</figure>
+
+<h3>Packet Capture</h3>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/pcap.png"
+     class="network"
+     alt="Security Onion Packet Capture">
+
+<figcaption>
+
+<strong>Figure 9. Packet Capture Analysis.</strong>
+
+Packet-level evidence provides detailed validation of communications identified during the threat hunt.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Evidence Collection</h2>
+
+<p>
+
+Indicators and investigative artifacts were documented throughout the threat hunting process to support correlation and reporting.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Source IP</h3>
+
+<p>
+
+10.0.40.10 — Kali Linux penetration testing workstation.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Target IP</h3>
+
+<p>
+
+Authorized lab systems associated with the controlled investigation.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Ports</h3>
+
+<p>
+
+Network ports identified during reconnaissance and service enumeration.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Protocols</h3>
+
+<p>
+
+DNS, SMB, FTP, HTTP, SSH, Kerberos, LDAP, and other protocols associated with the investigation.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Alert Severity</h3>
+
+<p>
+
+Security alerts were reviewed by severity, source, destination, rule, and timestamp.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>MITRE ATT&amp;CK</h3>
+
+<p>
+
+Observed activity was mapped to applicable tactics and techniques when supported by the evidence.
+
+</p>
+
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/investigation.png"
+     class="network"
+     alt="Threat Hunting Investigation Evidence">
+
+<figcaption>
+
+<strong>Figure 10. Investigation Evidence.</strong>
+
+Collected indicators from multiple security platforms were correlated to establish context and validate suspicious activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<p>
+
+Correlated evidence was organized chronologically to reconstruct the sequence of activity observed during the investigation.
+
+</p>
+
+<table>
+
+<tr>
+<th>Time</th>
+<th>Event</th>
+<th>Source</th>
+<th>Analyst Interpretation</th>
+</tr>
+
+<tr>
+<td>Time 1</td>
+<td>Host discovery initiated</td>
+<td>Security Onion</td>
+<td>Initial reconnaissance activity detected.</td>
+</tr>
+
+<tr>
+<td>Time 2</td>
+<td>Multiple ports scanned</td>
+<td>Suricata / Zeek</td>
+<td>Network service discovery activity identified.</td>
+</tr>
+
+<tr>
+<td>Time 3</td>
+<td>Service enumeration</td>
+<td>Zeek / PCAP</td>
+<td>Specific exposed services were investigated.</td>
+</tr>
+
+<tr>
+<td>Time 4</td>
+<td>Controlled exploitation activity</td>
+<td>Security Onion / pfSense</td>
+<td>Suspicious communications associated with authorized exploitation testing.</td>
+</tr>
+
+<tr>
+<td>Time 5</td>
+<td>Endpoint event generated</td>
+<td>Wazuh / Sysmon</td>
+<td>Host telemetry provided additional context.</td>
+</tr>
+
+<tr>
+<td>Time 6</td>
+<td>Events correlated</td>
+<td>Splunk Enterprise</td>
+<td>Multiple telemetry sources aligned by timestamp and system.</td>
+</tr>
+
+<tr>
+<td>Time 7</td>
+<td>Investigation completed</td>
+<td>SOC Analyst</td>
+<td>Evidence reviewed and findings documented.</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/final-report.png"
+     class="network"
+     alt="Threat Hunting Final Investigation">
+
+<figcaption>
+
+<strong>Figure 11. Threat Hunting Investigation Summary.</strong>
+
+The final investigation combines endpoint, firewall, network, and SIEM evidence into a chronological security-event timeline.
+
+</figcaption>
+
+</figure>
+
+</section>
 
 </main>
 
 <footer>
 
-<p>© 2026 MaryShield Cyber Lab</p>
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
 
 </footer>
 

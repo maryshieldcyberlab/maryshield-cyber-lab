@@ -2,44 +2,963 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Incident Response</title>
-<link rel="stylesheet" href="css/styles.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Enterprise Incident Response | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>Enterprise Incident Response</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
 <a href="index.html">Home</a>
+
 <a href="about.html">About</a>
+
 <a href="projects.html">Projects</a>
+
 <a href="lab.html">Cyber Lab</a>
+
 <a href="writeups.html">Write-Ups</a>
+
 <a href="resume.html">Resume</a>
+
 <a href="certifications.html">Certifications</a>
+
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>Incident Response</h1>
+<section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h1>Enterprise Incident Response</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+This project demonstrates a structured incident response investigation within the MaryShield Cyber Lab using telemetry collected from Splunk Enterprise, Wazuh XDR, Security Onion, pfSense, Windows Event Logs, Sysmon, and other security monitoring platforms.
+
+</p>
+
+<p>
+
+The objective is to identify, investigate, contain, eradicate, and recover from simulated security incidents generated within the controlled lab environment.
+
+</p>
+
+<p>
+
+The project follows an enterprise incident response workflow that includes detection, triage, evidence collection, investigation, containment, eradication, recovery, and post-incident review.
+
+</p>
+
+<p>
+
+All attack simulations documented in this case study were performed only against authorized systems within the isolated MaryShield Cyber Lab.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Incident Response Lifecycle</h2>
+
+<p>
+
+The incident response process follows a structured workflow designed to reduce impact, preserve evidence, restore normal operations, and improve future detection and prevention capabilities.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>1. Preparation</h3>
+
+<p>
+
+Ensure logging, monitoring, documentation, response procedures, and security tools are available before an incident occurs.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>2. Detection & Analysis</h3>
+
+<p>
+
+Identify suspicious behavior and determine whether it represents a legitimate security incident.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>3. Containment</h3>
+
+<p>
+
+Limit the scope and impact of the incident while preserving evidence for investigation.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>4. Eradication</h3>
+
+<p>
+
+Remove malicious artifacts, vulnerable configurations, unauthorized accounts, or other root causes.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>5. Recovery</h3>
+
+<p>
+
+Restore affected systems and verify that normal and secure operations have resumed.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>6. Lessons Learned</h3>
+
+<p>
+
+Document findings, identify improvements, and update monitoring and defensive controls.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Enterprise Incident Response Architecture</h2>
+
+<p>
+
+The architecture below shows how endpoint, network, firewall, and SIEM telemetry are collected and correlated during an incident investigation.
+
+</p>
+
+<figure>
+
+<img src="images/projects/incident-response/diagrams/incident-response-architecture.png"
+     class="network"
+     alt="Enterprise Incident Response Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Enterprise Incident Response Architecture.</strong>
+
+Security telemetry from endpoints, network sensors, firewall logs, and centralized monitoring platforms supports incident detection, investigation, containment, eradication, and recovery.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Detection</h2>
+
+<p>
+
+The investigation begins when suspicious behavior is identified through SIEM alerts, endpoint telemetry, firewall logs, IDS signatures, or analyst threat-hunting activity.
+
+</p>
+
+<h3>Detection Sources</h3>
+
+<ul>
+
+<li>Splunk Enterprise alerts and searches</li>
+
+<li>Wazuh XDR security events</li>
+
+<li>Security Onion Suricata alerts</li>
+
+<li>Zeek network metadata</li>
+
+<li>pfSense firewall logs</li>
+
+<li>Windows Security Events</li>
+
+<li>Sysmon telemetry</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/incident-dashboard.png"
+     class="network"
+     alt="Incident Detection Dashboard">
+
+<figcaption>
+
+<strong>Figure 2. Incident Detection.</strong>
+
+Security monitoring platforms identified suspicious activity requiring further triage and investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Initial Triage</h2>
+
+<p>
+
+Initial triage determines the severity, scope, affected systems, and potential impact of the suspected incident.
+
+</p>
+
+<table>
+
+<tr>
+<th>Category</th>
+<th>Investigation Question</th>
+</tr>
+
+<tr>
+<td>Source</td>
+<td>Where did the suspicious activity originate?</td>
+</tr>
+
+<tr>
+<td>Target</td>
+<td>Which endpoint or service was affected?</td>
+</tr>
+
+<tr>
+<td>Severity</td>
+<td>How serious is the observed behavior?</td>
+</tr>
+
+<tr>
+<td>Timeline</td>
+<td>When did the activity begin?</td>
+</tr>
+
+<tr>
+<td>Scope</td>
+<td>How many systems or users are affected?</td>
+</tr>
+
+<tr>
+<td>Impact</td>
+<td>What security or operational impact occurred?</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Evidence Collection</h2>
+
+<p>
+
+Evidence was collected from multiple security platforms to preserve a reliable record of activity associated with the incident.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>SIEM Evidence</h3>
+
+<p>
+
+Splunk searches, dashboards, event logs, timestamps, hosts, and alert information.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Endpoint Evidence</h3>
+
+<p>
+
+Wazuh alerts, Windows Event Logs, Sysmon data, processes, users, and file changes.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Evidence</h3>
+
+<p>
+
+Security Onion alerts, Zeek metadata, Suricata signatures, PCAP, and connection records.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Firewall Evidence</h3>
+
+<p>
+
+pfSense allow, block, NAT, routing, and state information associated with suspicious traffic.
+
+</p>
+
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/evidence.png"
+     class="network"
+     alt="Incident Response Evidence">
+
+<figcaption>
+
+<strong>Figure 3. Evidence Collection.</strong>
+
+Evidence from multiple security tools was preserved and correlated to support the incident investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Log Analysis</h2>
+
+<p>
+
+Centralized logs were reviewed to identify suspicious patterns, establish context, and correlate events across affected systems.
+
+</p>
+
+<h3>Splunk Investigation</h3>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/splunk-ir.png"
+     class="network"
+     alt="Splunk Incident Response Investigation">
+
+<figcaption>
+
+<strong>Figure 4. Splunk Incident Response Analysis.</strong>
+
+Splunk Enterprise was used to correlate endpoint and authentication events associated with the incident.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Network Investigation</h2>
+
+<p>
+
+Network telemetry was analyzed to identify suspicious connections, protocols, source and destination addresses, and potential attacker activity.
+
+</p>
+
+<h3>Security Onion</h3>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/security-onion-ir.png"
+     class="network"
+     alt="Security Onion Incident Response Investigation">
+
+<figcaption>
+
+<strong>Figure 5. Security Onion Network Investigation.</strong>
+
+Security Onion provided Suricata alerts, Zeek metadata, Hunt results, and packet-level evidence associated with the incident.
+
+</figcaption>
+
+</figure>
+
+<h3>pfSense</h3>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/pfsense-ir.png"
+     class="network"
+     alt="pfSense Incident Response Investigation">
+
+<figcaption>
+
+<strong>Figure 6. pfSense Firewall Investigation.</strong>
+
+Firewall logs provided visibility into permitted and blocked connections related to the security event.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Endpoint Investigation</h2>
+
+<p>
+
+Endpoint telemetry was reviewed to identify suspicious processes, file changes, authentication events, configuration changes, and other host-level activity.
+
+</p>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/wazuh-ir.png"
+     class="network"
+     alt="Wazuh Incident Response Investigation">
+
+<figcaption>
+
+<strong>Figure 7. Wazuh Endpoint Investigation.</strong>
+
+Wazuh XDR provided endpoint alerts and host telemetry used to determine whether suspicious activity affected monitored systems.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline Reconstruction</h2>
+
+<p>
+
+Evidence from all monitoring platforms was organized chronologically to reconstruct the incident from initial activity through investigation and response.
+
+</p>
+
+<table>
+
+<tr>
+<th>Stage</th>
+<th>Observed Activity</th>
+<th>Evidence Source</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Initial reconnaissance</td>
+<td>Security Onion / pfSense</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Port and service discovery</td>
+<td>Zeek / Suricata</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Suspicious connection activity</td>
+<td>Security Onion / pfSense</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Endpoint activity generated</td>
+<td>Wazuh / Sysmon</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Events correlated</td>
+<td>Splunk Enterprise</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Incident confirmed</td>
+<td>SOC investigation</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Containment initiated</td>
+<td>Incident Response</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/timeline.png"
+     class="network"
+     alt="Incident Response Timeline">
+
+<figcaption>
+
+<strong>Figure 8. Incident Timeline.</strong>
+
+The timeline reconstructs the sequence of activity using correlated endpoint, network, firewall, and SIEM evidence.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Containment</h2>
+
+<p>
+
+Containment actions were designed to limit additional exposure while preserving evidence and maintaining visibility into the incident.
+
+</p>
+
+<h3>Containment Actions</h3>
+
+<ul>
+
+<li>Block suspicious source addresses at the firewall.</li>
+
+<li>Restrict communication between affected security zones.</li>
+
+<li>Isolate affected endpoints when necessary.</li>
+
+<li>Disable compromised or suspicious accounts when appropriate.</li>
+
+<li>Preserve logs and investigation evidence.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/containment.png"
+     class="network"
+     alt="Incident Containment">
+
+<figcaption>
+
+<strong>Figure 9. Incident Containment.</strong>
+
+Firewall and endpoint controls were used to restrict suspicious activity and prevent additional exposure.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Eradication</h2>
+
+<p>
+
+After containment, the underlying cause of the incident was addressed to prevent recurrence.
+
+</p>
+
+<h3>Eradication Activities</h3>
+
+<ul>
+
+<li>Remove unauthorized files or processes.</li>
+
+<li>Patch vulnerable software.</li>
+
+<li>Correct insecure configuration settings.</li>
+
+<li>Remove unauthorized accounts or permissions.</li>
+
+<li>Reset affected credentials where required.</li>
+
+<li>Verify systems are free from known malicious artifacts.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/eradication.png"
+     class="network"
+     alt="Incident Eradication">
+
+<figcaption>
+
+<strong>Figure 10. Incident Eradication.</strong>
+
+Remediation actions addressed the identified vulnerability or security weakness responsible for the incident.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Recovery</h2>
+
+<p>
+
+Affected systems were returned to normal operation only after verifying that remediation was successful and security monitoring remained functional.
+
+</p>
+
+<h3>Recovery Validation</h3>
+
+<ul>
+
+<li>Verify system services are functioning normally.</li>
+
+<li>Confirm network connectivity.</li>
+
+<li>Verify security agents remain active.</li>
+
+<li>Confirm centralized logging continues.</li>
+
+<li>Review new alerts for recurring suspicious behavior.</li>
+
+<li>Validate firewall and segmentation controls.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/recovery.png"
+     class="network"
+     alt="Incident Recovery">
+
+<figcaption>
+
+<strong>Figure 11. Recovery Validation.</strong>
+
+Systems were monitored after remediation to confirm secure and stable operation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+The incident response project reinforced the importance of layered monitoring, structured investigation procedures, evidence preservation, and coordinated response actions.
+
+</p>
+
+<ul>
+
+<li>Improved ability to triage and prioritize security events.</li>
+
+<li>Strengthened cross-platform event correlation skills.</li>
+
+<li>Improved familiarity with endpoint and network investigation workflows.</li>
+
+<li>Developed experience constructing incident timelines.</li>
+
+<li>Reinforced the importance of evidence preservation.</li>
+
+<li>Improved understanding of containment strategies.</li>
+
+<li>Strengthened knowledge of eradication and recovery procedures.</li>
+
+<li>Demonstrated the value of network segmentation and least privilege.</li>
+
+<li>Improved incident documentation and reporting skills.</li>
+
+<li>Identified opportunities for improved detection engineering.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Incident Triage</h3>
+<p>Evaluated security events to determine severity, scope, and impact.</p>
+</div>
+
+<div class="project-card">
+<h3>SIEM Analysis</h3>
+<p>Used Splunk Enterprise for searching, correlation, and timeline reconstruction.</p>
+</div>
+
+<div class="project-card">
+<h3>Endpoint Investigation</h3>
+<p>Used Wazuh and Windows telemetry to investigate affected systems.</p>
+</div>
+
+<div class="project-card">
+<h3>Network Investigation</h3>
+<p>Analyzed Security Onion, Zeek, Suricata, and packet evidence.</p>
+</div>
+
+<div class="project-card">
+<h3>Firewall Analysis</h3>
+<p>Reviewed pfSense traffic and applied network containment controls.</p>
+</div>
+
+<div class="project-card">
+<h3>Evidence Collection</h3>
+<p>Collected and correlated security evidence across multiple tools.</p>
+</div>
+
+<div class="project-card">
+<h3>Timeline Analysis</h3>
+<p>Reconstructed incident activity chronologically across multiple data sources.</p>
+</div>
+
+<div class="project-card">
+<h3>Containment & Recovery</h3>
+<p>Documented containment, remediation, and recovery procedures.</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+Explore related MaryShield Cyber Lab projects that support enterprise incident response and security operations.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>
+
+Proactive investigation and correlation of suspicious activity across security platforms.
+
+</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Centralized logging, dashboards, alerts, and security-event correlation.
+
+</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Network security monitoring, IDS alerts, threat hunting, and packet analysis.
+
+</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint monitoring, file integrity monitoring, and security analytics.
+
+</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>pfSense Firewall</h3>
+
+<p>
+
+Network segmentation, access control, logging, and containment.
+
+</p>
+
+<a href="pfsense.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kali Linux</h3>
+
+<p>
+
+Controlled offensive security activity used to generate realistic investigation telemetry.
+
+</p>
+
+<a href="kali.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Metasploitable 2</h3>
+
+<p>
+
+Intentionally vulnerable target used for controlled attack simulation.
+
+</p>
+
+<a href="metasploitable.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory</h3>
+
+<p>
+
+Enterprise identity and authentication environment used in security investigations.
+
+</p>
+
+<a href="active-directory.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 <footer>
 
-<p>© 2026 MaryShield Cyber Lab</p>
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
 
 </footer>
 
