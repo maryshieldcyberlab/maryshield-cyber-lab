@@ -2,47 +2,1167 @@
 <html lang="en">
 
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kerberoasting</title>
-<link rel="stylesheet" href="css/styles.css">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Kerberoasting Detection & Investigation | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
 </head>
 
 <body>
 
 <header>
 
-<h1>MaryShield Cyber Lab</h1>
+<h1>Kerberoasting Detection & Investigation</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
 
 <nav>
 
 <a href="index.html">Home</a>
+
 <a href="about.html">About</a>
+
 <a href="projects.html">Projects</a>
+
 <a href="lab.html">Cyber Lab</a>
+
 <a href="writeups.html">Write-Ups</a>
+
 <a href="resume.html">Resume</a>
+
 <a href="certifications.html">Certifications</a>
+
 <a href="contact.html">Contact</a>
 
 </nav>
 
-</header>
-
 <main>
 
-<h1>Kerberoasting</h1>
+<section>
 
-<p>This project page is under construction. Detailed implementation, screenshots, and detection use cases will be added as the MaryShield Cyber Lab documentation is completed.</p>
+<h1>Kerberoasting Detection & Investigation</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+This project demonstrates the detection and investigation of Kerberoasting-related activity within the MaryShield Cyber Lab. The exercise focuses on identifying suspicious Kerberos service ticket activity, correlating authentication events, and investigating potential credential-access behavior across multiple security platforms.
+
+</p>
+
+<p>
+
+The investigation uses Windows Server 2022 Active Directory, Windows Security Events, Splunk Enterprise, Wazuh XDR, Security Onion, and supporting network telemetry to build an end-to-end SOC detection and analysis workflow.
+
+</p>
+
+<p>
+
+All simulated attack activity documented in this case study was performed only within the isolated and authorized MaryShield Cyber Lab environment.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Enterprise Kerberoasting Detection Architecture</h2>
+
+<p>
+
+The architecture below shows how Kerberos authentication activity is generated within Active Directory and monitored by the defensive security platforms deployed throughout the MaryShield Cyber Lab.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kerberoasting/diagrams/kerberoasting-architecture.png"
+     class="network"
+     alt="Kerberoasting Detection and Investigation Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Kerberoasting Detection Architecture.</strong>
+
+Active Directory authentication activity is monitored through Windows Security Events, Splunk Enterprise, Wazuh XDR, Security Onion, and centralized SOC investigation workflows.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Kerberos and Kerberoasting Overview</h2>
+
+<p>
+
+Kerberos is the primary authentication protocol used by Active Directory. It relies on tickets issued by the Key Distribution Center to authenticate users and services without repeatedly transmitting passwords across the network.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Ticket Granting Ticket</h3>
+
+<p>
+
+A Ticket Granting Ticket (TGT) is issued after successful user authentication and is later used to request access to network services.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Ticket Granting Service</h3>
+
+<p>
+
+The Ticket Granting Service issues service tickets that allow authenticated users to access specific services.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Service Principal Name</h3>
+
+<p>
+
+Service Principal Names identify service instances associated with Active Directory accounts.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kerberoasting</h3>
+
+<p>
+
+Kerberoasting targets service-ticket activity associated with service accounts. Detection focuses on identifying suspicious ticket requests and unusual authentication patterns.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Lab Environment</h2>
+
+<table>
+
+<tr>
+<th>System</th>
+<th>Role</th>
+<th>IP Address</th>
+</tr>
+
+<tr>
+<td>MS-DC01</td>
+<td>Windows Server 2022 / Active Directory / DNS</td>
+<td>10.0.30.10</td>
+</tr>
+
+<tr>
+<td>WIN11-CLIENT01</td>
+<td>Domain-joined Windows endpoint</td>
+<td>10.0.20.22</td>
+</tr>
+
+<tr>
+<td>Kali Linux</td>
+<td>Authorized security testing workstation</td>
+<td>10.0.40.10</td>
+</tr>
+
+<tr>
+<td>Splunk Enterprise</td>
+<td>SIEM and log correlation</td>
+<td>10.0.30.20</td>
+</tr>
+
+<tr>
+<td>Wazuh XDR</td>
+<td>Endpoint monitoring and security analytics</td>
+<td>10.0.30.40</td>
+</tr>
+
+<tr>
+<td>Security Onion</td>
+<td>Network security monitoring</td>
+<td>10.0.20.50</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Preparation and Baseline</h2>
+
+<p>
+
+Before generating test activity, normal Kerberos authentication behavior was reviewed to establish a baseline for comparison.
+
+</p>
+
+<h3>Baseline Activities</h3>
+
+<ul>
+
+<li>Verify Active Directory services are operational.</li>
+
+<li>Confirm domain-joined systems can authenticate normally.</li>
+
+<li>Verify Windows Security auditing is enabled.</li>
+
+<li>Confirm Splunk is receiving Windows Security Events.</li>
+
+<li>Confirm Wazuh agents are active.</li>
+
+<li>Confirm Security Onion is monitoring relevant network traffic.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/kerberos-baseline.png"
+     class="network"
+     alt="Kerberos Baseline Activity">
+
+<figcaption>
+
+<strong>Figure 2. Kerberos Baseline.</strong>
+
+Normal Kerberos authentication activity was reviewed before the controlled security simulation to establish expected behavior.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Controlled Kerberoasting Simulation</h2>
+
+<p>
+
+A controlled Kerberoasting-related security exercise was performed within the isolated lab to generate realistic Kerberos service-ticket telemetry for detection and investigation.
+
+</p>
+
+<p>
+
+The objective of the exercise was to validate monitoring coverage and demonstrate how suspicious service-ticket activity can be identified across Windows logs, SIEM data, endpoint security tools, and network monitoring platforms.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/overview.png"
+     class="network"
+     alt="Controlled Kerberoasting Security Exercise">
+
+<figcaption>
+
+<strong>Figure 3. Controlled Security Exercise.</strong>
+
+Authorized lab activity generated Kerberos telemetry used to validate detection and investigation workflows.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Windows Event Detection</h2>
+
+<p>
+
+Windows Security Events provide the primary authentication telemetry used to investigate Kerberos service-ticket requests.
+
+</p>
+
+<h3>Event ID 4769</h3>
+
+<p>
+
+Event ID 4769 records Kerberos service ticket requests on a domain controller and can provide valuable information about account names, requested services, ticket encryption types, source systems, and timestamps.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/event-4769.png"
+     class="network"
+     alt="Windows Event ID 4769">
+
+<figcaption>
+
+<strong>Figure 4. Kerberos Service Ticket Event.</strong>
+
+Windows Event ID 4769 provides evidence of service-ticket activity that can be reviewed for suspicious patterns.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Splunk Enterprise Detection</h2>
+
+<p>
+
+Splunk Enterprise was used to search, correlate, and analyze Kerberos authentication events collected from the Windows domain controller.
+
+</p>
+
+<h3>Example SPL Search</h3>
+
+<pre><code>
+index=* EventCode=4769
+</code></pre>
+
+A more focused search can be documented like this:
+
+```html
+<pre><code>
+index=* EventCode=4769
+| table _time host Account_Name Service_Name Ticket_Encryption_Type
+| sort _time
+</code></pre>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/splunk-detection.png"
+     class="network"
+     alt="Splunk Kerberoasting Detection">
+
+<figcaption>
+
+<strong>Figure 5. Splunk Kerberos Detection.</strong>
+
+Splunk Enterprise was used to identify and analyze service-ticket requests associated with the controlled security exercise.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh XDR Detection</h2>
+
+<p>
+
+Wazuh XDR was used to review endpoint and Windows security telemetry associated with Kerberos authentication activity.
+
+</p>
+
+<h3>Investigation Areas</h3>
+
+<ul>
+
+<li>Windows Security Events</li>
+
+<li>Agent activity</li>
+
+<li>Rule severity</li>
+
+<li>Authentication events</li>
+
+<li>MITRE ATT&amp;CK mappings</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/wazuh-detection.png"
+     class="network"
+     alt="Wazuh Kerberoasting Detection">
+
+<figcaption>
+
+<strong>Figure 6. Wazuh Kerberos Investigation.</strong>
+
+Wazuh provided endpoint security context that complemented the Windows and Splunk authentication evidence.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Onion Investigation</h2>
+
+<p>
+
+Security Onion was used to review network telemetry associated with Kerberos and Active Directory communications during the exercise.
+
+</p>
+
+<h3>Network Investigation Areas</h3>
+
+<ul>
+
+<li>Kerberos traffic</li>
+
+<li>DNS traffic</li>
+
+<li>LDAP activity</li>
+
+<li>Network connection metadata</li>
+
+<li>Hunt results</li>
+
+<li>Available packet-level evidence</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/security-onion.png"
+     class="network"
+     alt="Security Onion Kerberos Investigation">
+
+<figcaption>
+
+<strong>Figure 7. Security Onion Kerberos Investigation.</strong>
+
+Network telemetry provided additional context for the Active Directory authentication activity observed during the investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>SOC Investigation</h2>
+
+<p>
+
+The SOC investigation correlated events across Windows, Splunk, Wazuh, and Security Onion to determine the source, target, account activity, and sequence of events.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Source System</h3>
+
+<p>
+
+Identify the system responsible for generating the suspicious authentication activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Account</h3>
+
+<p>
+
+Determine which user or service account was associated with the service-ticket request.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Service</h3>
+
+<p>
+
+Identify the requested service and associated Service Principal Name.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Timestamp</h3>
+
+<p>
+
+Correlate event timestamps across SIEM, endpoint, and network telemetry.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Encryption Type</h3>
+
+<p>
+
+Review the Kerberos ticket encryption information captured in authentication events.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Scope</h3>
+
+<p>
+
+Determine whether the activity involved a single service account or broader authentication behavior.
+
+</p>
+
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/investigation.png"
+     class="network"
+     alt="Kerberoasting SOC Investigation">
+
+<figcaption>
+
+<strong>Figure 8. SOC Investigation.</strong>
+
+Evidence from multiple platforms was correlated to determine the source, account, service, and timeline associated with the activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<p>
+
+Observed behavior was mapped to the MITRE ATT&amp;CK framework to provide standardized terminology for the credential-access activity investigated in this case study.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Credential Access</h3>
+
+<p>
+
+Kerberoasting is associated with credential-access activity involving Kerberos service tickets.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Account Discovery</h3>
+
+<p>
+
+Supporting discovery activity may involve identifying accounts or services relevant to authentication.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Service Discovery</h3>
+
+<p>
+
+Service discovery activity may provide context for identifying accessible enterprise services.
+
+</p>
+
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/mitre.png"
+     class="network"
+     alt="Kerberoasting MITRE ATTACK Mapping">
+
+<figcaption>
+
+<strong>Figure 9. MITRE ATT&amp;CK Mapping.</strong>
+
+The observed authentication activity was mapped to relevant ATT&amp;CK tactics and techniques to support standardized detection documentation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<p>
+
+Authentication and monitoring evidence was organized chronologically to reconstruct the sequence of events.
+
+</p>
+
+<table>
+
+<tr>
+<th>Stage</th>
+<th>Activity</th>
+<th>Evidence Source</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Normal Kerberos authentication baseline</td>
+<td>Windows / Splunk</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Service-ticket activity generated</td>
+<td>Domain Controller</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Event ID 4769 recorded</td>
+<td>Windows Security Log</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Event ingested and correlated</td>
+<td>Splunk Enterprise</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Endpoint context reviewed</td>
+<td>Wazuh XDR</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Network telemetry reviewed</td>
+<td>Security Onion</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Activity assessed and documented</td>
+<td>SOC Investigation</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/timeline.png"
+     class="network"
+     alt="Kerberoasting Investigation Timeline">
+
+<figcaption>
+
+<strong>Figure 10. Kerberoasting Timeline.</strong>
+
+Correlated timestamps were used to reconstruct the authentication activity and analyst investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Detection Engineering</h2>
+
+<p>
+
+Detection engineering focused on identifying unusual Kerberos service-ticket activity while reducing false positives caused by legitimate enterprise authentication behavior.
+
+</p>
+
+<h3>Detection Considerations</h3>
+
+<ul>
+
+<li>Frequency of service-ticket requests</li>
+
+<li>Account requesting the ticket</li>
+
+<li>Service Principal Name</li>
+
+<li>Source workstation</li>
+
+<li>Ticket encryption type</li>
+
+<li>Time of activity</li>
+
+<li>Normal service-account behavior</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/detection-rule.png"
+     class="network"
+     alt="Kerberoasting Detection Rule">
+
+<figcaption>
+
+<strong>Figure 11. Detection Engineering.</strong>
+
+Detection logic was developed to identify suspicious Kerberos service-ticket activity while accounting for legitimate authentication patterns.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Mitigation and Active Directory Hardening</h2>
+
+<p>
+
+The investigation identified several defensive practices that can reduce the risk associated with service-account credential exposure.
+
+</p>
+
+<ul>
+
+<li>Use long, complex passwords for service accounts.</li>
+
+<li>Use managed service accounts where appropriate.</li>
+
+<li>Apply least-privilege permissions.</li>
+
+<li>Review Service Principal Name assignments.</li>
+
+<li>Monitor unusual Kerberos service-ticket activity.</li>
+
+<li>Reduce unnecessary service-account privileges.</li>
+
+<li>Audit legacy or weak encryption usage.</li>
+
+<li>Maintain centralized authentication logging.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/mitigation.png"
+     class="network"
+     alt="Kerberoasting Mitigation and Hardening">
+
+<figcaption>
+
+<strong>Figure 12. Mitigation and Hardening.</strong>
+
+Service-account security, monitoring, and least-privilege controls reduce exposure to Kerberos credential attacks.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+This project strengthened my understanding of Kerberos authentication, Active Directory service accounts, security-event correlation, and credential-access detection.
+
+</p>
+
+<ul>
+
+<li>Improved understanding of Kerberos ticket workflows.</li>
+
+<li>Learned how Event ID 4769 supports service-ticket investigation.</li>
+
+<li>Improved Splunk authentication-event correlation skills.</li>
+
+<li>Strengthened Wazuh endpoint-investigation experience.</li>
+
+<li>Improved network-analysis skills using Security Onion.</li>
+
+<li>Developed experience correlating authentication events across multiple platforms.</li>
+
+<li>Improved MITRE ATT&amp;CK mapping skills.</li>
+
+<li>Reinforced the importance of service-account hardening.</li>
+
+<li>Improved false-positive analysis and detection tuning.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Active Directory Security</h3>
+
+<p>
+
+Analyzed Kerberos authentication and service-account security within an enterprise domain.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kerberos Analysis</h3>
+
+<p>
+
+Investigated Kerberos ticket and service-ticket activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Windows Event Analysis</h3>
+
+<p>
+
+Used Security Event ID 4769 and related telemetry during authentication investigations.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk SIEM</h3>
+
+<p>
+
+Searched and correlated authentication events using SPL.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Analyzed endpoint security events and supporting authentication telemetry.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Reviewed network telemetry associated with Active Directory authentication protocols.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>MITRE ATT&amp;CK</h3>
+
+<p>
+
+Mapped observed behavior to standardized adversary tactics and techniques.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Detection Engineering</h3>
+
+<p>
+
+Developed detection logic and considered false-positive reduction.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Final Kerberoasting Investigation Report</h2>
+
+<p>
+
+The final investigation report summarizes the authentication activity, evidence collected, security tools used, MITRE ATT&amp;CK mapping, detection findings, and recommended Active Directory hardening measures.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/final-report.png"
+     class="network"
+     alt="Final Kerberoasting Investigation Report">
+
+<figcaption>
+
+<strong>Figure 13. Final Kerberoasting Investigation Report.</strong>
+
+The completed case study documents the controlled authentication exercise from baseline monitoring through detection, investigation, MITRE mapping, and mitigation recommendations.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+Explore related MaryShield Cyber Lab projects that support Active Directory security, threat detection, and SOC investigation.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Active Directory</h3>
+
+<p>
+
+Enterprise identity, Kerberos authentication, service accounts, DNS, and Group Policy.
+
+</p>
+
+<a href="active-directory.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Windows Server 2022</h3>
+
+<p>
+
+Domain controller infrastructure supporting enterprise authentication services.
+
+</p>
+
+<a href="windows-server.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Centralized Windows event logging, SPL searches, dashboards, and authentication detection.
+
+</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint monitoring and security analytics used during the investigation.
+
+</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Network visibility into Kerberos, DNS, LDAP, and other Active Directory communications.
+
+</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>
+
+Cross-platform correlation and investigation of suspicious security activity.
+
+</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Incident Response</h3>
+
+<p>
+
+Detection, triage, containment, remediation, and recovery workflows.
+
+</p>
+
+<a href="incident-response.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>pfSense Firewall</h3>
+
+<p>
+
+Network segmentation, firewall enforcement, and security-event logging.
+
+</p>
+
+<a href="pfsense.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 <footer>
 
-<p>© 2026 MaryShield Cyber Lab</p>
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
 
 </footer>
 
 </body>
 
 </html>
+
