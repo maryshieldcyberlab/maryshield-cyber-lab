@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Active Directory Attack Detection & Investigation | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Active Directory Attack Detection & Investigation</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="projects.html">Projects</a>
+
+<a href="lab.html">Cyber Lab</a>
+
+<a href="writeups.html">Write-Ups</a>
+
+<a href="resume.html">Resume</a>
+
+<a href="certifications.html">Certifications</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h1>Active Directory Attack Detection & Investigation</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+This project demonstrates the detection and investigation of suspicious Active Directory activity within the MaryShield Cyber Lab. The case study focuses on Windows authentication events, account activity, group changes, PowerShell execution, endpoint telemetry, and network evidence.
+
+</p>
+
+<p>
+
+Security events are correlated across Windows Server 2022, Splunk Enterprise, Wazuh XDR, Security Onion, pfSense, and Sysmon to reproduce a realistic SOC analyst investigation workflow.
+
+</p>
+
+<p>
+
+All simulated activity documented in this project was performed only within the isolated and authorized MaryShield Cyber Lab environment.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Enterprise Active Directory Detection Architecture</h2>
+
+<p>
+
+The architecture below shows how Active Directory authentication, endpoint events, firewall activity, and network telemetry are collected and correlated across the security monitoring stack.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/diagrams/active-directory-detection-architecture.png"
+     class="network"
+     alt="Active Directory Attack Detection Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Active Directory Attack Detection Architecture.</strong>
+
+Windows domain activity is monitored through centralized logging, endpoint detection, network monitoring, firewall controls, and SIEM correlation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Active Directory Security Overview</h2>
+
+<p>
+
+Active Directory provides centralized identity, authentication, authorization, and policy management. Because of its central role, authentication and account-management telemetry are important sources for detecting suspicious behavior.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Authentication</h3>
+<p>Kerberos and NTLM authentication events provide visibility into user and service access.</p>
+</div>
+
+<div class="project-card">
+<h3>Account Management</h3>
+<p>User creation, deletion, password changes, and account modifications can indicate administrative or suspicious activity.</p>
+</div>
+
+<div class="project-card">
+<h3>Group Membership</h3>
+<p>Changes to privileged groups may indicate privilege escalation or administrative misuse.</p>
+</div>
+
+<div class="project-card">
+<h3>PowerShell</h3>
+<p>PowerShell activity can provide valuable evidence during endpoint and administrative investigations.</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Lab Environment</h2>
+
+<table>
+
+<tr>
+<th>System</th>
+<th>Role</th>
+<th>IP Address</th>
+</tr>
+
+<tr>
+<td>MS-DC01</td>
+<td>Windows Server 2022 / Active Directory / DNS</td>
+<td>10.0.30.10</td>
+</tr>
+
+<tr>
+<td>WIN11-CLIENT01</td>
+<td>Domain-joined Windows workstation</td>
+<td>10.0.20.22</td>
+</tr>
+
+<tr>
+<td>Kali Linux</td>
+<td>Authorized security testing workstation</td>
+<td>10.0.40.10</td>
+</tr>
+
+<tr>
+<td>Splunk Enterprise</td>
+<td>SIEM and centralized log analysis</td>
+<td>10.0.30.20</td>
+</tr>
+
+<tr>
+<td>Wazuh XDR</td>
+<td>Endpoint monitoring and security analytics</td>
+<td>10.0.30.40</td>
+</tr>
+
+<tr>
+<td>Security Onion</td>
+<td>Network security monitoring</td>
+<td>10.0.20.50</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Normal Authentication Baseline</h2>
+
+<p>
+
+Before generating test activity, normal domain authentication behavior was reviewed to establish a baseline for comparison.
+
+</p>
+
+<h3>Baseline Activities</h3>
+
+<ul>
+
+<li>Normal domain user logon.</li>
+<li>Successful Windows authentication.</li>
+<li>Kerberos ticket activity.</li>
+<li>Normal domain-controller communication.</li>
+<li>Typical PowerShell administrative activity.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/authentication-baseline.png"
+     class="network"
+     alt="Active Directory Authentication Baseline">
+
+<figcaption>
+
+<strong>Figure 2. Authentication Baseline.</strong>
+
+Normal authentication telemetry provides a reference point for identifying abnormal Active Directory behavior.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Controlled Security Simulation</h2>
+
+<p>
+
+Controlled security tests were performed inside the isolated lab to generate realistic Windows and Active Directory telemetry for detection and investigation.
+
+</p>
+
+<p>
+
+The objective was to validate monitoring coverage rather than to demonstrate unrestricted offensive activity.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/controlled-test.png"
+     class="network"
+     alt="Controlled Active Directory Security Test">
+
+<figcaption>
+
+<strong>Figure 3. Controlled Security Simulation.</strong>
+
+Authorized lab activity generated authentication and endpoint telemetry for the SOC investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Failed Logon Detection — Event ID 4625</h2>
+
+<p>
+
+Windows Security Event ID 4625 records failed account logon attempts and provides valuable evidence when investigating authentication failures, password guessing, or account misuse.
+
+</p>
+
+<h3>Key Fields Reviewed</h3>
+
+<ul>
+
+<li>Account Name</li>
+<li>Logon Type</li>
+<li>Source Address</li>
+<li>Failure Reason</li>
+<li>Workstation Name</li>
+<li>Timestamp</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/event-4625.png"
+     class="network"
+     alt="Windows Event ID 4625">
+
+<figcaption>
+
+<strong>Figure 4. Failed Logon Event.</strong>
+
+Event ID 4625 provides authentication-failure evidence used to identify suspicious login activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Successful Logon Analysis — Event ID 4624</h2>
+
+<p>
+
+Windows Security Event ID 4624 records successful logon activity and provides context for determining whether access followed suspicious failed authentication attempts.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/event-4624.png"
+     class="network"
+     alt="Windows Event ID 4624">
+
+<figcaption>
+
+<strong>Figure 5. Successful Authentication Event.</strong>
+
+Successful logon telemetry was reviewed alongside failed authentication activity to establish user access patterns.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Account and Privileged Group Change Investigation</h2>
+
+<p>
+
+Account-management and group-membership events were reviewed to identify potentially unauthorized administrative changes.
+
+</p>
+
+<h3>Investigation Areas</h3>
+
+<ul>
+
+<li>New user account creation</li>
+<li>Account deletion</li>
+<li>Password reset activity</li>
+<li>Account enable or disable events</li>
+<li>Privileged group membership changes</li>
+<li>Domain Admins membership</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/account-change.png"
+     class="network"
+     alt="Active Directory Account Change Investigation">
+
+<figcaption>
+
+<strong>Figure 6. Account and Group Changes.</strong>
+
+Administrative account activity was reviewed for changes that could indicate privilege escalation or unauthorized access.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>PowerShell Activity Detection</h2>
+
+<p>
+
+PowerShell telemetry was reviewed because administrative and malicious activities may both rely on PowerShell execution.
+
+</p>
+
+<h3>Detection Sources</h3>
+
+<ul>
+
+<li>Windows PowerShell Event Logs</li>
+<li>Sysmon Process Creation</li>
+<li>Command-line logging</li>
+<li>Splunk searches</li>
+<li>Wazuh endpoint events</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/powershell-detection.png"
+     class="network"
+     alt="PowerShell Activity Detection">
+
+<figcaption>
+
+<strong>Figure 7. PowerShell Activity Detection.</strong>
+
+PowerShell activity was correlated with endpoint and authentication telemetry during the investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Splunk Detection and Correlation</h2>
+
+<p>
+
+Splunk Enterprise was used to search Windows Security Events, correlate authentication activity, and build an event timeline.
+
+</p>
+
+<h3>Example SPL Searches</h3>
+
+<pre><code>
+index=* EventCode=4625
+</code></pre>
+
+<pre><code>
+index=* EventCode=4624
+</code></pre>
+
+<pre><code>
+index=* host=MS-DC01
+| sort _time
+</code></pre>
+
+<pre><code>
+index=* sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational"
+</code></pre>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/splunk-detection.png"
+     class="network"
+     alt="Splunk Active Directory Detection">
+
+<figcaption>
+
+<strong>Figure 8. Splunk Detection and Correlation.</strong>
+
+Splunk centralized Windows authentication and Sysmon telemetry for cross-event investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh XDR Investigation</h2>
+
+<p>
+
+Wazuh XDR provided endpoint-security context for authentication activity, system changes, account events, and other suspicious behavior.
+
+</p>
+
+<h3>Investigation Areas</h3>
+
+<ul>
+
+<li>Windows Security Events</li>
+<li>Agent activity</li>
+<li>Rule severity</li>
+<li>MITRE ATT&amp;CK mapping</li>
+<li>File Integrity Monitoring</li>
+<li>System inventory</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/wazuh-detection.png"
+     class="network"
+     alt="Wazuh Active Directory Investigation">
+
+<figcaption>
+
+<strong>Figure 9. Wazuh XDR Investigation.</strong>
+
+Wazuh provided endpoint context that complemented Windows and Splunk authentication evidence.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Onion Network Investigation</h2>
+
+<p>
+
+Security Onion was used to review network communications associated with Active Directory authentication and administrative activity.
+
+</p>
+
+<h3>Relevant Protocols</h3>
+
+<ul>
+
+<li>Kerberos</li>
+<li>LDAP</li>
+<li>DNS</li>
+<li>SMB</li>
+<li>RPC</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/security-onion.png"
+     class="network"
+     alt="Security Onion Active Directory Investigation">
+
+<figcaption>
+
+<strong>Figure 10. Security Onion Network Investigation.</strong>
+
+Network telemetry provided protocol-level context for the Active Directory security investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Cross-Platform SOC Investigation</h2>
+
+<p>
+
+Evidence from Splunk, Wazuh, Security Onion, Windows Event Logs, and pfSense was correlated to establish the source, target, account, timeline, and potential impact of the observed activity.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Identity</h3>
+<p>Which user or service account was involved?</p>
+</div>
+
+<div class="project-card">
+<h3>Source</h3>
+<p>Which endpoint or IP address initiated the activity?</p>
+</div>
+
+<div class="project-card">
+<h3>Target</h3>
+<p>Which domain controller, workstation, or service was affected?</p>
+</div>
+
+<div class="project-card">
+<h3>Timeline</h3>
+<p>When did the suspicious activity begin and end?</p>
+</div>
+
+<div class="project-card">
+<h3>Behavior</h3>
+<p>Was the activity consistent with expected administrative behavior?</p>
+</div>
+
+<div class="project-card">
+<h3>Scope</h3>
+<p>Did the activity affect one account or multiple systems?</p>
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/investigation.png"
+     class="network"
+     alt="Cross Platform Active Directory Investigation">
+
+<figcaption>
+
+<strong>Figure 11. Cross-Platform SOC Investigation.</strong>
+
+Evidence from multiple security platforms was correlated to validate the nature and scope of the activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<p>
+
+Observed behavior was mapped to relevant MITRE ATT&amp;CK tactics and techniques when supported by the collected evidence.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Credential Access</h3>
+<p>Authentication activity may indicate attempts to access or misuse enterprise credentials.</p>
+</div>
+
+<div class="project-card">
+<h3>Discovery</h3>
+<p>Account, domain, or service discovery may provide context for suspicious behavior.</p>
+</div>
+
+<div class="project-card">
+<h3>Privilege Escalation</h3>
+<p>Unexpected privileged-group changes may indicate elevated access.</p>
+</div>
+
+<div class="project-card">
+<h3>Execution</h3>
+<p>Suspicious PowerShell or process activity may indicate execution-related behavior.</p>
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/mitre.png"
+     class="network"
+     alt="Active Directory MITRE ATTACK Mapping">
+
+<figcaption>
+
+<strong>Figure 12. MITRE ATT&amp;CK Mapping.</strong>
+
+Observed behaviors were mapped to standardized tactics and techniques to support investigation and reporting.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<p>
+
+Authentication, endpoint, and network evidence was organized chronologically to reconstruct the activity.
+
+</p>
+
+<table>
+
+<tr>
+<th>Stage</th>
+<th>Activity</th>
+<th>Evidence Source</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Normal authentication baseline</td>
+<td>Windows / Splunk</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Failed authentication event</td>
+<td>Event ID 4625</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Successful or related authentication activity</td>
+<td>Event ID 4624</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Account or group modification</td>
+<td>Windows Security Logs</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Endpoint activity reviewed</td>
+<td>Wazuh / Sysmon</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Network telemetry correlated</td>
+<td>Security Onion</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Events correlated and documented</td>
+<td>Splunk / SOC Analysis</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/timeline.png"
+     class="network"
+     alt="Active Directory Investigation Timeline">
+
+<figcaption>
+
+<strong>Figure 13. Incident Timeline.</strong>
+
+The timeline reconstructs authentication and administrative activity across multiple data sources.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Detection Engineering</h2>
+
+<p>
+
+Detection logic was developed to identify unusual Active Directory activity while accounting for legitimate administrative behavior.
+
+</p>
+
+<h3>Detection Areas</h3>
+
+<ul>
+
+<li>Repeated failed logons</li>
+<li>Successful logon following multiple failures</li>
+<li>Unexpected privileged-group membership changes</li>
+<li>New account creation</li>
+<li>PowerShell execution</li>
+<li>Unusual authentication source systems</li>
+<li>Events occurring outside expected administrative patterns</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/detection-rule.png"
+     class="network"
+     alt="Active Directory Detection Engineering">
+
+<figcaption>
+
+<strong>Figure 14. Detection Engineering.</strong>
+
+Detection rules were developed to identify suspicious authentication and account-management patterns while reducing false positives.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Active Directory Hardening and Mitigation</h2>
+
+<p>
+
+The investigation identified defensive controls that can reduce the risk associated with unauthorized account access, credential abuse, and privilege escalation.
+
+</p>
+
+<ul>
+
+<li>Enforce strong password policies.</li>
+<li>Apply account lockout controls.</li>
+<li>Use least-privilege access.</li>
+<li>Limit membership in privileged groups.</li>
+<li>Audit Domain Admins regularly.</li>
+<li>Use managed service accounts where appropriate.</li>
+<li>Monitor account creation and deletion.</li>
+<li>Enable detailed Windows auditing.</li>
+<li>Monitor PowerShell activity.</li>
+<li>Centralize authentication logs.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/mitigation.png"
+     class="network"
+     alt="Active Directory Hardening">
+
+<figcaption>
+
+<strong>Figure 15. Active Directory Hardening.</strong>
+
+Identity controls, auditing, least privilege, and centralized monitoring reduce the risk of unauthorized domain activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+This project strengthened my understanding of Active Directory security monitoring, authentication-event analysis, account-management detection, and cross-platform SOC investigation.
+
+</p>
+
+<ul>
+
+<li>Improved Windows Security Event analysis skills.</li>
+<li>Strengthened understanding of Events 4624 and 4625.</li>
+<li>Improved Active Directory account-change investigation skills.</li>
+<li>Developed additional experience analyzing PowerShell activity.</li>
+<li>Improved Splunk correlation and timeline analysis.</li>
+<li>Strengthened Wazuh endpoint-investigation experience.</li>
+<li>Improved Security Onion network-analysis skills.</li>
+<li>Expanded MITRE ATT&amp;CK mapping experience.</li>
+<li>Improved false-positive analysis and detection tuning.</li>
+<li>Reinforced Active Directory hardening principles.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Active Directory Security</h3>
+<p>Investigated authentication, account, and privileged-group activity.</p>
+</div>
+
+<div class="project-card">
+<h3>Windows Event Analysis</h3>
+<p>Analyzed successful and failed authentication events and administrative changes.</p>
+</div>
+
+<div class="project-card">
+<h3>Splunk Enterprise</h3>
+<p>Used SPL to search, correlate, and reconstruct security activity.</p>
+</div>
+
+<div class="project-card">
+<h3>Wazuh XDR</h3>
+<p>Investigated endpoint activity and security alerts.</p>
+</div>
+
+<div class="project-card">
+<h3>Security Onion</h3>
+<p>Reviewed Kerberos, LDAP, SMB, DNS, and other network telemetry.</p>
+</div>
+
+<div class="project-card">
+<h3>Sysmon</h3>
+<p>Analyzed detailed endpoint process and execution telemetry.</p>
+</div>
+
+<div class="project-card">
+<h3>MITRE ATT&amp;CK</h3>
+<p>Mapped observed behavior to standardized attacker tactics and techniques.</p>
+</div>
+
+<div class="project-card">
+<h3>Detection Engineering</h3>
+<p>Developed detection logic and evaluated false-positive considerations.</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Final Active Directory Investigation Report</h2>
+
+<p>
+
+The final investigation report summarizes the authentication activity, evidence collected, affected systems, security tools used, MITRE ATT&amp;CK mapping, detection findings, and recommended Active Directory hardening measures.
+
+</p>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/final-report.png"
+     class="network"
+     alt="Final Active Directory Attack Detection Investigation Report">
+
+<figcaption>
+
+<strong>Figure 16. Final Active Directory Investigation Report.</strong>
+
+The completed case study documents the Active Directory investigation from baseline monitoring through detection, correlation, analysis, mitigation, and final reporting.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+Explore related MaryShield Cyber Lab projects that support Active Directory security and enterprise SOC operations.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Active Directory</h3>
+
+<p>Enterprise identity, Kerberos authentication, DNS, Group Policy, and account administration.</p>
+
+<a href="active-directory.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kerberoasting Detection</h3>
+
+<p>Specialized Kerberos credential-access detection and investigation case study.</p>
+
+<a href="kerberoasting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Windows Server 2022</h3>
+
+<p>Domain controller and enterprise infrastructure deployment.</p>
+
+<a href="windows-server.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>Centralized Windows logging, dashboards, alerts, and threat detection.</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>Endpoint monitoring, security analytics, FIM, and detection.</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>Network visibility, Suricata alerts, Zeek metadata, Hunt, and PCAP.</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>Cross-platform investigation and security-event correlation.</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Incident Response</h3>
+
+<p>Detection, triage, containment, eradication, recovery, and reporting.</p>
+
+<a href="incident-response.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
+
+</footer>
+
+</body>
+
+</html>
+
