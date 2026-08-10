@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>SOC Analyst Case Study | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>SOC Analyst Case Study</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="projects.html">Projects</a>
+
+<a href="lab.html">Cyber Lab</a>
+
+<a href="writeups.html">Write-Ups</a>
+
+<a href="resume.html">Resume</a>
+
+<a href="certifications.html">Certifications</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h1>Enterprise SOC Analyst Case Study</h1>
+
+<h2>Project Overview</h2>
+
+<p>
+
+This project demonstrates an end-to-end SOC Analyst investigation within the MaryShield Cyber Lab. The exercise combines alert triage, log analysis, endpoint investigation, network investigation, firewall analysis, MITRE ATT&amp;CK mapping, timeline reconstruction, containment, eradication, recovery, and final reporting.
+
+</p>
+
+<p>
+
+Evidence is correlated across Splunk Enterprise, Wazuh XDR, Security Onion, pfSense, Windows Security Event Logs, Sysmon, Active Directory, Kali Linux, and other lab systems to demonstrate a realistic multi-platform security operations workflow.
+
+</p>
+
+<p>
+
+All simulated activity documented in this case study was performed only within the isolated and authorized MaryShield Cyber Lab environment.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>SOC Analyst Role</h2>
+
+<p>
+
+The SOC Analyst is responsible for monitoring security telemetry, validating alerts, investigating suspicious behavior, determining scope and impact, coordinating containment, documenting evidence, and recommending defensive improvements.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Monitoring</h3>
+<p>Review SIEM, endpoint, network, and firewall telemetry for suspicious activity.</p>
+</div>
+
+<div class="project-card">
+<h3>Triage</h3>
+<p>Determine whether an alert represents benign activity, a false positive, or a security incident.</p>
+</div>
+
+<div class="project-card">
+<h3>Investigation</h3>
+<p>Correlate users, systems, processes, IP addresses, timestamps, and alerts.</p>
+</div>
+
+<div class="project-card">
+<h3>Response</h3>
+<p>Support containment, remediation, recovery, and post-incident review.</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Enterprise SOC Architecture</h2>
+
+<p>
+
+The architecture below shows how security telemetry is collected from endpoints, servers, network sensors, firewalls, and testing systems and correlated across the MaryShield security operations stack.
+
+</p>
+
+<figure>
+
+<img src="images/projects/soc-case-study/diagrams/soc-case-study-architecture.png"
+     class="network"
+     alt="Enterprise SOC Analyst Case Study Architecture">
+
+<figcaption>
+
+<strong>Figure 1. Enterprise SOC Architecture.</strong>
+
+Endpoint, network, firewall, identity, and SIEM telemetry are correlated to support detection, investigation, response, and reporting.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Scenario</h2>
+
+<p>
+
+A controlled multi-stage security scenario was generated within the lab to provide realistic telemetry for SOC investigation.
+
+</p>
+
+<p>
+
+The simulated activity included reconnaissance, authentication anomalies, suspicious endpoint behavior, and follow-on activity that required correlation across multiple defensive platforms.
+
+</p>
+
+<h3>Scenario Objectives</h3>
+
+<ul>
+
+<li>Generate realistic attack telemetry.</li>
+<li>Validate monitoring coverage.</li>
+<li>Perform alert triage.</li>
+<li>Correlate endpoint and network evidence.</li>
+<li>Determine scope and impact.</li>
+<li>Contain the simulated incident.</li>
+<li>Document remediation and recovery.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/case-overview.png"
+     class="network"
+     alt="SOC Case Study Overview">
+
+<figcaption>
+
+<strong>Figure 2. SOC Case Study Scenario.</strong>
+
+The controlled scenario generated security telemetry for an end-to-end analyst investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Initial Alert</h2>
+
+<p>
+
+The investigation began when suspicious activity was identified by one or more monitoring platforms.
+
+</p>
+
+<h3>Initial Alert Review</h3>
+
+<ul>
+
+<li>Alert name or signature</li>
+<li>Timestamp</li>
+<li>Severity</li>
+<li>Source system or IP</li>
+<li>Destination system or IP</li>
+<li>Affected user or account</li>
+<li>Initial analyst assessment</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/initial-alert.png"
+     class="network"
+     alt="Initial SOC Security Alert">
+
+<figcaption>
+
+<strong>Figure 3. Initial Security Alert.</strong>
+
+The initial detection provided the starting point for SOC triage and deeper investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Initial Triage</h2>
+
+<p>
+
+The alert was triaged to determine whether the activity represented expected behavior, a false positive, or a confirmed security event requiring escalation.
+
+</p>
+
+<table>
+
+<tr>
+<th>Triage Question</th>
+<th>Analyst Finding</th>
+</tr>
+
+<tr>
+<td>What happened?</td>
+<td>Suspicious activity was identified and required validation.</td>
+</tr>
+
+<tr>
+<td>Where did it originate?</td>
+<td>Source host and IP were identified through correlated telemetry.</td>
+</tr>
+
+<tr>
+<td>What was targeted?</td>
+<td>The affected endpoint, account, or service was identified.</td>
+</tr>
+
+<tr>
+<td>When did it happen?</td>
+<td>Event timestamps were compared across multiple tools.</td>
+</tr>
+
+<tr>
+<td>How severe is it?</td>
+<td>Severity was assessed using observed behavior and potential impact.</td>
+</tr>
+
+<tr>
+<td>What is the scope?</td>
+<td>Related systems, accounts, processes, and connections were reviewed.</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Splunk Enterprise Investigation</h2>
+
+<p>
+
+Splunk Enterprise was used to search and correlate Windows Security Events, Sysmon telemetry, authentication events, and other centralized security logs.
+
+</p>
+
+<h3>Example SPL Searches</h3>
+
+<pre><code>
+index=* EventCode=4625
+</code></pre>
+
+<pre><code>
+index=* EventCode=4624
+</code></pre>
+
+<pre><code>
+index=* "powershell.exe"
+</code></pre>
+
+<pre><code>
+index=* host=MS-DC01
+| sort 0 _time
+</code></pre>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/splunk-triage.png"
+     class="network"
+     alt="Splunk SOC Investigation">
+
+<figcaption>
+
+<strong>Figure 4. Splunk Investigation.</strong>
+
+Splunk searches were used to correlate authentication, endpoint, and security events associated with the incident.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh XDR Investigation</h2>
+
+<p>
+
+Wazuh XDR provided endpoint-security context including Windows events, file changes, process activity, system information, security rules, and MITRE ATT&amp;CK mappings.
+
+</p>
+
+<h3>Investigation Areas</h3>
+
+<ul>
+
+<li>Agent activity</li>
+<li>Windows Security Events</li>
+<li>Rule descriptions</li>
+<li>Rule severity</li>
+<li>File Integrity Monitoring</li>
+<li>System inventory</li>
+<li>MITRE ATT&amp;CK mapping</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/wazuh-triage.png"
+     class="network"
+     alt="Wazuh SOC Investigation">
+
+<figcaption>
+
+<strong>Figure 5. Wazuh Investigation.</strong>
+
+Wazuh endpoint telemetry provided additional context for the activity identified during SOC triage.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Onion Investigation</h2>
+
+<p>
+
+Security Onion was used to analyze network-level evidence associated with the incident.
+
+</p>
+
+<h3>Investigation Components</h3>
+
+<ul>
+
+<li>Alerts</li>
+<li>Hunt</li>
+<li>Suricata IDS</li>
+<li>Zeek metadata</li>
+<li>Protocol analysis</li>
+<li>Packet capture</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/security-onion-triage.png"
+     class="network"
+     alt="Security Onion SOC Investigation">
+
+<figcaption>
+
+<strong>Figure 6. Security Onion Investigation.</strong>
+
+Network telemetry provided source, destination, protocol, port, and IDS context for the investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>pfSense Firewall Investigation</h2>
+
+<p>
+
+pfSense firewall logs were reviewed to determine whether suspicious traffic crossed network boundaries and whether connections were permitted or blocked.
+
+</p>
+
+<h3>Firewall Evidence</h3>
+
+<ul>
+
+<li>Source IP</li>
+<li>Destination IP</li>
+<li>Source and destination ports</li>
+<li>Protocol</li>
+<li>Interface</li>
+<li>Allow or block action</li>
+<li>Connection timestamp</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/pfsense-evidence.png"
+     class="network"
+     alt="pfSense SOC Investigation Evidence">
+
+<figcaption>
+
+<strong>Figure 7. pfSense Firewall Evidence.</strong>
+
+Firewall logs provided additional network context and helped validate communication associated with the incident.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Windows Event Analysis</h2>
+
+<p>
+
+Windows Security Event Logs were analyzed to identify authentication, account-management, privilege, and Kerberos activity related to the investigation.
+
+</p>
+
+<h3>Relevant Windows Events</h3>
+
+<ul>
+
+<li>4624 — Successful logon</li>
+<li>4625 — Failed logon</li>
+<li>4720 — User account created</li>
+<li>4728 / 4732 — Group membership changes</li>
+<li>4768 — Kerberos TGT request</li>
+<li>4769 — Kerberos service ticket request</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/windows-event.png"
+     class="network"
+     alt="Windows Security Event Investigation">
+
+<figcaption>
+
+<strong>Figure 8. Windows Security Event Analysis.</strong>
+
+Windows authentication and account-management events provided identity-related evidence for the investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Sysmon Analysis</h2>
+
+<p>
+
+Sysmon telemetry was reviewed to identify processes, command lines, parent-child relationships, and network activity associated with suspicious endpoint behavior.
+
+</p>
+
+<h3>Key Evidence</h3>
+
+<ul>
+
+<li>Process image</li>
+<li>Command line</li>
+<li>Parent process</li>
+<li>User</li>
+<li>Process ID</li>
+<li>Hashes</li>
+<li>Network connection information</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/sysmon-event.png"
+     class="network"
+     alt="Sysmon SOC Investigation">
+
+<figcaption>
+
+<strong>Figure 9. Sysmon Endpoint Analysis.</strong>
+
+Detailed process telemetry helped determine what executed on affected Windows systems.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Cross-Platform Event Correlation</h2>
+
+<p>
+
+Evidence was correlated across SIEM, XDR, IDS, firewall, endpoint, and identity systems to build a complete picture of the activity.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Identity</h3>
+<p>Determine which account or service identity was involved.</p>
+</div>
+
+<div class="project-card">
+<h3>Endpoint</h3>
+<p>Determine what process or activity occurred on affected hosts.</p>
+</div>
+
+<div class="project-card">
+<h3>Network</h3>
+<p>Determine which systems communicated and through which protocols.</p>
+</div>
+
+<div class="project-card">
+<h3>Firewall</h3>
+<p>Determine whether traffic was allowed, blocked, or crossed security zones.</p>
+</div>
+
+<div class="project-card">
+<h3>Time</h3>
+<p>Align timestamps across all evidence sources.</p>
+</div>
+
+<div class="project-card">
+<h3>Context</h3>
+<p>Determine whether the observed activity formed part of a larger attack sequence.</p>
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/correlation.png"
+     class="network"
+     alt="Cross Platform SOC Correlation">
+
+<figcaption>
+
+<strong>Figure 10. Cross-Platform Correlation.</strong>
+
+Multiple telemetry sources were aligned by host, user, IP address, process, and timestamp to validate the incident.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<p>
+
+Observed behaviors were mapped to relevant MITRE ATT&amp;CK tactics and techniques when supported by collected evidence.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>Reconnaissance</h3>
+<p>Network or service discovery activity associated with the scenario.</p>
+</div>
+
+<div class="project-card">
+<h3>Credential Access</h3>
+<p>Authentication and credential-related activity identified during the investigation.</p>
+</div>
+
+<div class="project-card">
+<h3>Execution</h3>
+<p>Process or PowerShell execution observed on affected systems.</p>
+</div>
+
+<div class="project-card">
+<h3>Privilege Escalation</h3>
+<p>Account or group changes that may indicate elevated access.</p>
+</div>
+
+<div class="project-card">
+<h3>Discovery</h3>
+<p>Account, service, host, or network discovery observed during the incident.</p>
+</div>
+
+<div class="project-card">
+<h3>Lateral Movement</h3>
+<p>Cross-system activity reviewed when supported by evidence.</p>
+</div>
+
+</div>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/mitre.png"
+     class="network"
+     alt="SOC MITRE ATTACK Mapping">
+
+<figcaption>
+
+<strong>Figure 11. MITRE ATT&amp;CK Mapping.</strong>
+
+Observed activity was mapped to standardized adversary tactics and techniques to support investigation and reporting.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<p>
+
+Collected evidence was organized chronologically to reconstruct the incident from the initial activity through analyst response.
+
+</p>
+
+<table>
+
+<tr>
+<th>Stage</th>
+<th>Activity</th>
+<th>Evidence Source</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Initial suspicious activity detected</td>
+<td>Security Onion / Splunk</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Authentication anomalies identified</td>
+<td>Windows / Splunk</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Endpoint activity observed</td>
+<td>Sysmon / Wazuh</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Network connections validated</td>
+<td>Security Onion / pfSense</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Events correlated across platforms</td>
+<td>SOC Analyst</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Incident scope determined</td>
+<td>Combined evidence</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Containment initiated</td>
+<td>Incident Response</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/timeline.png"
+     class="network"
+     alt="SOC Incident Timeline">
+
+<figcaption>
+
+<strong>Figure 12. Incident Timeline.</strong>
+
+The chronological timeline reconstructs the observed activity using evidence collected from multiple security platforms.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Scope and Impact Assessment</h2>
+
+<p>
+
+The SOC investigation determined which systems, users, services, and security controls were involved and evaluated the potential impact of the incident.
+
+</p>
+
+<table>
+
+<tr>
+<th>Category</th>
+<th>Assessment</th>
+</tr>
+
+<tr>
+<td>Affected Hosts</td>
+<td>Systems identified during evidence correlation.</td>
+</tr>
+
+<tr>
+<td>Affected Accounts</td>
+<td>Users or service identities associated with suspicious activity.</td>
+</tr>
+
+<tr>
+<td>Network Scope</td>
+<td>Security zones and communication paths involved in the incident.</td>
+</tr>
+
+<tr>
+<td>Observed Processes</td>
+<td>Processes and command-line activity identified through endpoint telemetry.</td>
+</tr>
+
+<tr>
+<td>Security Impact</td>
+<td>Potential confidentiality, integrity, or availability impact.</td>
+</tr>
+
+<tr>
+<td>Overall Severity</td>
+<td>Severity determined from correlated evidence and potential risk.</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Containment</h2>
+
+<p>
+
+Containment actions were designed to prevent additional suspicious activity while preserving evidence for investigation.
+
+</p>
+
+<h3>Containment Actions</h3>
+
+<ul>
+
+<li>Block suspicious source addresses at pfSense.</li>
+<li>Restrict communication between affected network zones.</li>
+<li>Isolate affected endpoints when appropriate.</li>
+<li>Disable suspicious accounts if necessary.</li>
+<li>Preserve logs and investigation evidence.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/containment.png"
+     class="network"
+     alt="SOC Incident Containment">
+
+<figcaption>
+
+<strong>Figure 13. Incident Containment.</strong>
+
+Network and endpoint controls were applied to limit the simulated security incident.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Eradication</h2>
+
+<p>
+
+After containment, the simulated root cause and associated test artifacts were removed or reversed.
+
+</p>
+
+<h3>Eradication Activities</h3>
+
+<ul>
+
+<li>Remove temporary suspicious files or test artifacts.</li>
+<li>Reverse unauthorized or test account changes.</li>
+<li>Disable unnecessary services or exposure.</li>
+<li>Correct vulnerable configurations.</li>
+<li>Reset affected credentials where required.</li>
+<li>Verify no related suspicious activity remains.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Recovery</h2>
+
+<p>
+
+Systems were returned to normal operation after remediation and security-monitoring services were verified.
+
+</p>
+
+<h3>Recovery Validation</h3>
+
+<ul>
+
+<li>Verify Windows systems are functioning normally.</li>
+<li>Confirm Wazuh agents are active.</li>
+<li>Confirm Splunk forwarders are sending data.</li>
+<li>Verify Security Onion monitoring is operational.</li>
+<li>Confirm pfSense network connectivity and firewall rules.</li>
+<li>Review new alerts for recurring suspicious behavior.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/recovery.png"
+     class="network"
+     alt="SOC Incident Recovery">
+
+<figcaption>
+
+<strong>Figure 14. Recovery Validation.</strong>
+
+Post-remediation validation confirmed that systems and security-monitoring services returned to expected operation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Final Analyst Assessment</h2>
+
+<p>
+
+The simulated incident was successfully detected and investigated using multiple enterprise security platforms.
+
+</p>
+
+<p>
+
+Evidence from Splunk Enterprise, Wazuh XDR, Security Onion, pfSense, Windows Event Logs, and Sysmon was correlated to reconstruct the sequence of activity and determine the source, target, scope, and potential impact.
+
+</p>
+
+<p>
+
+The incident was contained within the lab environment, test conditions were remediated, and monitoring was verified after recovery.
+
+</p>
+
+<p>
+
+The exercise demonstrated effective cross-platform detection, triage, investigation, correlation, containment, remediation, recovery, and documentation.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<ul>
+
+<li>Cross-platform correlation improves investigation confidence.</li>
+
+<li>Timestamps must be aligned carefully across security platforms.</li>
+
+<li>A single alert rarely provides the complete incident story.</li>
+
+<li>Endpoint and network telemetry complement each other.</li>
+
+<li>Windows authentication events are essential for identity investigations.</li>
+
+<li>Sysmon provides valuable process-level context.</li>
+
+<li>Firewall evidence helps validate network movement.</li>
+
+<li>Detection rules require tuning to reduce false positives.</li>
+
+<li>Evidence preservation is an important part of incident response.</li>
+
+<li>Clear documentation improves investigation quality and repeatability.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+<h3>SOC Triage</h3>
+<p>Evaluated alerts to determine severity, scope, and investigative priority.</p>
+</div>
+
+<div class="project-card">
+<h3>SIEM Analysis</h3>
+<p>Used Splunk Enterprise to search, correlate, and reconstruct security events.</p>
+</div>
+
+<div class="project-card">
+<h3>Endpoint Investigation</h3>
+<p>Analyzed Wazuh, Windows, and Sysmon endpoint telemetry.</p>
+</div>
+
+<div class="project-card">
+<h3>Network Investigation</h3>
+<p>Reviewed Security Onion, Zeek, Suricata, and packet evidence.</p>
+</div>
+
+<div class="project-card">
+<h3>Firewall Analysis</h3>
+<p>Used pfSense logs to validate network communications and containment actions.</p>
+</div>
+
+<div class="project-card">
+<h3>MITRE ATT&amp;CK</h3>
+<p>Mapped observed activity to standardized attacker tactics and techniques.</p>
+</div>
+
+<div class="project-card">
+<h3>Incident Response</h3>
+<p>Documented containment, eradication, recovery, and post-incident actions.</p>
+</div>
+
+<div class="project-card">
+<h3>Security Reporting</h3>
+<p>Documented evidence, timelines, findings, risk, and recommendations.</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Final SOC Analyst Report</h2>
+
+<p>
+
+The final SOC report summarizes the incident classification, evidence collected, affected systems, MITRE ATT&amp;CK mappings, timeline, response actions, final assessment, and recommended security improvements.
+
+</p>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/final-report.png"
+     class="network"
+     alt="Final SOC Analyst Investigation Report">
+
+<figcaption>
+
+<strong>Figure 15. Final SOC Analyst Report.</strong>
+
+The completed case study documents the investigation from initial alert through triage, evidence correlation, containment, eradication, recovery, and final reporting.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Related Projects</h2>
+
+<p>
+
+Explore related MaryShield Cyber Lab projects that support enterprise SOC operations, attack detection, and incident response.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>Proactive investigation and correlation of suspicious activity across multiple telemetry sources.</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Incident Response</h3>
+
+<p>Detection, triage, evidence collection, containment, eradication, and recovery.</p>
+
+<a href="incident-response.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory Attack Detection</h3>
+
+<p>Detection and investigation of authentication, account, privilege, and PowerShell activity.</p>
+
+<a href="active-directory-detection.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kerberoasting Detection</h3>
+
+<p>Kerberos credential-access detection and Active Directory investigation.</p>
+
+<a href="kerberoasting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>Centralized logging, searches, dashboards, alerts, and SIEM correlation.</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>Endpoint monitoring, FIM, threat detection, and security analytics.</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>Network security monitoring, Suricata, Zeek, Hunt, and PCAP analysis.</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>pfSense Firewall</h3>
+
+<p>Segmentation, firewall enforcement, network logging, and incident containment.</p>
+
+<a href="pfsense.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Kali Linux</h3>
+
+<p>Controlled offensive security testing used to generate investigation telemetry.</p>
+
+<a href="kali.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Metasploitable 2</h3>
+
+<p>Intentionally vulnerable system used for controlled attack simulations.</p>
+
+<a href="metasploitable.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
+
+</footer>
+
+</body>
+
+</html>
+
