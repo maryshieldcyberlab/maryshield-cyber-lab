@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Brute-Force Attack Detection Write-Up | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Brute-Force Attack Detection &amp; Investigation</h1>
+
+<p>Cybersecurity Write-Up | MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="projects.html">Projects</a>
+
+<a href="writeups.html">Write-Ups</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This write-up documents a controlled brute-force detection exercise conducted within the MaryShield Cyber Lab.
+
+</p>
+
+<p>
+
+The investigation focused on repeated failed authentication attempts, Windows Security Event ID 4625, source IP identification, SIEM correlation, endpoint monitoring, network evidence, firewall analysis, MITRE ATT&amp;CK mapping, containment, and defensive hardening.
+
+</p>
+
+<p>
+
+The objective was to demonstrate how a SOC analyst can identify suspicious authentication patterns, validate the source of the activity, correlate evidence across multiple platforms, and respond appropriately.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Scenario</h2>
+
+<p>
+
+A controlled series of failed authentication attempts was generated against an authorized lab account to create realistic Windows security telemetry.
+
+</p>
+
+<p>
+
+The exercise was designed to validate whether repeated failed logons could be detected and investigated across Windows Event Logs, Splunk Enterprise, Wazuh XDR, Security Onion, and pfSense.
+
+</p>
+
+<p>
+
+All testing was performed exclusively within the isolated and authorized MaryShield Cyber Lab environment.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Environment</h2>
+
+<table>
+
+<tr>
+<th>System / Platform</th>
+<th>Role</th>
+</tr>
+
+<tr>
+<td>MS-DC01</td>
+<td>Windows Server 2022 / Active Directory / DNS</td>
+</tr>
+
+<tr>
+<td>WIN11-CLIENT01</td>
+<td>Domain-joined Windows endpoint</td>
+</tr>
+
+<tr>
+<td>Kali Linux</td>
+<td>Authorized security-testing workstation</td>
+</tr>
+
+<tr>
+<td>Splunk Enterprise</td>
+<td>SIEM and authentication-event correlation</td>
+</tr>
+
+<tr>
+<td>Wazuh XDR</td>
+<td>Endpoint monitoring and security analytics</td>
+</tr>
+
+<tr>
+<td>Security Onion</td>
+<td>Network security monitoring</td>
+</tr>
+
+<tr>
+<td>pfSense</td>
+<td>Firewall logging, segmentation, and containment</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Authentication Baseline</h2>
+
+<p>
+
+Normal successful authentication activity was reviewed before the controlled test to establish a reference for expected user behavior.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/authentication-baseline.png"
+     class="network"
+     alt="Normal Authentication Baseline">
+
+<figcaption>
+
+<strong>Authentication Baseline.</strong>
+
+Normal successful logon activity provided a comparison point for the failed authentication events observed later in the investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Controlled Authentication Test</h2>
+
+<p>
+
+A limited number of failed authentication attempts was generated using an authorized lab account.
+
+</p>
+
+<p>
+
+The purpose of the exercise was to generate telemetry for detection validation and SOC analysis rather than to perform unrestricted password guessing.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/attack-simulation.png"
+     class="network"
+     alt="Controlled Failed Authentication Test">
+
+<figcaption>
+
+<strong>Controlled Test.</strong>
+
+The authorized activity generated repeated failed-login telemetry for investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Windows Event ID 4625 Detection</h2>
+
+<p>
+
+Windows Security Event ID 4625 was the primary evidence source for identifying failed logon activity.
+
+</p>
+
+<h3>Key Fields Reviewed</h3>
+
+<ul>
+
+<li>Account Name</li>
+
+<li>Account Domain</li>
+
+<li>Failure Reason</li>
+
+<li>Logon Type</li>
+
+<li>Workstation Name</li>
+
+<li>Source Network Address</li>
+
+<li>Source Port</li>
+
+<li>Timestamp</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/event-4625.png"
+     class="network"
+     alt="Windows Security Event ID 4625">
+
+<figcaption>
+
+<strong>Failed Logon Evidence.</strong>
+
+Event ID 4625 provided detailed information about the unsuccessful authentication attempt.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Repeated Authentication Failure Analysis</h2>
+
+<p>
+
+Multiple failed logon events were reviewed together to determine whether the activity represented an isolated login error or a suspicious repeated-authentication pattern.
+
+</p>
+
+<h3>Patterns Evaluated</h3>
+
+<ul>
+
+<li>Multiple failures within a short period</li>
+
+<li>Repeated attempts against the same account</li>
+
+<li>Multiple accounts targeted from one source</li>
+
+<li>Unexpected source systems</li>
+
+<li>Failures followed by successful authentication</li>
+
+<li>Activity outside expected login patterns</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/repeated-failures.png"
+     class="network"
+     alt="Repeated Authentication Failures">
+
+<figcaption>
+
+<strong>Repeated Failures.</strong>
+
+Reviewing multiple events together exposed the authentication pattern more clearly than analyzing a single failed logon.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Source IP Investigation</h2>
+
+<p>
+
+The source network address from Event ID 4625 was used to identify the system responsible for generating the failed authentication activity.
+
+</p>
+
+<p>
+
+The source was then compared with Security Onion and pfSense telemetry to determine the network path and supporting connection evidence.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/source-ip.png"
+     class="network"
+     alt="Brute Force Source IP Investigation">
+
+<figcaption>
+
+<strong>Source Identification.</strong>
+
+Authentication-event network information helped associate the failed logons with the originating system.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Splunk Enterprise Investigation</h2>
+
+<p>
+
+Splunk Enterprise was used to centralize and correlate Windows failed-logon events.
+
+</p>
+
+<h3>Basic Detection Search</h3>
+
+<pre><code>
+index=* EventCode=4625
+</code></pre>
+
+<h3>Repeated Failure Analysis</h3>
+
+<pre><code>
+index=* EventCode=4625
+| stats count by Account_Name, host
+| sort - count
+</code></pre>
+
+<p>
+
+The exact field names depend on the Windows event sourcetype and field extractions available in Splunk.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/splunk-detection.png"
+     class="network"
+     alt="Splunk Brute Force Detection">
+
+<figcaption>
+
+<strong>Splunk Detection.</strong>
+
+Centralized event analysis was used to identify repeated failed authentication patterns.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh XDR Investigation</h2>
+
+<p>
+
+Wazuh XDR provided additional endpoint-security context for the failed authentication events.
+
+</p>
+
+<h3>Evidence Reviewed</h3>
+
+<ul>
+
+<li>Agent name</li>
+
+<li>Windows Event ID</li>
+
+<li>Rule description</li>
+
+<li>Rule level</li>
+
+<li>Affected account</li>
+
+<li>Source address</li>
+
+<li>Timestamp</li>
+
+<li>MITRE ATT&amp;CK mapping where available</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/wazuh-detection.png"
+     class="network"
+     alt="Wazuh Brute Force Detection">
+
+<figcaption>
+
+<strong>Wazuh Detection.</strong>
+
+Endpoint telemetry provided supporting security context for the authentication investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Onion Investigation</h2>
+
+<p>
+
+Security Onion was used to review network telemetry associated with the source and destination systems involved in the authentication activity.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/security-onion.png"
+     class="network"
+     alt="Security Onion Authentication Investigation">
+
+<figcaption>
+
+<strong>Network Evidence.</strong>
+
+Security Onion telemetry provided supporting source, destination, protocol, port, and timestamp information.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>pfSense Firewall Investigation</h2>
+
+<p>
+
+pfSense firewall telemetry was reviewed to determine whether the suspicious authentication traffic crossed network security boundaries.
+
+</p>
+
+<h3>Firewall Evidence Reviewed</h3>
+
+<ul>
+
+<li>Interface</li>
+
+<li>Source IP</li>
+
+<li>Destination IP</li>
+
+<li>Destination Port</li>
+
+<li>Protocol</li>
+
+<li>Allow or Block Action</li>
+
+<li>Timestamp</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/pfsense.png"
+     class="network"
+     alt="pfSense Authentication Investigation">
+
+<figcaption>
+
+<strong>Firewall Evidence.</strong>
+
+pfSense provided network-path and access-control context during the investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Cross-Platform Correlation</h2>
+
+<p>
+
+Evidence from Windows, Splunk, Wazuh, Security Onion, and pfSense was correlated using common attributes.
+
+</p>
+
+<ul>
+
+<li>Account name</li>
+
+<li>Source IP</li>
+
+<li>Destination host</li>
+
+<li>Event ID</li>
+
+<li>Timestamp</li>
+
+<li>Authentication outcome</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/correlation.png"
+     class="network"
+     alt="Brute Force Cross Platform Correlation">
+
+<figcaption>
+
+<strong>Cross-Platform Correlation.</strong>
+
+Matching authentication and network evidence increased confidence in the investigation findings.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<p>
+
+Observed behavior was mapped to relevant MITRE ATT&amp;CK tactics and techniques only when supported by collected evidence.
+
+</p>
+
+<p>
+
+Authentication-guessing behavior may relate to credential-access activity, while successful use of compromised credentials would require separate evidence before mapping to valid-account techniques.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/mitre.png"
+     class="network"
+     alt="Brute Force MITRE ATTACK Mapping">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<table>
+
+<tr>
+<th>Stage</th>
+<th>Activity</th>
+<th>Evidence Source</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Normal authentication baseline reviewed</td>
+<td>Windows / Splunk</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Controlled failed logons generated</td>
+<td>Windows</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Event ID 4625 recorded</td>
+<td>Windows Security Log</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Repeated failures identified</td>
+<td>Splunk / Wazuh</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Source system investigated</td>
+<td>Security Onion / pfSense</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Evidence correlated across platforms</td>
+<td>SOC Analysis</td>
+</tr>
+
+<tr>
+<td>7</td>
+<td>Containment and mitigation reviewed</td>
+<td>pfSense / Active Directory</td>
+</tr>
+
+</table>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/timeline.png"
+     class="network"
+     alt="Brute Force Investigation Timeline">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Detection Engineering</h2>
+
+<p>
+
+A threshold-based detection was developed to identify repeated failed authentication attempts requiring analyst review.
+
+</p>
+
+<pre><code>
+index=* EventCode=4625
+| stats count by Account_Name, host
+| where count &gt;= 5
+| sort - count
+</code></pre>
+
+<p>
+
+Detection thresholds should be tuned against normal authentication behavior to reduce false positives.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/detection-rule.png"
+     class="network"
+     alt="Brute Force Detection Rule">
+
+<figcaption>
+
+<strong>Detection Rule.</strong>
+
+A reusable correlation search was created to identify repeated failed-logon activity.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Containment</h2>
+
+<p>
+
+After the repeated authentication activity was validated, a temporary containment control was used to restrict continued communication from the test source.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/containment.png"
+     class="network"
+     alt="Brute Force Incident Containment">
+
+<figcaption>
+
+<strong>Containment.</strong>
+
+A temporary firewall control demonstrated how suspicious source activity could be restricted during incident response.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Mitigation and Hardening</h2>
+
+<ul>
+
+<li>Enforce strong password requirements.</li>
+
+<li>Configure appropriate account lockout thresholds.</li>
+
+<li>Use multi-factor authentication where supported.</li>
+
+<li>Monitor repeated authentication failures.</li>
+
+<li>Review privileged accounts regularly.</li>
+
+<li>Apply least privilege.</li>
+
+<li>Restrict unnecessary remote access.</li>
+
+<li>Maintain centralized Windows authentication logging.</li>
+
+<li>Use firewall segmentation and source restrictions.</li>
+
+<li>Tune detection thresholds against normal behavior.</li>
+
+</ul>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/mitigation.png"
+     class="network"
+     alt="Brute Force Mitigation and Hardening">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Findings</h2>
+
+<p>
+
+The controlled exercise successfully generated repeated failed authentication events that could be detected and correlated across multiple security platforms.
+
+</p>
+
+<p>
+
+Windows Event ID 4625 provided the primary identity evidence, while Splunk and Wazuh exposed the repeated pattern and Security Onion and pfSense provided supporting network context.
+
+</p>
+
+</section>
+
+
+<section>
+
+<h2>Recommendations</h2>
+
+<ul>
+
+<li>Continue centralized collection of authentication logs.</li>
+
+<li>Alert on repeated Event ID 4625 activity.</li>
+
+<li>Include source IP and account information in correlation searches.</li>
+
+<li>Review successful logons that immediately follow repeated failures.</li>
+
+<li>Maintain account lockout protections.</li>
+
+<li>Use multi-factor authentication for sensitive access where possible.</li>
+
+<li>Continue SIEM detection tuning to reduce false positives.</li>
+
+<li>Maintain network segmentation and firewall monitoring.</li>
+
+</ul>
+
+</section>
+
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+A single failed login is not sufficient to establish malicious activity. Frequency, timing, source, account context, and surrounding events are necessary to distinguish ordinary login mistakes from potentially suspicious authentication behavior.
+
+</p>
+
+<p>
+
+Cross-platform correlation significantly improves confidence because Windows provides identity evidence, SIEM and XDR platforms expose patterns, and network platforms validate the source and communication path.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Final Brute-Force Investigation Report</h2>
+
+<p>
+
+The final report summarizes the authentication activity, source system, affected account, evidence collected, cross-platform correlation, detection logic, containment actions, and recommended defensive improvements.
+
+</p>
+
+<figure>
+
+<img src="images/projects/brute-force-detection/screenshots/final-report.png"
+     class="network"
+     alt="Final Brute Force Investigation Report">
+
+<figcaption>
+
+<strong>Final Investigation Report.</strong>
+
+The completed case study documents the investigation from authentication baseline through detection, analysis, containment, mitigation, and final reporting.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+
+<section>
+
+<h2>Related Project</h2>
+
+<p>
+
+View the complete technical implementation, architecture, detection workflow, and supporting evidence.
+
+</p>
+
+<a href="brute-force-detection.html"
+   class="card-button">
+
+View Brute-Force Detection Project
+
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
+
+</footer>
+
+</body>
+
+</html>
+
