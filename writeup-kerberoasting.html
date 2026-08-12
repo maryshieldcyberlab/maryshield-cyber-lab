@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Kerberoasting Detection Write-Up | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Kerberoasting Detection &amp; Investigation</h1>
+
+<p>Cybersecurity Write-Up | MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="projects.html">Projects</a>
+<a href="writeups.html">Write-Ups</a>
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This write-up documents a controlled Kerberoasting detection exercise conducted within the MaryShield Cyber Lab. The investigation focused on identifying suspicious Kerberos service-ticket activity and correlating evidence across Windows Security Events, Splunk Enterprise, Wazuh XDR, and Security Onion.
+
+</p>
+
+<p>
+
+Windows Security Event ID 4769 was used as a primary evidence source for identifying Kerberos service-ticket requests and supporting the investigation.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Scenario</h2>
+
+<p>
+
+A controlled Kerberos security exercise was performed within the isolated lab to generate realistic authentication telemetry for detection and investigation.
+
+</p>
+
+<p>
+
+The objective was to validate whether suspicious service-ticket behavior could be identified, correlated, investigated, and documented using the deployed SOC monitoring platforms.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Environment</h2>
+
+<table>
+
+<tr>
+<th>System</th>
+<th>Role</th>
+</tr>
+
+<tr>
+<td>MS-DC01</td>
+<td>Active Directory Domain Controller</td>
+</tr>
+
+<tr>
+<td>WIN11-CLIENT01</td>
+<td>Domain-joined endpoint</td>
+</tr>
+
+<tr>
+<td>Splunk Enterprise</td>
+<td>SIEM and event correlation</td>
+</tr>
+
+<tr>
+<td>Wazuh XDR</td>
+<td>Endpoint monitoring</td>
+</tr>
+
+<tr>
+<td>Security Onion</td>
+<td>Network monitoring</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Detection</h2>
+
+<p>
+
+The investigation focused on Kerberos service-ticket activity recorded by the domain controller.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/event-4769.png"
+     class="network"
+     alt="Kerberos Event ID 4769">
+
+<figcaption>
+
+<strong>Primary Detection Evidence.</strong>
+
+Windows Security Event ID 4769 provided service-ticket request information used during the investigation.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Evidence Collected</h2>
+
+<ul>
+
+<li>Windows Security Event ID 4769</li>
+<li>Account Name</li>
+<li>Service Name</li>
+<li>Ticket Encryption Type</li>
+<li>Source system information</li>
+<li>Event timestamps</li>
+<li>Splunk SIEM search results</li>
+<li>Wazuh endpoint events</li>
+<li>Security Onion network telemetry</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Investigation</h2>
+
+<p>
+
+The domain-controller event was correlated with centralized SIEM and endpoint telemetry to determine which account requested the service ticket, which service was involved, when the activity occurred, and whether the behavior differed from normal authentication patterns.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/investigation.png"
+     class="network"
+     alt="Kerberoasting Investigation">
+
+<figcaption>
+
+<strong>Cross-Platform Investigation.</strong>
+
+Authentication evidence was correlated across multiple security platforms using account, host, service, and timestamp information.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<table>
+
+<tr>
+<th>Stage</th>
+<th>Activity</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>Normal Kerberos activity reviewed.</td>
+</tr>
+
+<tr>
+<td>2</td>
+<td>Controlled service-ticket activity generated.</td>
+</tr>
+
+<tr>
+<td>3</td>
+<td>Event ID 4769 recorded by the domain controller.</td>
+</tr>
+
+<tr>
+<td>4</td>
+<td>Event identified and analyzed in Splunk.</td>
+</tr>
+
+<tr>
+<td>5</td>
+<td>Endpoint and network evidence reviewed.</td>
+</tr>
+
+<tr>
+<td>6</td>
+<td>Evidence correlated and findings documented.</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<p>
+
+Observed behavior was mapped to MITRE ATT&amp;CK only where supported by collected evidence.
+
+</p>
+
+<figure>
+
+<img src="images/projects/kerberoasting/screenshots/mitre.png"
+     class="network"
+     alt="Kerberoasting MITRE ATTACK Mapping">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Findings</h2>
+
+<p>
+
+The investigation confirmed that the controlled exercise successfully generated Kerberos service-ticket telemetry that could be identified through Windows Security Event logging and correlated across multiple enterprise monitoring platforms.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Recommendations</h2>
+
+<ul>
+
+<li>Maintain centralized Windows authentication logging.</li>
+<li>Monitor unusual Kerberos service-ticket activity.</li>
+<li>Review service-account privileges regularly.</li>
+<li>Use strong service-account credentials.</li>
+<li>Use managed service accounts where appropriate.</li>
+<li>Review SPN assignments.</li>
+<li>Apply least-privilege principles.</li>
+<li>Continue tuning SIEM detection logic.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+This investigation strengthened understanding of Kerberos authentication, Windows Security Event analysis, SIEM correlation, service-account security, and cross-platform SOC investigation.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Related Project</h2>
+
+<a href="kerberoasting.html" class="card-button">
+
+View Kerberoasting Project
+
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 MaryShield Cyber Lab</p>
+
+</footer>
+
+</body>
+
+</html>

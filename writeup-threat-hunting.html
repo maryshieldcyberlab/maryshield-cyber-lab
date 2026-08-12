@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Threat Hunting Write-Up | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Enterprise Threat Hunting</h1>
+
+<p>Cybersecurity Write-Up | MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="projects.html">Projects</a>
+<a href="writeups.html">Write-Ups</a>
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This write-up documents a proactive threat hunting exercise performed within the MaryShield Cyber Lab. The investigation combined SIEM, endpoint, network, firewall, and Windows telemetry to identify and correlate suspicious activity beyond individual alerts.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Hunting Hypothesis</h2>
+
+<p>
+
+The hunt focused on determining whether suspicious reconnaissance, authentication, process, or network activity could be identified by correlating telemetry from multiple defensive platforms.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Data Sources</h2>
+
+<ul>
+
+<li>Splunk Enterprise</li>
+<li>Wazuh XDR</li>
+<li>Security Onion</li>
+<li>pfSense</li>
+<li>Windows Event Logs</li>
+<li>Sysmon</li>
+<li>Zeek</li>
+<li>Suricata</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Initial Hunt</h2>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/hunt.png"
+     class="network"
+     alt="Security Onion Hunt">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Splunk Investigation</h2>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/splunk-search.png"
+     class="network"
+     alt="Splunk Threat Hunting Search">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh Investigation</h2>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/wazuh-events.png"
+     class="network"
+     alt="Wazuh Threat Hunting Events">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Onion Investigation</h2>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/security-onion-alerts.png"
+     class="network"
+     alt="Security Onion Alerts">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Evidence Correlation</h2>
+
+<p>
+
+Events were correlated using source and destination IP addresses, hostnames, users, ports, protocols, timestamps, and alert metadata.
+
+</p>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/investigation.png"
+     class="network"
+     alt="Threat Hunting Investigation">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Timeline</h2>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/timeline.png"
+     class="network"
+     alt="Threat Hunting Timeline">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<figure>
+
+<img src="images/projects/threat-hunting/screenshots/mitre.png"
+     class="network"
+     alt="Threat Hunting MITRE ATTACK Mapping">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Findings</h2>
+
+<p>
+
+Suspicious behavior was more accurately evaluated when endpoint and network telemetry were reviewed together rather than as isolated alerts.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Recommendations</h2>
+
+<ul>
+
+<li>Maintain broad telemetry coverage.</li>
+<li>Develop repeatable hunting hypotheses.</li>
+<li>Correlate identity, endpoint, and network evidence.</li>
+<li>Maintain synchronized system time.</li>
+<li>Develop reusable hunting queries.</li>
+<li>Document investigation outcomes.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+Threat hunting requires context, correlation, and analyst judgment rather than relying solely on automated alerting.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Related Project</h2>
+
+<a href="threat-hunting.html" class="card-button">
+
+View Threat Hunting Project
+
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 MaryShield Cyber Lab</p>
+
+</footer>
+
+</body>
+
+</html>

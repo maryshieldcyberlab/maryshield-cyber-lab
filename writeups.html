@@ -1,27 +1,346 @@
 <!DOCTYPE html>
-<html>
-<link rel="stylesheet" href="styles.css">
+<html lang="en">
+
 <head>
 
-<title>Write-Ups</title>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1">
+
+<title>Cybersecurity Write-Ups | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
 
 </head>
 
 <body>
 
+<header>
+
 <h1>Cybersecurity Write-Ups</h1>
+
+<p>MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="projects.html">Projects</a>
+
+<a href="lab.html">Cyber Lab</a>
+
+<a href="writeups.html">Write-Ups</a>
+
+<a href="resume.html">Resume</a>
+
+<a href="certifications.html">Certifications</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h1>Cybersecurity Investigation Write-Ups</h1>
+
+<h2>Overview</h2>
 
 <p>
 
-This page contains project documentation,
-attack investigations,
-incident response reports,
-and detection engineering notes.
+This section contains professional cybersecurity case-study write-ups developed from controlled exercises performed within the MaryShield Cyber Lab.
 
 </p>
 
-<a href="index.html">Home</a>
+<p>
+
+Each write-up documents the investigation process from initial detection through evidence analysis, event correlation, MITRE ATT&amp;CK mapping, response actions, lessons learned, and security recommendations.
+
+</p>
+
+<p>
+
+These case studies demonstrate practical SOC Analyst skills including SIEM analysis, endpoint investigation, network security monitoring, Active Directory security, threat hunting, incident response, detection engineering, and technical reporting.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Investigation Case Studies</h2>
+
+<p>
+
+Select a case study below to review the investigation methodology, collected evidence, findings, and defensive recommendations.
+
+</p>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>Kerberoasting Detection &amp; Investigation</h3>
+
+<p>
+
+Investigation of suspicious Kerberos service-ticket activity using Windows Security Event ID 4769, Splunk Enterprise, Wazuh XDR, and Security Onion.
+
+</p>
+
+<a href="writeup-kerberoasting.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Incident Response Investigation</h3>
+
+<p>
+
+End-to-end investigation covering detection, triage, evidence collection, containment, eradication, recovery, and post-incident analysis.
+
+</p>
+
+<a href="writeup-incident-response.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Enterprise Threat Hunting</h3>
+
+<p>
+
+Proactive threat hunting using Splunk, Wazuh, Security Onion, pfSense, Windows Event Logs, Sysmon, Zeek, and Suricata telemetry.
+
+</p>
+
+<a href="writeup-threat-hunting.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory Attack Detection</h3>
+
+<p>
+
+Investigation of authentication failures, successful logons, account changes, PowerShell activity, and Active Directory security telemetry.
+
+</p>
+
+<a href="writeup-active-directory-detection.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>Sysmon Endpoint Investigation</h3>
+
+<p>
+
+Endpoint investigation using Sysmon process creation, network connection, PowerShell, file, registry, Splunk, and Wazuh telemetry.
+
+</p>
+
+<a href="writeup-sysmon.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+<div class="project-card">
+
+<h3>SOC Analyst Case Study</h3>
+
+<p>
+
+Capstone investigation demonstrating alert triage, SIEM analysis, endpoint investigation, network analysis, evidence correlation, MITRE ATT&amp;CK mapping, containment, recovery, and final reporting.
+
+</p>
+
+<a href="writeup-soc-case-study.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Analyst Skills Demonstrated</h2>
+
+<div class="project-container">
+
+<div class="project-card">
+
+<h3>SIEM Analysis</h3>
+
+<p>
+
+Search, filter, correlate, and interpret security telemetry using Splunk Enterprise.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Endpoint Investigation</h3>
+
+<p>
+
+Analyze Windows, Sysmon, and Wazuh telemetry to understand endpoint activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Network Investigation</h3>
+
+<p>
+
+Use Security Onion, Zeek, Suricata, and pfSense to investigate suspicious communications.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Active Directory Security</h3>
+
+<p>
+
+Analyze authentication, Kerberos, account-management, and privileged-access activity.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Threat Hunting</h3>
+
+<p>
+
+Develop hypotheses and correlate multiple telemetry sources to identify suspicious behavior.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Incident Response</h3>
+
+<p>
+
+Perform triage, containment, eradication, recovery, and post-incident documentation.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>MITRE ATT&amp;CK</h3>
+
+<p>
+
+Map observed behavior to standardized adversary tactics and techniques when supported by evidence.
+
+</p>
+
+</div>
+
+<div class="project-card">
+
+<h3>Security Reporting</h3>
+
+<p>
+
+Document evidence, timelines, findings, lessons learned, and security recommendations.
+
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h2>Lab Testing Statement</h2>
+
+<p>
+
+All attack simulations, vulnerability testing, detection exercises, and security investigations documented in these write-ups were performed exclusively against systems owned and operated within the isolated MaryShield Cyber Lab.
+
+</p>
+
+<p>
+
+The purpose of these exercises is to develop and demonstrate defensive cybersecurity, SOC analysis, threat detection, incident response, and security engineering skills.
+
+</p>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>
+
+© 2026 MaryShield Cyber Lab
+
+</p>
+
+</footer>
 
 </body>
 
 </html>
+
+</main>

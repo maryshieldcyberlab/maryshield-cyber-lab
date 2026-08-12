@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Active Directory Detection Write-Up | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Active Directory Attack Detection &amp; Investigation</h1>
+
+<p>Cybersecurity Write-Up | MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="projects.html">Projects</a>
+<a href="writeups.html">Write-Ups</a>
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This write-up documents an Active Directory security investigation involving authentication activity, account changes, PowerShell execution, and centralized SOC correlation.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Scenario</h2>
+
+<p>
+
+Controlled domain activity was generated to evaluate the visibility provided by Windows Security Events, Splunk Enterprise, Wazuh XDR, Security Onion, and Sysmon.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Key Windows Events</h2>
+
+<ul>
+
+<li>4624 — Successful logon</li>
+<li>4625 — Failed logon</li>
+<li>4720 — Account creation</li>
+<li>4728 / 4732 — Group membership changes</li>
+<li>4768 / 4769 — Kerberos activity</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Authentication Detection</h2>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/event-4625.png"
+     class="network"
+     alt="Failed Logon Event 4625">
+
+</figure>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/event-4624.png"
+     class="network"
+     alt="Successful Logon Event 4624">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Account Change Investigation</h2>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/account-change.png"
+     class="network"
+     alt="Active Directory Account Change">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>PowerShell Analysis</h2>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/powershell-detection.png"
+     class="network"
+     alt="PowerShell Detection">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Cross-Platform Investigation</h2>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/investigation.png"
+     class="network"
+     alt="Active Directory Cross Platform Investigation">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Timeline</h2>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/timeline.png"
+     class="network"
+     alt="Active Directory Investigation Timeline">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<figure>
+
+<img src="images/projects/active-directory-detection/screenshots/mitre.png"
+     class="network"
+     alt="Active Directory MITRE ATTACK Mapping">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Findings</h2>
+
+<p>
+
+The investigation demonstrated the value of combining identity, endpoint, SIEM, and network telemetry when evaluating suspicious Active Directory behavior.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Recommendations</h2>
+
+<ul>
+
+<li>Enable detailed Windows auditing.</li>
+<li>Monitor failed and successful authentication patterns.</li>
+<li>Review privileged group membership.</li>
+<li>Monitor PowerShell execution.</li>
+<li>Maintain least privilege.</li>
+<li>Centralize domain-controller logs.</li>
+<li>Use account lockout controls where appropriate.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+Active Directory investigations require strong identity context and careful correlation between authentication, administrative, and endpoint telemetry.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Related Project</h2>
+
+<a href="active-directory-detection.html"
+   class="card-button">
+
+View Active Directory Detection Project
+
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 MaryShield Cyber Lab</p>
+
+</footer>
+
+</body>
+
+</html>

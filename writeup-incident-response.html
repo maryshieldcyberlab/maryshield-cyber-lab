@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Incident Response Write-Up | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Incident Response Investigation</h1>
+
+<p>Cybersecurity Write-Up | MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="projects.html">Projects</a>
+<a href="writeups.html">Write-Ups</a>
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This write-up documents a controlled incident response exercise performed within the MaryShield Cyber Lab. The investigation followed a structured workflow that included detection, triage, evidence collection, containment, eradication, recovery, and post-incident review.
+
+</p>
+
+<p>
+
+Evidence was correlated across Splunk Enterprise, Wazuh XDR, Security Onion, pfSense, Windows Event Logs, and Sysmon.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Scenario</h2>
+
+<p>
+
+A simulated security incident was generated within the isolated lab environment to validate the ability of multiple defensive platforms to detect suspicious activity and support a coordinated response.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Environment</h2>
+
+<table>
+
+<tr>
+<th>Platform</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>Splunk Enterprise</td>
+<td>SIEM search and event correlation</td>
+</tr>
+
+<tr>
+<td>Wazuh XDR</td>
+<td>Endpoint monitoring and alert analysis</td>
+</tr>
+
+<tr>
+<td>Security Onion</td>
+<td>Network security monitoring</td>
+</tr>
+
+<tr>
+<td>pfSense</td>
+<td>Firewall evidence and containment</td>
+</tr>
+
+<tr>
+<td>Windows / Sysmon</td>
+<td>Endpoint and authentication evidence</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Detection</h2>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/incident-dashboard.png"
+     class="network"
+     alt="Incident Detection Dashboard">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Evidence Collected</h2>
+
+<ul>
+
+<li>Splunk event searches</li>
+<li>Wazuh endpoint alerts</li>
+<li>Security Onion network telemetry</li>
+<li>pfSense firewall logs</li>
+<li>Windows Security Events</li>
+<li>Sysmon process telemetry</li>
+<li>Incident timestamps</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Investigation</h2>
+
+<p>
+
+Endpoint, network, identity, and firewall evidence was correlated to determine the source, target, scope, and sequence of activity.
+
+</p>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/evidence.png"
+     class="network"
+     alt="Incident Response Evidence">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/timeline.png"
+     class="network"
+     alt="Incident Response Timeline">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Containment</h2>
+
+<p>
+
+Network and endpoint controls were used to restrict the simulated activity and prevent additional impact.
+
+</p>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/containment.png"
+     class="network"
+     alt="Incident Containment">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Eradication</h2>
+
+<p>
+
+Test artifacts, vulnerable conditions, and temporary changes associated with the simulation were removed or reversed.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Recovery</h2>
+
+<figure>
+
+<img src="images/projects/incident-response/screenshots/recovery.png"
+     class="network"
+     alt="Incident Recovery">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Findings</h2>
+
+<p>
+
+Combining SIEM, endpoint, network, and firewall telemetry improved confidence in the investigation and supported a complete incident-response workflow.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Recommendations</h2>
+
+<ul>
+
+<li>Maintain centralized logging.</li>
+<li>Continue endpoint monitoring.</li>
+<li>Preserve network telemetry.</li>
+<li>Maintain network segmentation.</li>
+<li>Document containment procedures.</li>
+<li>Review incident-response playbooks regularly.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+The investigation reinforced the importance of evidence correlation, timestamp alignment, containment planning, and post-incident validation.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Related Project</h2>
+
+<a href="incident-response.html" class="card-button">
+
+View Incident Response Project
+
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 MaryShield Cyber Lab</p>
+
+</footer>
+
+</body>
+
+</html>

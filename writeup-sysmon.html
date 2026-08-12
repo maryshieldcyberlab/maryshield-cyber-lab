@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Sysmon Endpoint Investigation Write-Up | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Microsoft Sysmon Endpoint Investigation</h1>
+
+<p>Cybersecurity Write-Up | MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="projects.html">Projects</a>
+<a href="writeups.html">Write-Ups</a>
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This write-up documents an endpoint investigation using Microsoft Sysmon telemetry. Process creation, command-line activity, network connections, file activity, registry changes, and PowerShell execution were reviewed and correlated with Splunk Enterprise and Wazuh XDR.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Telemetry Source</h2>
+
+<p>
+
+Microsoft Sysmon provided detailed Windows endpoint telemetry through the Sysmon Operational event channel.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Process Creation Analysis</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/process-creation.png"
+     class="network"
+     alt="Sysmon Process Creation">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Network Connection Analysis</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/network-connection.png"
+     class="network"
+     alt="Sysmon Network Connection">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>PowerShell Investigation</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/powershell.png"
+     class="network"
+     alt="Sysmon PowerShell Investigation">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>File and Registry Activity</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/file-creation.png"
+     class="network"
+     alt="Sysmon File Activity">
+
+</figure>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/registry-change.png"
+     class="network"
+     alt="Sysmon Registry Activity">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Splunk Correlation</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/splunk-events.png"
+     class="network"
+     alt="Sysmon Events in Splunk">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh Correlation</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/wazuh-events.png"
+     class="network"
+     alt="Sysmon Related Wazuh Events">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Cross-Platform Investigation</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/correlation.png"
+     class="network"
+     alt="Sysmon Splunk Wazuh Correlation">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<figure>
+
+<img src="images/projects/sysmon/screenshots/mitre.png"
+     class="network"
+     alt="Sysmon MITRE ATTACK Mapping">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Findings</h2>
+
+<p>
+
+Sysmon significantly increased endpoint visibility by providing detailed process, command-line, user, and network context that could be correlated across centralized monitoring platforms.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Recommendations</h2>
+
+<ul>
+
+<li>Maintain a tuned Sysmon configuration.</li>
+<li>Collect process and command-line telemetry centrally.</li>
+<li>Monitor PowerShell behavior.</li>
+<li>Review parent-child process relationships.</li>
+<li>Correlate endpoint and network telemetry.</li>
+<li>Continuously tune detection logic.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+Raw telemetry becomes significantly more useful when analysts correlate process context with user, network, and SIEM evidence.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Related Project</h2>
+
+<a href="sysmon.html" class="card-button">
+
+View Sysmon Project
+
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 MaryShield Cyber Lab</p>
+
+</footer>
+
+</body>
+
+</html>

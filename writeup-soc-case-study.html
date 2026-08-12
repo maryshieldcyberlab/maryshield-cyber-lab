@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>SOC Analyst Case Study Write-Up | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet" href="css/styles.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>Enterprise SOC Analyst Case Study</h1>
+
+<p>Cybersecurity Write-Up | MaryShield Cyber Lab</p>
+
+</header>
+
+<nav>
+
+<a href="index.html">Home</a>
+<a href="projects.html">Projects</a>
+<a href="writeups.html">Write-Ups</a>
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<main>
+
+<section>
+
+<h2>Executive Summary</h2>
+
+<p>
+
+This write-up documents an end-to-end SOC Analyst investigation conducted within the MaryShield Cyber Lab. The exercise demonstrates alert triage, SIEM analysis, endpoint investigation, network analysis, firewall review, evidence correlation, MITRE ATT&amp;CK mapping, containment, recovery, and final reporting.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Incident Scenario</h2>
+
+<p>
+
+A controlled multi-stage security scenario generated realistic telemetry across multiple defensive platforms. The SOC investigation focused on determining what occurred, which systems were involved, the sequence of activity, and the appropriate response.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Initial Alert</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/initial-alert.png"
+     class="network"
+     alt="SOC Initial Alert">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Triage</h2>
+
+<table>
+
+<tr>
+<th>Question</th>
+<th>Finding</th>
+</tr>
+
+<tr>
+<td>What happened?</td>
+<td>Suspicious behavior required investigation.</td>
+</tr>
+
+<tr>
+<td>Source</td>
+<td>Identified through correlated evidence.</td>
+</tr>
+
+<tr>
+<td>Target</td>
+<td>Affected lab system identified.</td>
+</tr>
+
+<tr>
+<td>Severity</td>
+<td>Determined from behavior and potential impact.</td>
+</tr>
+
+<tr>
+<td>Scope</td>
+<td>Related systems, accounts, and connections reviewed.</td>
+</tr>
+
+</table>
+
+</section>
+
+<section>
+
+<h2>Splunk Investigation</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/splunk-triage.png"
+     class="network"
+     alt="Splunk SOC Triage">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Wazuh Investigation</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/wazuh-triage.png"
+     class="network"
+     alt="Wazuh SOC Triage">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Security Onion Investigation</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/security-onion-triage.png"
+     class="network"
+     alt="Security Onion SOC Triage">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Firewall Investigation</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/pfsense-evidence.png"
+     class="network"
+     alt="pfSense SOC Evidence">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Windows and Sysmon Evidence</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/windows-event.png"
+     class="network"
+     alt="Windows Event Evidence">
+
+</figure>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/sysmon-event.png"
+     class="network"
+     alt="Sysmon Event Evidence">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Cross-Platform Correlation</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/correlation.png"
+     class="network"
+     alt="SOC Cross Platform Correlation">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>MITRE ATT&amp;CK Mapping</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/mitre.png"
+     class="network"
+     alt="SOC MITRE ATTACK Mapping">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Incident Timeline</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/timeline.png"
+     class="network"
+     alt="SOC Incident Timeline">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Containment</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/containment.png"
+     class="network"
+     alt="SOC Incident Containment">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Recovery</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/recovery.png"
+     class="network"
+     alt="SOC Recovery">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Findings</h2>
+
+<p>
+
+The exercise demonstrated that combining endpoint, network, firewall, identity, and SIEM telemetry provides a more complete and reliable understanding of suspicious activity than relying on any single security platform.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Recommendations</h2>
+
+<ul>
+
+<li>Maintain centralized logging.</li>
+<li>Preserve endpoint telemetry.</li>
+<li>Monitor authentication activity.</li>
+<li>Maintain network segmentation.</li>
+<li>Correlate SIEM, XDR, and IDS evidence.</li>
+<li>Use MITRE ATT&amp;CK consistently in reporting.</li>
+<li>Continuously tune detections.</li>
+<li>Maintain incident-response playbooks.</li>
+
+</ul>
+
+</section>
+
+<section>
+
+<h2>Lessons Learned</h2>
+
+<p>
+
+Effective SOC investigations depend on disciplined triage, evidence preservation, timestamp correlation, analyst judgment, and clear documentation.
+
+</p>
+
+</section>
+
+<section>
+
+<h2>Final SOC Report</h2>
+
+<figure>
+
+<img src="images/projects/soc-case-study/screenshots/final-report.png"
+     class="network"
+     alt="Final SOC Analyst Report">
+
+</figure>
+
+</section>
+
+<section>
+
+<h2>Related Project</h2>
+
+<a href="soc-case-study.html"
+   class="card-button">
+
+View SOC Analyst Case Study
+
+</a>
+
+</section>
+
+</main>
+
+<footer>
+
+<p>© 2026 MaryShield Cyber Lab</p>
+
+</footer>
+
+</body>
+
+</html>
