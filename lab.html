@@ -1,8 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Cyber Lab | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
+</head>
+
+
 <body>
+
 
 <header>
 
 <h1>MaryShield Cyber Lab</h1>
+
+<p>
+Enterprise Security Operations Environment
+</p>
 
 <nav>
 
@@ -26,16 +49,13 @@
 
 <hr>
 
-<link rel="stylesheet" href="css/styles.css">
-<p>
-
-Enterprise Security Operations Environment
-
-</p>
-
 </header>
 
+
 <main>
+
+
+<!-- ENTERPRISE CYBER LAB -->
 
 <section>
 
@@ -43,19 +63,33 @@ Enterprise Security Operations Environment
 
 <p>
 
-The MaryShield Cyber Lab is a fully virtualized enterprise cybersecurity environment designed to simulate real-world corporate networks. It provides hands-on experience with system administration, network security, threat detection, SIEM technologies, incident response, and defensive security operations.
+The MaryShield Cyber Lab is a fully virtualized enterprise cybersecurity environment designed to simulate real-world corporate networks. It provides hands-on experience with system administration, network security, threat detection, SIEM technologies, incident response, threat hunting, endpoint monitoring, and defensive security operations.
 
 </p>
+
+</section>
+
+
+<!-- NETWORK ARCHITECTURE -->
 
 <section>
 
 <h2>Enterprise Network Architecture</h2>
 
+<p>
+
+The architecture below illustrates the segmented MaryShield Cyber Lab environment, including the pfSense firewall, Windows and Linux systems, SIEM and XDR platforms, security-monitoring infrastructure, and authorized security-testing systems.
+
+</p>
+
 <img src="images/diagrams/network-architecture.png"
+     class="network"
+     alt="MaryShield Cyber Lab Enterprise Network Architecture">
 
-class="network"
+</section>
 
-alt="Enterprise Network Architecture">
+
+<!-- OVERVIEW -->
 
 <section>
 
@@ -63,9 +97,14 @@ alt="Enterprise Network Architecture">
 
 <p>
 
-The laboratory consists of multiple virtual machines connected through segmented virtual networks using VMware Workstation. Each system performs a specific enterprise function, allowing realistic attack simulations and defensive monitoring.
+The laboratory consists of multiple virtual machines connected through segmented virtual networks using VMware Workstation Pro. Each system performs a specific enterprise function, allowing realistic security monitoring, controlled attack simulations, event correlation, and defensive investigation.
 
 </p>
+
+</section>
+
+
+<!-- VIRTUAL INFRASTRUCTURE -->
 
 <section>
 
@@ -74,86 +113,61 @@ The laboratory consists of multiple virtual machines connected through segmented
 <table>
 
 <tr>
-
 <th>Virtual Machine</th>
-
 <th>Purpose</th>
-
 </tr>
 
 <tr>
-
 <td>Windows Server 2022</td>
-
-<td>Domain Controller, DNS, DHCP, Active Directory</td>
-
+<td>Domain Controller, Active Directory, DNS, Group Policy</td>
 </tr>
 
 <tr>
-
 <td>Windows 11 Enterprise</td>
-
-<td>Enterprise Workstation</td>
-
+<td>Domain-joined enterprise workstation</td>
 </tr>
 
 <tr>
-
 <td>Ubuntu Server</td>
-
-<td>Linux Administration</td>
-
+<td>Linux administration and security application hosting</td>
 </tr>
 
 <tr>
-
 <td>Splunk Enterprise</td>
-
-<td>SIEM Platform</td>
-
+<td>SIEM, centralized logging, dashboards, alerts, and correlation</td>
 </tr>
 
 <tr>
-
 <td>Security Onion</td>
-
-<td>Network Security Monitoring</td>
-
+<td>Network security monitoring, Suricata, Zeek, Hunt, and PCAP analysis</td>
 </tr>
 
 <tr>
-
-<td>Wazuh</td>
-
-<td>Endpoint Detection & Response</td>
-
+<td>Wazuh XDR</td>
+<td>Endpoint monitoring, file integrity monitoring, and security analytics</td>
 </tr>
 
 <tr>
-
 <td>Kali Linux</td>
-
-<td>Penetration Testing</td>
-
+<td>Authorized penetration testing and security simulation</td>
 </tr>
 
 <tr>
-
-<td>Metasploitable</td>
-
-<td>Vulnerable Target Machine</td>
-
+<td>Metasploitable 2</td>
+<td>Intentionally vulnerable security-testing target</td>
 </tr>
 
 <tr>
-
 <td>pfSense</td>
-
-<td>Firewall & Routing</td>
-
+<td>Firewall, routing, segmentation, logging, and containment</td>
 </tr>
 
 </table>
+
+</section>
+
+
+<!-- SECURITY STACK -->
 
 <section>
 
@@ -171,23 +185,34 @@ The laboratory consists of multiple virtual machines connected through segmented
 
 <li>Kali Linux</li>
 
+<li>Metasploitable 2</li>
+
 <li>Splunk Enterprise</li>
 
 <li>Security Onion</li>
 
-<li>Wazuh</li>
+<li>Wazuh XDR</li>
 
-<li>Sysmon</li>
+<li>Microsoft Sysmon</li>
 
 <li>Active Directory</li>
 
 <li>DNS</li>
 
-<li>DHCP</li>
+<li>Group Policy</li>
+
+<li>Zeek</li>
+
+<li>Suricata</li>
 
 <li>pfSense Firewall</li>
 
 </ul>
+
+</section>
+
+
+<!-- IP ADDRESSING -->
 
 <section>
 
@@ -196,70 +221,108 @@ The laboratory consists of multiple virtual machines connected through segmented
 <table>
 
 <tr>
-
 <th>System</th>
-
-<th>Address</th>
-
+<th>IP Address</th>
+<th>Network</th>
 </tr>
 
 <tr>
-
 <td>Windows Server 2022</td>
-
-<td>10.0.10.10</td>
-
+<td>10.0.30.10</td>
+<td>Servers</td>
 </tr>
 
 <tr>
-
-<td>Windows 11</td>
-
+<td>Windows 11 Enterprise</td>
 <td>10.0.10.22</td>
-
+<td>LAN</td>
 </tr>
 
 <tr>
-
-<td>Kali Linux</td>
-
-<td>10.0.10.50</td>
-
-</tr>
-
-<tr>
-
 <td>Ubuntu Server</td>
-
 <td>10.0.30.20</td>
-
+<td>Servers</td>
 </tr>
 
 <tr>
-
 <td>Splunk Enterprise</td>
-
-<td>10.0.30.30</td>
-
+<td>10.0.30.20</td>
+<td>Servers</td>
 </tr>
 
 <tr>
-
-<td>Wazuh</td>
-
+<td>Wazuh XDR</td>
 <td>10.0.30.40</td>
-
+<td>Servers</td>
 </tr>
 
 <tr>
+<td>Security Onion</td>
+<td>10.0.20.50</td>
+<td>Security Monitoring / NAT</td>
+</tr>
 
-<td>Metasploitable</td>
+<tr>
+<td>Kali Linux</td>
+<td>10.0.40.10</td>
+<td>DMZ</td>
+</tr>
 
+<tr>
+<td>Metasploitable 2</td>
 <td>10.0.40.50</td>
-
+<td>DMZ</td>
 </tr>
 
 </table>
+
+</section>
+
+
+<!-- NETWORK SEGMENTATION -->
+
+<section>
+
+<h2>Network Segmentation</h2>
+
+<table>
+
+<tr>
+<th>VMware Network</th>
+<th>Subnet</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>VMnet1</td>
+<td>10.0.10.0/24</td>
+<td>LAN / User and management systems</td>
+</tr>
+
+<tr>
+<td>VMnet8</td>
+<td>10.0.20.0/24</td>
+<td>NAT / Security monitoring and Internet access</td>
+</tr>
+
+<tr>
+<td>VMnet2</td>
+<td>10.0.30.0/24</td>
+<td>Enterprise server network</td>
+</tr>
+
+<tr>
+<td>VMnet3</td>
+<td>10.0.40.0/24</td>
+<td>DMZ / Authorized security-testing systems</td>
+</tr>
+
+</table>
+
+</section>
+
+
+<!-- MONITORING AND LOGGING -->
 
 <section>
 
@@ -267,9 +330,69 @@ The laboratory consists of multiple virtual machines connected through segmented
 
 <p>
 
-Windows systems generate Security Event Logs and Sysmon telemetry, which are forwarded to Splunk Enterprise for centralized log analysis. Wazuh agents provide endpoint monitoring and security analytics, while Security Onion captures and analyzes network traffic for intrusion detection and threat hunting. Together, these tools provide layered visibility into endpoint activity and network behavior.
+Windows systems generate Security Event Logs and Microsoft Sysmon telemetry that are forwarded to Splunk Enterprise for centralized log analysis, dashboards, alerting, and event correlation.
 
 </p>
+
+<p>
+
+Wazuh XDR provides endpoint monitoring, file integrity monitoring, security analytics, and agent-based telemetry. Security Onion provides network visibility using Suricata IDS, Zeek metadata, Hunt, and packet analysis.
+
+</p>
+
+<p>
+
+pfSense supplies firewall, routing, segmentation, and network-control telemetry. Together, these platforms provide layered visibility across identity, endpoint, network, firewall, and SIEM data sources.
+
+</p>
+
+</section>
+
+
+<!-- SECURITY OPERATIONS -->
+
+<section>
+
+<h2>Security Operations Capabilities</h2>
+
+<ul>
+
+<li>SOC Alert Triage</li>
+
+<li>Threat Detection</li>
+
+<li>Threat Hunting</li>
+
+<li>Incident Response</li>
+
+<li>Active Directory Attack Detection</li>
+
+<li>Kerberoasting Detection and Investigation</li>
+
+<li>Brute-Force Attack Detection</li>
+
+<li>Windows Event Analysis</li>
+
+<li>Sysmon Endpoint Analysis</li>
+
+<li>Network Security Monitoring</li>
+
+<li>Firewall Analysis</li>
+
+<li>MITRE ATT&amp;CK Mapping</li>
+
+<li>Detection Engineering</li>
+
+<li>Cross-Platform Event Correlation</li>
+
+<li>Security Investigation Write-Ups</li>
+
+</ul>
+
+</section>
+
+
+<!-- FUTURE ENHANCEMENTS -->
 
 <section>
 
@@ -277,26 +400,41 @@ Windows systems generate Security Event Logs and Sysmon telemetry, which are for
 
 <ul>
 
-<li>Kerberoasting Detection</li>
-
 <li>Pass-the-Hash Detection</li>
 
 <li>Golden Ticket Detection</li>
 
-<li>MITRE ATT&CK Mapping</li>
+<li>Silver Ticket Detection</li>
 
-<li>Sigma Rules</li>
+<li>Sigma Detection Rules</li>
 
 <li>YARA Detection Rules</li>
 
-<li>Threat Hunting Dashboards</li>
+<li>Expanded Threat Hunting Dashboards</li>
 
-<li>Automated Incident Response</li>
+<li>Automated Incident Response Workflows</li>
+
+<li>Additional Active Directory Detection Engineering</li>
+
+<li>Expanded Network Detection and Response Testing</li>
 
 </ul>
 
 </section>
 
+
 </main>
 
+
+<footer>
+
+<p>
+© 2026 MaryShield Cyber Lab | All Rights Reserved
+</p>
+
+</footer>
+
+
 </body>
+
+</html>
