@@ -300,6 +300,14 @@ Continuing study includes enterprise cybersecurity, security operations, threat 
 
 ---
 
+## Professional Cybersecurity Resume
+
+View my professional cybersecurity resume highlighting my experience in cybersecurity, network engineering, security operations, enterprise technology, threat detection, incident response, and the MaryShield Cyber Lab.
+
+[View Cybersecurity Resume](Jean_Gervais_ATS_Cybersecurity_Resume_Updated.pdf)
+
+---
+
 ## Author
 
 **Jean Gervais**
