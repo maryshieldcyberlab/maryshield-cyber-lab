@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Lab Documentation | MaryShield Cyber Lab</title>
+
+<link rel="stylesheet"
+      href="css/styles.css">
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>MaryShield Cyber Lab</h1>
+
+<p>
+Enterprise Cybersecurity Portfolio &amp; SOC Analysis Environment
+</p>
+
+
+<nav>
+
+<a href="index.html">Home</a>
+
+<a href="about.html">About</a>
+
+<a href="projects.html">Projects</a>
+
+<a href="lab.html">Cyber Lab</a>
+
+<a href="writeups.html">Write-Ups</a>
+
+<a href="resume.html">Resume</a>
+
+<a href="certifications.html">Certifications</a>
+
+<a href="contact.html">Contact</a>
+
+</nav>
+
+<hr>
+
+</header>
+
+
+<main>
+
+
+<!-- ===================================================== -->
+<!-- INTRODUCTION                                          -->
+<!-- ===================================================== -->
+
+<section>
+
+<h1>MaryShield Cyber Lab Documentation</h1>
+
+<h3>Enterprise Cybersecurity Portfolio &amp; SOC Analysis Environment</h3>
+
+<p>
+<strong>Protect • Detect • Respond • Defend</strong>
+</p>
+
+<p>
+
+This page provides the complete technical overview of the
+MaryShield Cyber Lab, including the architecture, technologies,
+security operations workflow, SOC projects, telemetry sources,
+investigation write-ups, and security capabilities demonstrated
+throughout the environment.
+
+</p>
+
+<a href="lab.html"
+   class="card-button">
+
+Return to Cyber Lab
+
+</a>
+
+<a href="https://github.com/maryshieldcyberlab/maryshield-cyber-lab"
+   class="card-button"
+   target="_blank"
+   rel="noopener noreferrer">
+
+View Repository on GitHub
+
+</a>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- OVERVIEW                                              -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Overview</h2>
+
+<p>
+
+MaryShield Cyber Lab is a multi-segment enterprise cybersecurity
+environment designed to demonstrate practical experience with
+security monitoring, threat detection, incident response,
+Active Directory security, endpoint telemetry, SIEM analysis,
+network security monitoring, threat hunting, and controlled
+security testing.
+
+</p>
+
+<p>
+
+The lab combines Windows, Linux, networking, SIEM, XDR,
+IDS/NSM, firewall, endpoint-monitoring, and penetration-testing
+technologies to simulate realistic enterprise security operations.
+
+</p>
+
+<p>
+
+The environment is used to generate, detect, investigate,
+correlate, contain, and document controlled cybersecurity events.
+
+</p>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- LAB OBJECTIVES                                        -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Lab Objectives</h2>
+
+<p>
+The MaryShield Cyber Lab was designed to demonstrate
+practical experience in:
+</p>
+
+<ul>
+
+<li>Enterprise network architecture</li>
+
+<li>Security monitoring</li>
+
+<li>SOC operations</li>
+
+<li>SIEM administration</li>
+
+<li>Endpoint detection and response</li>
+
+<li>Active Directory security</li>
+
+<li>Windows Event Log analysis</li>
+
+<li>Microsoft Sysmon telemetry</li>
+
+<li>Threat hunting</li>
+
+<li>Incident response</li>
+
+<li>Network security monitoring</li>
+
+<li>Firewall administration</li>
+
+<li>Detection engineering</li>
+
+<li>MITRE ATT&amp;CK mapping</li>
+
+<li>Vulnerability assessment</li>
+
+<li>Controlled penetration testing</li>
+
+<li>Security-event correlation</li>
+
+<li>Technical cybersecurity reporting</li>
+
+</ul>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- CORE TECHNOLOGIES                                     -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Core Technologies</h2>
+
+<table>
+
+<tr>
+<th>Technology</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>Windows Server 2022</td>
+<td>Active Directory, DNS, authentication, enterprise services</td>
+</tr>
+
+<tr>
+<td>Active Directory</td>
+<td>Identity and access management</td>
+</tr>
+
+<tr>
+<td>Windows 11</td>
+<td>Domain-joined endpoint</td>
+</tr>
+
+<tr>
+<td>Ubuntu Linux</td>
+<td>Linux server infrastructure</td>
+</tr>
+
+<tr>
+<td>Splunk Enterprise</td>
+<td>SIEM, centralized logging, dashboards, searches, and correlation</td>
+</tr>
+
+<tr>
+<td>Wazuh XDR</td>
+<td>Endpoint monitoring, FIM, security analytics, and vulnerability visibility</td>
+</tr>
+
+<tr>
+<td>Security Onion</td>
+<td>Network security monitoring, IDS, Zeek, Suricata, and Hunt</td>
+</tr>
+
+<tr>
+<td>pfSense</td>
+<td>Firewall, routing, segmentation, logging, and containment</td>
+</tr>
+
+<tr>
+<td>Microsoft Sysmon</td>
+<td>Advanced Windows endpoint telemetry</td>
+</tr>
+
+<tr>
+<td>Kali Linux</td>
+<td>Authorized penetration-testing workstation</td>
+</tr>
+
+<tr>
+<td>Metasploitable 2</td>
+<td>Intentionally vulnerable testing target</td>
+</tr>
+
+<tr>
+<td>VMware Workstation Pro</td>
+<td>Virtualization platform</td>
+</tr>
+
+<tr>
+<td>Zeek</td>
+<td>Network protocol metadata</td>
+</tr>
+
+<tr>
+<td>Suricata</td>
+<td>Network intrusion detection</td>
+</tr>
+
+</table>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- ENTERPRISE ARCHITECTURE                               -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Enterprise Lab Architecture</h2>
+
+<p>
+
+The MaryShield Cyber Lab is divided into multiple logical
+security zones to provide enterprise-style network segmentation.
+
+</p>
+
+<table>
+
+<tr>
+<th>Network</th>
+<th>Purpose</th>
+</tr>
+
+<tr>
+<td>LAN</td>
+<td>User endpoints and management systems</td>
+</tr>
+
+<tr>
+<td>Servers</td>
+<td>Enterprise infrastructure and security servers</td>
+</tr>
+
+<tr>
+<td>DMZ</td>
+<td>Authorized offensive-security and vulnerable systems</td>
+</tr>
+
+<tr>
+<td>WAN / NAT</td>
+<td>External connectivity through pfSense</td>
+</tr>
+
+</table>
+
+<p>
+
+Traffic between security zones is controlled through pfSense
+firewall policies and monitored by the deployed security platforms.
+
+</p>
+
+
+<h3>Architecture Diagram</h3>
+
+<figure>
+
+<img src="images/diagrams/network-architecture.png"
+     class="network"
+     alt="MaryShield Cyber Lab Enterprise Network Architecture">
+
+<figcaption>
+
+Enterprise architecture showing segmented networks,
+security platforms, monitoring systems, and authorized
+security-testing infrastructure.
+
+</figcaption>
+
+</figure>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- SOC WORKFLOW                                          -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>SOC Operations Workflow</h2>
+
+<p>
+
+The lab supports an end-to-end security operations workflow.
+
+</p>
+
+<pre><code>
+Security Activity
+        ↓
+Telemetry Collection
+        ↓
+SIEM / XDR / IDS Detection
+        ↓
+SOC Alert Triage
+        ↓
+Threat Hunting
+        ↓
+Cross-Platform Correlation
+        ↓
+MITRE ATT&amp;CK Mapping
+        ↓
+Incident Response
+        ↓
+Containment
+        ↓
+Eradication
+        ↓
+Recovery
+        ↓
+Final Investigation Report
+</code></pre>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- FEATURED PROJECTS                                     -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Featured Cybersecurity Projects</h2>
+
+<div class="project-container">
+
+
+<div class="project-card">
+
+<h3>SOC Analyst Case Study</h3>
+
+<p>
+
+End-to-end SOC investigation demonstrating alert triage,
+SIEM analysis, endpoint investigation, network analysis,
+firewall review, cross-platform correlation, containment,
+recovery, and security reporting.
+
+</p>
+
+<a href="soc-case-study.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Incident Response</h3>
+
+<p>
+
+Structured incident-response exercise covering detection,
+triage, evidence collection, containment, eradication,
+recovery, and lessons learned.
+
+</p>
+
+<a href="incident-response.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Enterprise Threat Hunting</h3>
+
+<p>
+
+Proactive investigation using Splunk Enterprise,
+Wazuh XDR, Security Onion, pfSense, Windows Event Logs,
+Sysmon, Zeek, and Suricata.
+
+</p>
+
+<a href="threat-hunting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Kerberoasting Detection &amp; Investigation</h3>
+
+<p>
+
+Detection and investigation of Kerberos service-ticket
+activity using Windows Security Event ID 4769 and
+centralized SOC telemetry.
+
+</p>
+
+<a href="kerberoasting.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Active Directory Attack Detection</h3>
+
+<p>
+
+Analysis of authentication failures, successful logons,
+account-management events, PowerShell activity,
+identity telemetry, and cross-platform security evidence.
+
+</p>
+
+<a href="active-directory-detection.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Brute-Force Attack Detection</h3>
+
+<p>
+
+Detection and investigation of repeated authentication
+failures using Windows Security Event ID 4625,
+SIEM correlation, source-IP analysis, and endpoint telemetry.
+
+</p>
+
+<a href="brute-force-detection.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Microsoft Sysmon</h3>
+
+<p>
+
+Endpoint monitoring project covering process creation,
+PowerShell activity, network connections, file events,
+registry events, SIEM integration, and SOC investigation.
+
+</p>
+
+<a href="sysmon.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Splunk Enterprise</h3>
+
+<p>
+
+Centralized logging, dashboards, searches,
+security-event correlation, Windows Event Logs,
+and Sysmon ingestion.
+
+</p>
+
+<a href="splunk.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Wazuh XDR</h3>
+
+<p>
+
+Endpoint monitoring, file integrity monitoring,
+security analytics, agent management,
+and threat investigation.
+
+</p>
+
+<a href="wazuh.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Security Onion</h3>
+
+<p>
+
+Network security monitoring using Suricata,
+Zeek, Alerts, Hunt, and packet-level analysis.
+
+</p>
+
+<a href="security-onion.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>pfSense Firewall</h3>
+
+<p>
+
+Enterprise firewall configuration, routing,
+network segmentation, logging, access control,
+and incident containment.
+
+</p>
+
+<a href="pfsense.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Kali Linux</h3>
+
+<p>
+
+Authorized penetration-testing workstation used
+to generate controlled security telemetry.
+
+</p>
+
+<a href="kali.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Metasploitable 2</h3>
+
+<p>
+
+Intentionally vulnerable system used for controlled
+vulnerability assessment and exploitation exercises.
+
+</p>
+
+<a href="metasploitable.html"
+   class="card-button">
+
+View Project
+
+</a>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- WRITE-UPS                                             -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Cybersecurity Investigation Write-Ups</h2>
+
+<p>
+
+The portfolio includes analyst-focused write-ups documenting
+evidence, investigation methodology, findings, response actions,
+MITRE ATT&amp;CK mappings, lessons learned, and security recommendations.
+
+</p>
+
+<div class="project-container">
+
+
+<div class="project-card">
+
+<h3>Kerberoasting Detection</h3>
+
+<a href="writeup-kerberoasting.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Incident Response</h3>
+
+<a href="writeup-incident-response.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Enterprise Threat Hunting</h3>
+
+<a href="writeup-threat-hunting.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Active Directory Attack Detection</h3>
+
+<a href="writeup-active-directory-detection.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Microsoft Sysmon</h3>
+
+<a href="writeup-sysmon.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>SOC Analyst Case Study</h3>
+
+<a href="writeup-soc-case-study.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Brute-Force Attack Detection</h3>
+
+<a href="writeup-brute-force-detection.html"
+   class="card-button">
+
+Read Write-Up
+
+</a>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- SECURITY TELEMETRY                                    -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Security Telemetry</h2>
+
+<p>
+
+The lab collects and analyzes telemetry from multiple sources,
+including:
+
+</p>
+
+<ul>
+
+<li>Windows Security Event Logs</li>
+
+<li>Microsoft Sysmon</li>
+
+<li>Active Directory authentication events</li>
+
+<li>Kerberos events</li>
+
+<li>PowerShell activity</li>
+
+<li>Wazuh endpoint events</li>
+
+<li>Splunk indexed events</li>
+
+<li>Security Onion alerts</li>
+
+<li>Suricata IDS alerts</li>
+
+<li>Zeek network metadata</li>
+
+<li>pfSense firewall logs</li>
+
+<li>File Integrity Monitoring events</li>
+
+<li>Network connection telemetry</li>
+
+</ul>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- MITRE ATTACK                                          -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>MITRE ATT&amp;CK</h2>
+
+<p>
+
+Observed behavior is mapped to MITRE ATT&amp;CK tactics
+and techniques when supported by collected evidence.
+
+</p>
+
+<h3>Investigation Areas</h3>
+
+<ul>
+
+<li>Execution</li>
+
+<li>Credential Access</li>
+
+<li>Discovery</li>
+
+<li>Privilege Escalation</li>
+
+<li>Persistence</li>
+
+<li>Lateral Movement</li>
+
+<li>Command and Control</li>
+
+</ul>
+
+<p>
+
+MITRE ATT&amp;CK mappings provide standardized terminology
+for detection, investigation, and cybersecurity reporting.
+
+</p>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- SKILLS                                                -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Skills Demonstrated</h2>
+
+<div class="project-container">
+
+
+<div class="project-card">
+
+<h3>SOC Operations</h3>
+
+<ul>
+
+<li>SOC Alert Triage</li>
+<li>SIEM Analysis</li>
+<li>Splunk SPL</li>
+<li>Threat Hunting</li>
+<li>Incident Response</li>
+<li>Timeline Reconstruction</li>
+
+</ul>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Endpoint Security</h3>
+
+<ul>
+
+<li>Endpoint Investigation</li>
+<li>Windows Event Analysis</li>
+<li>Microsoft Sysmon</li>
+<li>Wazuh XDR</li>
+<li>PowerShell Analysis</li>
+
+</ul>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Network Security</h3>
+
+<ul>
+
+<li>Security Onion</li>
+<li>Zeek</li>
+<li>Suricata</li>
+<li>pfSense</li>
+<li>Network Security Monitoring</li>
+<li>Firewall Analysis</li>
+
+</ul>
+
+</div>
+
+
+<div class="project-card">
+
+<h3>Detection &amp; Investigation</h3>
+
+<ul>
+
+<li>Active Directory Security</li>
+<li>Kerberos Analysis</li>
+<li>Detection Engineering</li>
+<li>MITRE ATT&amp;CK Mapping</li>
+<li>Vulnerability Assessment</li>
+<li>Security Event Correlation</li>
+
+</ul>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- AUTHORIZED TESTING                                    -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Authorized Lab Testing</h2>
+
+<p>
+
+All attack simulations, vulnerability assessments,
+exploitation exercises, and security investigations documented
+in this environment were performed exclusively against systems
+owned and operated within the isolated MaryShield Cyber Lab.
+
+</p>
+
+<p>
+
+The environment is designed for defensive cybersecurity
+education, SOC analysis, threat detection, incident response,
+detection engineering, and authorized security research.
+
+</p>
+
+<p>
+
+No testing documented in this portfolio is intended for
+unauthorized systems or networks.
+
+</p>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- REPOSITORY NAVIGATION                                 -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Repository Navigation</h2>
+
+<table>
+
+<tr>
+<th>Resource</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td>index.html</td>
+<td>Portfolio home page</td>
+</tr>
+
+<tr>
+<td>projects.html</td>
+<td>Cybersecurity project portfolio</td>
+</tr>
+
+<tr>
+<td>lab.html</td>
+<td>Enterprise cyber lab overview and architecture</td>
+</tr>
+
+<tr>
+<td>documentation.html</td>
+<td>Complete lab documentation</td>
+</tr>
+
+<tr>
+<td>writeups.html</td>
+<td>Cybersecurity investigation write-ups</td>
+</tr>
+
+<tr>
+<td>resume.html</td>
+<td>Professional résumé</td>
+</tr>
+
+<tr>
+<td>certifications.html</td>
+<td>Certifications and professional development</td>
+</tr>
+
+<tr>
+<td>contact.html</td>
+<td>Contact information</td>
+</tr>
+
+<tr>
+<td>css/styles.css</td>
+<td>Website styling</td>
+</tr>
+
+<tr>
+<td>images/</td>
+<td>Architecture diagrams and project evidence</td>
+</tr>
+
+</table>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- PORTFOLIO WEBSITE                                     -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Portfolio Website</h2>
+
+<p>
+
+The complete interactive cybersecurity portfolio is available
+through the MaryShield Cyber Lab website.
+
+</p>
+
+<a href="https://maryshieldcyberlab.github.io/maryshield-cyber-lab/"
+   class="card-button"
+   target="_blank"
+   rel="noopener noreferrer">
+
+Visit MaryShield Cyber Lab
+
+</a>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- CERTIFICATIONS                                        -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Certifications &amp; Professional Development</h2>
+
+<h3>Earned Certifications</h3>
+
+<ul>
+
+<li>ISC2 Certified in Cybersecurity (CC)</li>
+
+<li>CompTIA Network+</li>
+
+</ul>
+
+<h3>Professional Development</h3>
+
+<p>
+
+Continuing study includes enterprise cybersecurity,
+security operations, threat detection, incident response,
+network security, identity and access management,
+and security engineering.
+
+</p>
+
+<a href="certifications.html"
+   class="card-button">
+
+View Certifications
+
+</a>
+
+</section>
+
+
+<!-- ===================================================== -->
+<!-- AUTHOR                                                -->
+<!-- ===================================================== -->
+
+<section>
+
+<h2>Author</h2>
+
+<h3>Jean Gervais</h3>
+
+<p>
+<strong>MaryShield Cyber Lab</strong>
+</p>
+
+<p>
+
+Cybersecurity • SOC Operations • Threat Detection •
+Incident Response • Threat Hunting • Network Defense
+
+</p>
+
+<p>
+<strong>Protect • Detect • Respond • Defend</strong>
+</p>
+
+</section>
+
+
+</main>
+
+
+<footer>
+
+<p>
+© 2026 MaryShield Cyber Lab | All Rights Reserved
+</p>
+
+</footer>
+
+
+</body>
+
+</html>
